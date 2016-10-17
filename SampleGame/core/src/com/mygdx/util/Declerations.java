@@ -19,7 +19,8 @@ public class Declerations
     public static TextButton.TextButtonStyle mainMenutextButtonStyles[];
     public static Skin playerSkin[];
     public static Skin pauseSkin[];
-
+    public static Skin challengeSkin[];
+    public static Skin versusSkin[];
 
     public Declerations()
     {
@@ -77,4 +78,17 @@ public class Declerations
         }
         pauseSkin[4].add("pauseScreen", new Texture("pauseScreen/pauseScreen.png"));
     }
+
+    //initalize the challenge screen items
+    public void initChallengeScreen()
+    {
+        challengeSkin = new Skin[5];
+    }
+
+    //initalize the versus screen items
+    public void initVersusScreen()
+    {
+        versusSkin = new Skin[5];
+    }
+
 }
