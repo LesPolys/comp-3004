@@ -1,0 +1,6 @@
+Name: John Logan Stewart
+Student Number: 100881265
+
+Work Done: 
+-Began implementing Versus and Challenge Menu classes (hit a snag and had to scrap the select box implementation). 2 hrs
+-Created various button assets for the Menus to use and began to add them as textures to the respective menus, 3 hrs

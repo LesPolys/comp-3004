@@ -6,8 +6,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -18,6 +24,8 @@ import com.mygdx.util.Declerations;
 //import com.seg3125.project.GameApp;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
+import java.awt.ScrollPane;
 
 public class MainMenu implements Screen
 {
@@ -39,6 +47,8 @@ public class MainMenu implements Screen
         declerations.initMainMenu();
 
         textButtons = new TextButton[4];
+
+
         images = new Image[4];
 
         for(int i=0; i<4; i++)
@@ -47,36 +57,44 @@ public class MainMenu implements Screen
         }
 
         //draws the background, how to play instructions and title
-        images[0] = new Image(declerations.mainMenuSkins[1],"background");
+        //Background , Main Title, Versus Title, Challenge Title
+
+
+        images[0] = new Image(declerations.mainMenuSkins[1],"background"); //Background
         images[0].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
         images[0].setBounds(0,0, SampleGame.V_WIDTH, SampleGame.V_HEIGHT);
         stage.addActor(images[0]);
 
-        images[1] = new Image(declerations.mainMenuSkins[3],"howToPlay");
+        images[1] = new Image(declerations.mainMenuSkins[3],"howToPlay"); // Versus
         images[1].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
         images[1].setBounds(0,0, SampleGame.V_WIDTH, SampleGame.V_HEIGHT);
 
-        images[2] = new Image(declerations.mainMenuSkins[2],"title");
+        images[2] = new Image(declerations.mainMenuSkins[2],"title"); //Main Menu title
         images[2].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
         images[2].setBounds(50, (SampleGame.V_HEIGHT/2)-95, 150 ,200);
+
+        images[3] = new Image(declerations.mainMenuSkins[2],"title"); //Challenge
+        images[3].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
+        images[3].setBounds(50, (SampleGame.V_HEIGHT/2)-95, 150 ,200);
+
         stage.addActor( images[2]);
 
 
         //for the buttons
-        declerations.mainMenutextButtonStyles[0].up = declerations.mainMenuSkins[0].getDrawable("playButtonUnpressed");
-        declerations.mainMenutextButtonStyles[0].down = declerations.mainMenuSkins[0].getDrawable("playButtonPresed");
-        declerations.mainMenutextButtonStyles[0].checked = declerations.mainMenuSkins[0].getDrawable("playButtonPresed");
-        declerations.mainMenutextButtonStyles[1].up = declerations.mainMenuSkins[0].getDrawable("instructionsButtonUnpressed");
-        declerations.mainMenutextButtonStyles[1].down = declerations.mainMenuSkins[0].getDrawable("instructionsButtonPressed");
-        declerations.mainMenutextButtonStyles[1].checked = declerations.mainMenuSkins[0].getDrawable("instructionsButtonPressed");
+        declerations.mainMenutextButtonStyles[0].up = declerations.mainMenuSkins[4].getDrawable("versusButtonUnpressed"); //VS
+        declerations.mainMenutextButtonStyles[0].down = declerations.mainMenuSkins[5].getDrawable("versusButtonPresed");
+        declerations.mainMenutextButtonStyles[0].checked = declerations.mainMenuSkins[5].getDrawable("versusButtonPresed");
 
-        declerations.mainMenutextButtonStyles[2].up = declerations.mainMenuSkins[0].getDrawable("backButtonUnpressed");
-        declerations.mainMenutextButtonStyles[2].down = declerations.mainMenuSkins[0].getDrawable("backButtonPresed");
-        declerations.mainMenutextButtonStyles[2].checked = declerations.mainMenuSkins[0].getDrawable("backButtonPresed");
-        textButtons[2] = new TextButton("", declerations.mainMenutextButtonStyles[2]);
-        textButtons[2].setBounds((400 ),35,50,205);
+        declerations.mainMenutextButtonStyles[1].up = declerations.mainMenuSkins[6].getDrawable("challengeButtonUnpressed"); //CH
+        declerations.mainMenutextButtonStyles[1].down = declerations.mainMenuSkins[7].getDrawable("challengeButtonPresed");
+        declerations.mainMenutextButtonStyles[1].checked = declerations.mainMenuSkins[7].getDrawable("challengeButtonPresed");
 
-        for(int i=0; i<2; i++)
+
+
+
+
+
+        for(int i=0; i < 2; i++)
         {
             int shift = 75 * i;
             textButtons[i] = new TextButton("", declerations.mainMenutextButtonStyles[i]);
@@ -95,7 +113,7 @@ public class MainMenu implements Screen
             public void changed (ChangeEvent event, Actor actor)
             {
 
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(app));
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new Versus(app));
 
             }
         });
@@ -106,39 +124,8 @@ public class MainMenu implements Screen
             public void changed (ChangeEvent event, Actor actor)
             {
 
-                //remove the play and instructions buttons and only show the
-                //how to play instruction image
-                images[0].remove();
-                textButtons[0].remove();
-                textButtons[1].remove();
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new Challenge(app));
 
-                stage.addActor(images[1]);
-                images[2].remove();
-
-                stage.addActor(textButtons[2]);
-
-            }
-        });
-
-        textButtons[2].addListener(new ChangeListener()
-        {
-
-            @Override
-            public void changed(ChangeEvent event, Actor actor)
-            {
-
-                //reload everything but the how to play image
-                images[1].remove();
-                textButtons[2].remove();
-
-                stage.addActor(images[0]);
-                stage.addActor(images[2]);
-                stage.addActor(textButtons[0]);
-                stage.addActor(textButtons[1]);
-
-                //set the button states back to normal
-                textButtons[1].setChecked(false);
-                textButtons[2].setChecked(false);
             }
         });
 
