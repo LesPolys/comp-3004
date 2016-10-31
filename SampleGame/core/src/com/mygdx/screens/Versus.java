@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -38,7 +39,7 @@ public class Versus implements Screen
         declerations = new Declerations();
         declerations.initVersusScreen();
 
-        textButtons = new TextButton[4];
+        textButtons = new TextButton[10];
 
 
         images = new Image[4];
@@ -52,11 +53,94 @@ public class Versus implements Screen
         //Background , Main Title, Versus Title, Challenge Title
 
 
-        images[0] = new Image(declerations.versusSkin[1],"background"); //Background
+        images[0] = new Image(declerations.versusSkin[17],"background"); //Background
         images[0].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
         images[0].setBounds(0,0, SampleGame.V_WIDTH, SampleGame.V_HEIGHT);
         stage.addActor(images[0]);
 
+        declerations.versusMenutextButtonStyles[0].up = declerations.versusSkin[13].getDrawable("playUnpressed");
+        declerations.versusMenutextButtonStyles[0].down = declerations.versusSkin[14].getDrawable("playButtonPresed");
+        declerations.versusMenutextButtonStyles[0].checked = declerations.versusSkin[14].getDrawable("playButtonPresed");
+
+        declerations.versusMenutextButtonStyles[1].up = declerations.versusSkin[15].getDrawable("backButtonUnpressed");
+        declerations.versusMenutextButtonStyles[1].down = declerations.versusSkin[16].getDrawable("backButtonPresed");
+        declerations.versusMenutextButtonStyles[1].checked = declerations.versusSkin[16].getDrawable("backButtonPresed");
+
+        declerations.versusMenutextButtonStyles[2].up = declerations.versusSkin[1].getDrawable("3x3Unpressed");// 3x3
+        declerations.versusMenutextButtonStyles[2].down = declerations.versusSkin[2].getDrawable("3x3Pressed");
+        declerations.versusMenutextButtonStyles[2].checked = declerations.versusSkin[2].getDrawable("3x3Pressed");
+
+        declerations.versusMenutextButtonStyles[3].up = declerations.versusSkin[3].getDrawable("4x4Unpressed");//x4
+        declerations.versusMenutextButtonStyles[3].down = declerations.versusSkin[4].getDrawable("4x4Pressed");
+        declerations.versusMenutextButtonStyles[3].checked = declerations.versusSkin[4].getDrawable("4x4Pressed");
+
+        declerations.versusMenutextButtonStyles[4].up = declerations.versusSkin[5].getDrawable("5x5Unpressed");//5x5
+        declerations.versusMenutextButtonStyles[4].down = declerations.versusSkin[6].getDrawable("5x5Pressed");
+        declerations.versusMenutextButtonStyles[4].checked = declerations.versusSkin[6].getDrawable("5x5Pressed");
+
+        declerations.versusMenutextButtonStyles[5].up = declerations.versusSkin[7].getDrawable("6x6Unpressed");//6x6
+        declerations.versusMenutextButtonStyles[5].down = declerations.versusSkin[8].getDrawable("6x6Pressed");
+        declerations.versusMenutextButtonStyles[5].checked = declerations.versusSkin[8].getDrawable("6x6Pressed");
+
+        declerations.versusMenutextButtonStyles[6].up = declerations.versusSkin[9].getDrawable("7x7Unpressed");//7x7
+        declerations.versusMenutextButtonStyles[6].down = declerations.versusSkin[10].getDrawable("7x7Pressed");
+        declerations.versusMenutextButtonStyles[6].checked = declerations.versusSkin[10].getDrawable("7x7Pressed");
+
+        declerations.versusMenutextButtonStyles[7].up = declerations.versusSkin[11].getDrawable("8x8Unpressed");//8x8
+        declerations.versusMenutextButtonStyles[7].down = declerations.versusSkin[12].getDrawable("8x8Pressed");
+        declerations.versusMenutextButtonStyles[7].checked = declerations.versusSkin[12].getDrawable("8x8Pressed");
+
+
+
+        for(int i=0; i < 2; i++)
+        {
+            int shift = 75 * i;
+            textButtons[i] = new TextButton("", declerations.versusMenutextButtonStyles[i]);
+            textButtons[i].setBounds((300 + shift),40,50,200);
+            stage.addActor(textButtons[i]);
+        }
+
+        int counter = 2;
+        for(int x=0; x < 2; x++)
+        {
+            for(int y=0; y < 3; y++) {
+                int xshift = 100 * x ;
+                int yshift = 75 * y;
+                textButtons[counter] = new TextButton("", declerations.versusMenutextButtonStyles[counter]);
+                textButtons[counter].setBounds((50 + xshift), (30 + yshift), 50, 50);
+                stage.addActor(textButtons[counter]);
+                counter++;
+            }
+        }
+        ButtonGroup buttonGroup = new ButtonGroup(textButtons[2],textButtons[3],textButtons[4],textButtons[5],textButtons[6],textButtons[7]);
+//next set the max and min amount to be checked
+        buttonGroup.setMaxCheckCount(1);
+        buttonGroup.setMinCheckCount(0);
+//it may be useful to use this method:
+        buttonGroup.setUncheckLast(true); //If true, when the maximum number of buttons are checked and an additional button is checked, the last button to be checked is unchecked so that the maximum is not exceeded.
+
+        //button listeners
+        textButtons[0].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+
+
+
+            }
+        });
+
+        textButtons[1].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
+
+            }
+        });
     }
 
     @Override
