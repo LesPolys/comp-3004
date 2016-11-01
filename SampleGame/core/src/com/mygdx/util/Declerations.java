@@ -57,7 +57,7 @@ public class Declerations
 
         mainMenuSkins[0].addRegions(buttonAtlas);
         mainMenuSkins[1].add("background", new Texture(Gdx.files.internal("mainMenu/Background2.png")));
-        mainMenuSkins[2].add("title", new Texture(Gdx.files.internal("mainMenu/title.png")));
+        mainMenuSkins[2].add("title", new Texture(Gdx.files.internal("mainMenu/titleCard.png")));
         mainMenuSkins[3].add("howToPlay", new Texture(Gdx.files.internal("mainMenu/howToPlay.png")));
         mainMenuSkins[4].add("versusButtonUnpressed", new Texture(Gdx.files.internal("versusButtonUnpressed.png")));
         mainMenuSkins[5].add("versusButtonPresed", new Texture(Gdx.files.internal("versusButtonPresed.png")));
@@ -121,10 +121,10 @@ public class Declerations
     //initalize the versus screen items
     public void initVersusScreen()
     {
-        versusSkin = new Skin[18];
-        versusMenutextButtonStyles = new TextButton.TextButtonStyle[18];
+        versusSkin = new Skin[20];
+        versusMenutextButtonStyles = new TextButton.TextButtonStyle[20];
 
-        for(int i=0; i<18; i++)
+        for(int i=0; i<=19; i++)
         {
             versusSkin[i] = new Skin();
             versusMenutextButtonStyles[i] = new TextButton.TextButtonStyle();
@@ -149,7 +149,8 @@ public class Declerations
         versusSkin[15].add("backButtonUnpressed", new Texture(Gdx.files.internal("versusScreen/backButtonUnpressed.png")));
         versusSkin[16].add("backButtonPresed", new Texture(Gdx.files.internal("versusScreen/backButtonPresed.png")));
         versusSkin[17].add("background", new Texture(Gdx.files.internal("mainMenu/Background2.png")));
-
+        versusSkin[18].add("versusTitle", new Texture(Gdx.files.internal("versusScreen/titleVersus.png")));
+        versusSkin[19].add("versusMessage", new Texture(Gdx.files.internal("versusScreen/versusMessage.png")));
 
     }
 

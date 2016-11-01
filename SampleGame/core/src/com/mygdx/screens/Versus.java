@@ -58,6 +58,18 @@ public class Versus implements Screen
         images[0].setBounds(0,0, SampleGame.V_WIDTH, SampleGame.V_HEIGHT);
         stage.addActor(images[0]);
 
+
+        images[1] = new Image(declerations.versusSkin[18],"versusTitle"); //Background
+        images[1].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
+        images[1].setBounds(25, (SampleGame.V_HEIGHT/2)-95, 74 ,200);
+        stage.addActor(images[1]);
+
+        images[2] = new Image(declerations.versusSkin[19],"versusMessage"); //Background
+        images[2].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
+        images[2].setBounds(105,40,50,200);
+        stage.addActor(images[2]);
+
+
         declerations.versusMenutextButtonStyles[0].up = declerations.versusSkin[13].getDrawable("playUnpressed");
         declerations.versusMenutextButtonStyles[0].down = declerations.versusSkin[14].getDrawable("playButtonPresed");
         declerations.versusMenutextButtonStyles[0].checked = declerations.versusSkin[14].getDrawable("playButtonPresed");
@@ -104,10 +116,10 @@ public class Versus implements Screen
         for(int x=0; x < 2; x++)
         {
             for(int y=0; y < 3; y++) {
-                int xshift = 100 * x ;
+                int xshift = 75 * x ;
                 int yshift = 75 * y;
                 textButtons[counter] = new TextButton("", declerations.versusMenutextButtonStyles[counter]);
-                textButtons[counter].setBounds((50 + xshift), (30 + yshift), 50, 50);
+                textButtons[counter].setBounds((160 + xshift), (40 + yshift), 50, 50);
                 stage.addActor(textButtons[counter]);
                 counter++;
             }

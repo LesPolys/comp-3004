@@ -60,20 +60,20 @@ public class MainMenu implements Screen
         //Background , Main Title, Versus Title, Challenge Title
 
 
-        images[0] = new Image(declerations.mainMenuSkins[1],"background"); //Background
+        images[0] = new Image(declerations.mainMenuSkins[1],"background");
         images[0].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
         images[0].setBounds(0,0, SampleGame.V_WIDTH, SampleGame.V_HEIGHT);
         stage.addActor(images[0]);
 
-        images[1] = new Image(declerations.mainMenuSkins[3],"howToPlay"); // Versus
+        images[1] = new Image(declerations.mainMenuSkins[3],"howToPlay");
         images[1].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
         images[1].setBounds(0,0, SampleGame.V_WIDTH, SampleGame.V_HEIGHT);
 
-        images[2] = new Image(declerations.mainMenuSkins[2],"title"); //Main Menu title
+        images[2] = new Image(declerations.mainMenuSkins[2],"title");
         images[2].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
         images[2].setBounds(50, (SampleGame.V_HEIGHT/2)-95, 150 ,200);
 
-        images[3] = new Image(declerations.mainMenuSkins[2],"title"); //Challenge
+        images[3] = new Image(declerations.mainMenuSkins[2],"title");
         images[3].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
         images[3].setBounds(50, (SampleGame.V_HEIGHT/2)-95, 150 ,200);
 
