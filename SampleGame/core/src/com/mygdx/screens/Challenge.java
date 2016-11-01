@@ -27,6 +27,7 @@ public class Challenge implements Screen
     private Image images[];
     private TextButton textButtons[];
     private Declerations declerations;
+    private int challengeSelect;
 
     public Challenge(SampleGame gameApp)
     {
@@ -41,6 +42,7 @@ public class Challenge implements Screen
 
         textButtons = new TextButton[10];
 
+        challengeSelect = 1;
 
         images = new Image[4];
 
@@ -139,7 +141,7 @@ public class Challenge implements Screen
             public void changed (ChangeEvent event, Actor actor)
             {
 
-
+                //launch challenge based on challenge select variable proabbaly use a switch here for it
 
             }
         });
@@ -151,6 +153,75 @@ public class Challenge implements Screen
             {
 
                 ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
+
+            }
+        });
+
+        textButtons[2].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+                //challengeSelect = 1;
+
+
+            }
+        });
+
+        textButtons[3].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+                //challengeSelect = 2;
+
+
+            }
+        });
+
+        textButtons[4].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+                //challengeSelect = 3 ;
+
+
+            }
+        });
+
+        textButtons[5].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+                //challengeSelect = 4;
+
+
+
+            }
+        });
+
+        textButtons[6].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+               // challengeSelect = 5;
+
+
+
+            }
+        });
+
+        textButtons[7].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+                //challengeSelect = 6;
+
+
 
             }
         });

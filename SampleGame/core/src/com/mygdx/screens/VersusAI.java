@@ -48,6 +48,7 @@ public class VersusAI implements Screen
     private Image images[];
     private TextButton textButtons[];
     private Declerations declerations;
+    private int stageSize;
 
     public VersusAI(SampleGame gameApp)
     {
@@ -62,6 +63,7 @@ public class VersusAI implements Screen
 
         textButtons = new TextButton[10];
 
+        stageSize = 3;
 
         images = new Image[4];
 
@@ -153,6 +155,8 @@ public class VersusAI implements Screen
 //it may be useful to use this method:
         buttonGroup.setUncheckLast(true); //If true, when the maximum number of buttons are checked and an additional button is checked, the last button to be checked is unchecked so that the maximum is not exceeded.
 
+
+
         //button listeners
         textButtons[0].addListener(new ChangeListener()
         {
@@ -172,6 +176,72 @@ public class VersusAI implements Screen
             {
 
                 ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
+
+            }
+        });
+
+        textButtons[2].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+                stageSize = 3;
+                //System.out.println(stageSize);
+
+            }
+        });
+
+        textButtons[3].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+                stageSize = 4;
+
+               // System.out.println(stageSize);
+            }
+        });
+
+        textButtons[4].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+                stageSize = 5;
+               // System.out.println(stageSize);
+
+            }
+        });
+
+        textButtons[5].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+                stageSize = 6;
+
+               // System.out.println(stageSize);
+            }
+        });
+
+        textButtons[6].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+                stageSize = 7;
+                ///System.out.println(stageSize);
+
+            }
+        });
+
+        textButtons[7].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+                stageSize = 8;
+               // System.out.println(stageSize);
 
             }
         });
