@@ -1,5 +1,26 @@
 package com.mygdx.screens;
 
+/**
+ * Created by Logan on 11/1/2016.
+ */
+
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.SampleGame;
+import com.mygdx.util.Declerations;
+
+
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -19,7 +40,7 @@ import com.mygdx.util.Declerations;
  * Created by Logan on 10/30/2016.
  */
 
-public class Challenge implements Screen
+public class VersusAI implements Screen
 {
     private SampleGame app;
     public Stage stage;
@@ -28,7 +49,7 @@ public class Challenge implements Screen
     private TextButton textButtons[];
     private Declerations declerations;
 
-    public Challenge(SampleGame gameApp)
+    public VersusAI(SampleGame gameApp)
     {
         app = gameApp;
         Viewport viewport = new FillViewport(SampleGame.V_WIDTH, SampleGame.V_HEIGHT, gameApp.camera);
@@ -37,7 +58,7 @@ public class Challenge implements Screen
 
 
         declerations = new Declerations();
-        declerations.initChallengeScreen();
+        declerations.initVersusAIScreen();
 
         textButtons = new TextButton[10];
 
@@ -53,61 +74,61 @@ public class Challenge implements Screen
         //Background , Main Title, Versus Title, Challenge Title
 
 
-        images[0] = new Image(declerations.challengeSkin[1],"background"); //Background
+        images[0] = new Image(declerations.versusAISkin[17],"background"); //Background
         images[0].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
         images[0].setBounds(0,0, SampleGame.V_WIDTH, SampleGame.V_HEIGHT);
         stage.addActor(images[0]);
 
 
-        images[1] = new Image(declerations.challengeSkin[2],"titleChallenge"); //Background
+        images[1] = new Image(declerations.versusAISkin[18],"versusAITitle"); //Background
         images[1].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
         images[1].setBounds(25, (SampleGame.V_HEIGHT/2)-95, 74 ,200);
         stage.addActor(images[1]);
 
-        images[2] = new Image(declerations.challengeSkin[3],"challengeMessage"); //Background
+        images[2] = new Image(declerations.versusAISkin[19],"versusMessage"); //Background
         images[2].setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
         images[2].setBounds(105,40,50,200);
         stage.addActor(images[2]);
 
 
-        declerations.challengeMenutextButtonStyles[0].up = declerations.challengeSkin[16].getDrawable("playUnpressed");
-        declerations.challengeMenutextButtonStyles[0].down = declerations.challengeSkin[17].getDrawable("playButtonPresed");
-        declerations.challengeMenutextButtonStyles[0].checked = declerations.challengeSkin[17].getDrawable("playButtonPresed");
+        declerations.versusAIMenutextButtonStyles[0].up = declerations.versusAISkin[13].getDrawable("playUnpressed");
+        declerations.versusAIMenutextButtonStyles[0].down = declerations.versusAISkin[14].getDrawable("playButtonPresed");
+        declerations.versusAIMenutextButtonStyles[0].checked = declerations.versusAISkin[14].getDrawable("playButtonPresed");
 
-        declerations.challengeMenutextButtonStyles[1].up = declerations.challengeSkin[18].getDrawable("backButtonUnPressed");
-        declerations.challengeMenutextButtonStyles[1].down = declerations.challengeSkin[19].getDrawable("backButtonPresed");
-        declerations.challengeMenutextButtonStyles[1].checked = declerations.challengeSkin[19].getDrawable("backButtonPresed");
+        declerations.versusAIMenutextButtonStyles[1].up = declerations.versusAISkin[15].getDrawable("backButtonUnpressed");
+        declerations.versusAIMenutextButtonStyles[1].down = declerations.versusAISkin[16].getDrawable("backButtonPresed");
+        declerations.versusAIMenutextButtonStyles[1].checked = declerations.versusAISkin[16].getDrawable("backButtonPresed");
 
-        declerations.challengeMenutextButtonStyles[2].up = declerations.challengeSkin[4].getDrawable("challengeUnpressedOne");// 3x3
-        declerations.challengeMenutextButtonStyles[2].down = declerations.challengeSkin[5].getDrawable("challengePressedOne");
-        declerations.challengeMenutextButtonStyles[2].checked = declerations.challengeSkin[5].getDrawable("challengePressedOne");
+        declerations.versusAIMenutextButtonStyles[2].up = declerations.versusAISkin[1].getDrawable("3x3Unpressed");// 3x3
+        declerations.versusAIMenutextButtonStyles[2].down = declerations.versusAISkin[2].getDrawable("3x3Pressed");
+        declerations.versusAIMenutextButtonStyles[2].checked = declerations.versusAISkin[2].getDrawable("3x3Pressed");
 
-        declerations.challengeMenutextButtonStyles[3].up = declerations.challengeSkin[6].getDrawable("challengeUnpressedTwo");//x4
-        declerations.challengeMenutextButtonStyles[3].down = declerations.challengeSkin[7].getDrawable("challengePressedTwo");
-        declerations.challengeMenutextButtonStyles[3].checked = declerations.challengeSkin[7].getDrawable("challengePressedTwo");
+        declerations.versusAIMenutextButtonStyles[3].up = declerations.versusAISkin[3].getDrawable("4x4Unpressed");//x4
+        declerations.versusAIMenutextButtonStyles[3].down = declerations.versusAISkin[4].getDrawable("4x4Pressed");
+        declerations.versusAIMenutextButtonStyles[3].checked = declerations.versusAISkin[4].getDrawable("4x4Pressed");
 
-        declerations.challengeMenutextButtonStyles[4].up = declerations.challengeSkin[8].getDrawable("challengeUnpressedThree");//5x5
-        declerations.challengeMenutextButtonStyles[4].down = declerations.challengeSkin[9].getDrawable("challengePressedThree");
-        declerations.challengeMenutextButtonStyles[4].checked = declerations.challengeSkin[9].getDrawable("challengePressedThree");
+        declerations.versusAIMenutextButtonStyles[4].up = declerations.versusAISkin[5].getDrawable("5x5Unpressed");//5x5
+        declerations.versusAIMenutextButtonStyles[4].down = declerations.versusAISkin[6].getDrawable("5x5Pressed");
+        declerations.versusAIMenutextButtonStyles[4].checked = declerations.versusAISkin[6].getDrawable("5x5Pressed");
 
-        declerations.challengeMenutextButtonStyles[5].up = declerations.challengeSkin[10].getDrawable("challengeUnpressedFour");//6x6
-        declerations.challengeMenutextButtonStyles[5].down = declerations.challengeSkin[11].getDrawable("challengePressedFour");
-        declerations.challengeMenutextButtonStyles[5].checked = declerations.challengeSkin[11].getDrawable("challengePressedFour");
+        declerations.versusAIMenutextButtonStyles[5].up = declerations.versusAISkin[7].getDrawable("6x6Unpressed");//6x6
+        declerations.versusAIMenutextButtonStyles[5].down = declerations.versusAISkin[8].getDrawable("6x6Pressed");
+        declerations.versusAIMenutextButtonStyles[5].checked = declerations.versusAISkin[8].getDrawable("6x6Pressed");
 
-        declerations.challengeMenutextButtonStyles[6].up = declerations.challengeSkin[12].getDrawable("challengeUnpressedFive");//7x7
-        declerations.challengeMenutextButtonStyles[6].down = declerations.challengeSkin[13].getDrawable("challengePressedFive");
-        declerations.challengeMenutextButtonStyles[6].checked = declerations.challengeSkin[13].getDrawable("challengePressedFive");
+        declerations.versusAIMenutextButtonStyles[6].up = declerations.versusAISkin[9].getDrawable("7x7Unpressed");//7x7
+        declerations.versusAIMenutextButtonStyles[6].down = declerations.versusAISkin[10].getDrawable("7x7Pressed");
+        declerations.versusAIMenutextButtonStyles[6].checked = declerations.versusAISkin[10].getDrawable("7x7Pressed");
 
-        declerations.challengeMenutextButtonStyles[7].up = declerations.challengeSkin[14].getDrawable("challengeUnpressedSix");//8x8
-        declerations.challengeMenutextButtonStyles[7].down = declerations.challengeSkin[15].getDrawable("challengePressedSix");
-        declerations.challengeMenutextButtonStyles[7].checked = declerations.challengeSkin[15].getDrawable("challengePressedSix");
+        declerations.versusAIMenutextButtonStyles[7].up = declerations.versusAISkin[11].getDrawable("8x8Unpressed");//8x8
+        declerations.versusAIMenutextButtonStyles[7].down = declerations.versusAISkin[12].getDrawable("8x8Pressed");
+        Declerations.versusAIMenutextButtonStyles[7].checked = declerations.versusAISkin[12].getDrawable("8x8Pressed");
 
 
 
         for(int i=0; i < 2; i++)
         {
             int shift = 75 * i;
-            textButtons[i] = new TextButton("", declerations.challengeMenutextButtonStyles[i]);
+            textButtons[i] = new TextButton("", declerations.versusAIMenutextButtonStyles[i]);
             textButtons[i].setBounds((300 + shift),40,50,200);
             stage.addActor(textButtons[i]);
         }
@@ -118,7 +139,7 @@ public class Challenge implements Screen
             for(int y=0; y < 3; y++) {
                 int xshift = 75 * x ;
                 int yshift = 75 * y;
-                textButtons[counter] = new TextButton("", declerations.challengeMenutextButtonStyles[counter]);
+                textButtons[counter] = new TextButton("", declerations.versusAIMenutextButtonStyles[counter]);
                 textButtons[counter].setBounds((160 + xshift), (40 + yshift), 50, 50);
                 stage.addActor(textButtons[counter]);
                 counter++;

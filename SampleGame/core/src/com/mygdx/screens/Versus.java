@@ -127,7 +127,8 @@ public class Versus implements Screen
         ButtonGroup buttonGroup = new ButtonGroup(textButtons[2],textButtons[3],textButtons[4],textButtons[5],textButtons[6],textButtons[7]);
 //next set the max and min amount to be checked
         buttonGroup.setMaxCheckCount(1);
-        buttonGroup.setMinCheckCount(0);
+        buttonGroup.setMinCheckCount(1);
+        buttonGroup.setChecked("");
 //it may be useful to use this method:
         buttonGroup.setUncheckLast(true); //If true, when the maximum number of buttons are checked and an additional button is checked, the last button to be checked is unchecked so that the maximum is not exceeded.
 

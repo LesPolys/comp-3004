@@ -90,15 +90,20 @@ public class MainMenu implements Screen
         declerations.mainMenutextButtonStyles[1].checked = declerations.mainMenuSkins[7].getDrawable("challengeButtonPresed");
 
 
+        declerations.mainMenutextButtonStyles[2].up = declerations.mainMenuSkins[8].getDrawable("versusAIButtonUnpressed"); //VSAI
+        declerations.mainMenutextButtonStyles[2].down = declerations.mainMenuSkins[9].getDrawable("versusAIButtonPresed");
+        declerations.mainMenutextButtonStyles[2].checked = declerations.mainMenuSkins[9].getDrawable("versusAIButtonPresed");
 
 
 
 
-        for(int i=0; i < 2; i++)
+
+
+        for(int i=0; i < 3; i++)
         {
             int shift = 75 * i;
             textButtons[i] = new TextButton("", declerations.mainMenutextButtonStyles[i]);
-            textButtons[i].setBounds((275 + shift),40,50,200);
+            textButtons[i].setBounds((250 + shift),40,50,200);
             stage.addActor(textButtons[i]);
         }
 
@@ -125,6 +130,17 @@ public class MainMenu implements Screen
             {
 
                 ((Game) Gdx.app.getApplicationListener()).setScreen(new Challenge(app));
+
+            }
+        });
+
+        textButtons[2].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new VersusAI(app));
 
             }
         });

@@ -27,6 +27,9 @@ public class Declerations
     public static Skin versusSkin[] = new Skin[5];
     public static TextButton.TextButtonStyle versusMenutextButtonStyles[];
 
+    public static Skin versusAISkin[] = new Skin[5];
+    public static TextButton.TextButtonStyle versusAIMenutextButtonStyles[];
+
     public static Skin challengeSkin[] = new Skin[5];
     public static TextButton.TextButtonStyle challengeMenutextButtonStyles[];
 
@@ -45,10 +48,10 @@ public class Declerations
     //initialize the main menu items
     public void initMainMenu()
     {
-        mainMenuSkins = new Skin[8];
-        mainMenutextButtonStyles = new TextButton.TextButtonStyle[8];
+        mainMenuSkins = new Skin[10];
+        mainMenutextButtonStyles = new TextButton.TextButtonStyle[10];
 
-        for(int i=0; i<8; i++)
+        for(int i=0; i<10; i++)
         {
             mainMenuSkins[i] = new Skin();
             mainMenutextButtonStyles[i] = new TextButton.TextButtonStyle();
@@ -63,6 +66,8 @@ public class Declerations
         mainMenuSkins[5].add("versusButtonPresed", new Texture(Gdx.files.internal("versusButtonPresed.png")));
         mainMenuSkins[6].add("challengeButtonUnpressed", new Texture(Gdx.files.internal("challengeButtonUnpressed.png")));
         mainMenuSkins[7].add("challengeButtonPresed", new Texture(Gdx.files.internal("challengeButtonPresed.png")));
+        mainMenuSkins[8].add("versusAIButtonUnpressed", new Texture(Gdx.files.internal("versusAIButtonUnpressed.png")));
+        mainMenuSkins[9].add("versusAIButtonPresed", new Texture(Gdx.files.internal("versusAIButtonPresed.png")));
     }
 
     //initialize the images for the playerScreen class
@@ -101,10 +106,10 @@ public class Declerations
     //initalize the challenge screen items
     public void initChallengeScreen()
     {
-        challengeSkin = new Skin[5];
-        challengeMenutextButtonStyles = new TextButton.TextButtonStyle[5];
+        challengeSkin = new Skin[20];
+        challengeMenutextButtonStyles = new TextButton.TextButtonStyle[20];
 
-        for(int i=0; i<5; i++)
+        for(int i=0; i<=19; i++)
         {
             challengeSkin[i] = new Skin();
             challengeMenutextButtonStyles[i] = new TextButton.TextButtonStyle();
@@ -112,7 +117,28 @@ public class Declerations
         }
 
         challengeSkin[0].addRegions(buttonAtlas);
-        challengeSkin[1].add("background", new Texture(Gdx.files.internal("mainMenu/Background2.png")));
+        challengeSkin[1].add("background", new Texture(Gdx.files.internal("mainMenu/Background2.png"))); //back
+        challengeSkin[2].add("titleChallenge", new Texture(Gdx.files.internal("challengeScreen/titleChallenge.png")));//title
+        challengeSkin[3].add("challengeMessage", new Texture(Gdx.files.internal("challengeScreen/challengeMessage.png")));//message
+
+        challengeSkin[4].add("challengeUnpressedOne", new Texture(Gdx.files.internal("challengeScreen/challengeUnpressedOne.png")));//ch1-6 P and U
+        challengeSkin[5].add("challengePressedOne", new Texture(Gdx.files.internal("challengeScreen/challengePressedButtonOne.png")));
+        challengeSkin[6].add("challengeUnpressedTwo", new Texture(Gdx.files.internal("challengeScreen/challengeUnpressedTwo.png")));
+        challengeSkin[7].add("challengePressedTwo", new Texture(Gdx.files.internal("challengeScreen/challengePressedButtonTwo.png")));
+        challengeSkin[8].add("challengeUnpressedThree", new Texture(Gdx.files.internal("challengeScreen/challengeUnpressedThree.png")));
+        challengeSkin[9].add("challengePressedThree", new Texture(Gdx.files.internal("challengeScreen/challengePressedButtonThree.png")));
+        challengeSkin[10].add("challengeUnpressedFour", new Texture(Gdx.files.internal("challengeScreen/challengeUnpressedFour.png")));
+        challengeSkin[11].add("challengePressedFour", new Texture(Gdx.files.internal("challengeScreen/challengePressedButtonFour.png")));
+        challengeSkin[12].add("challengeUnpressedFive", new Texture(Gdx.files.internal("challengeScreen/challengeUnpressedFive.png")));
+        challengeSkin[13].add("challengePressedFive", new Texture(Gdx.files.internal("challengeScreen/challengePressedButtonFive.png")));
+        challengeSkin[14].add("challengeUnpressedSix", new Texture(Gdx.files.internal("challengeScreen/challengeUnpressedSix.png")));
+        challengeSkin[15].add("challengePressedSix", new Texture(Gdx.files.internal("challengeScreen/challengePressedButtonSix.png")));
+
+        challengeSkin[16].add("playUnpressed", new Texture(Gdx.files.internal("challengeScreen/playUnpressed.png")));//Play P and U
+        challengeSkin[17].add("playButtonPresed", new Texture(Gdx.files.internal("challengeScreen/playButtonPresed.png")));
+        challengeSkin[18].add("backButtonUnPressed", new Texture(Gdx.files.internal("challengeScreen/backButtonUnpressed.png")));//back P and U
+        challengeSkin[19].add("backButtonPresed", new Texture(Gdx.files.internal("challengeScreen/backButtonPresed.png")));
+
 
 
 
@@ -144,6 +170,7 @@ public class Declerations
         versusSkin[10].add("7x7Pressed", new Texture(Gdx.files.internal("versusScreen/7x7PressedButton.png")));
         versusSkin[11].add("8x8Unpressed", new Texture(Gdx.files.internal("versusScreen/8x8Button.png")));
         versusSkin[12].add("8x8Pressed", new Texture(Gdx.files.internal("versusScreen/8x8PressedButton.png")));
+
         versusSkin[13].add("playUnpressed", new Texture(Gdx.files.internal("versusScreen/playUnpressed.png")));
         versusSkin[14].add("playButtonPresed", new Texture(Gdx.files.internal("versusScreen/playButtonPresed.png")));
         versusSkin[15].add("backButtonUnpressed", new Texture(Gdx.files.internal("versusScreen/backButtonUnpressed.png")));
@@ -151,6 +178,41 @@ public class Declerations
         versusSkin[17].add("background", new Texture(Gdx.files.internal("mainMenu/Background2.png")));
         versusSkin[18].add("versusTitle", new Texture(Gdx.files.internal("versusScreen/titleVersus.png")));
         versusSkin[19].add("versusMessage", new Texture(Gdx.files.internal("versusScreen/versusMessage.png")));
+
+    }
+
+    public void initVersusAIScreen()
+    {
+        versusAISkin = new Skin[20];
+        versusAIMenutextButtonStyles = new TextButton.TextButtonStyle[20];
+
+        for(int i=0; i<=19; i++)
+        {
+            versusAISkin[i] = new Skin();
+            versusAIMenutextButtonStyles[i] = new TextButton.TextButtonStyle();
+            versusAIMenutextButtonStyles[i].font = font;
+        }
+
+        versusAISkin[0].addRegions(buttonAtlas);
+        versusAISkin[1].add("3x3Unpressed", new Texture(Gdx.files.internal("versusScreen/3x3Button.png")));
+        versusAISkin[2].add("3x3Pressed", new Texture(Gdx.files.internal("versusScreen/3x3PressedButton.png")));
+        versusAISkin[3].add("4x4Unpressed", new Texture(Gdx.files.internal("versusScreen/4x4Button.png")));
+        versusAISkin[4].add("4x4Pressed", new Texture(Gdx.files.internal("versusScreen/4x4PressedButton.png")));
+        versusAISkin[5].add("5x5Unpressed", new Texture(Gdx.files.internal("versusScreen/5x5Button.png")));
+        versusAISkin[6].add("5x5Pressed", new Texture(Gdx.files.internal("versusScreen/5x5PressedButton.png")));
+        versusAISkin[7].add("6x6Unpressed", new Texture(Gdx.files.internal("versusScreen/6x6Button.png")));
+        versusAISkin[8].add("6x6Pressed", new Texture(Gdx.files.internal("versusScreen/6x6PressedButton.png")));
+        versusAISkin[9].add("7x7Unpressed", new Texture(Gdx.files.internal("versusScreen/7x7Button.png")));
+        versusAISkin[10].add("7x7Pressed", new Texture(Gdx.files.internal("versusScreen/7x7PressedButton.png")));
+        versusAISkin[11].add("8x8Unpressed", new Texture(Gdx.files.internal("versusScreen/8x8Button.png")));
+        versusAISkin[12].add("8x8Pressed", new Texture(Gdx.files.internal("versusScreen/8x8PressedButton.png")));
+        versusAISkin[13].add("playUnpressed", new Texture(Gdx.files.internal("versusScreen/playUnpressed.png")));
+        versusAISkin[14].add("playButtonPresed", new Texture(Gdx.files.internal("versusScreen/playButtonPresed.png")));
+        versusAISkin[15].add("backButtonUnpressed", new Texture(Gdx.files.internal("versusScreen/backButtonUnpressed.png")));
+        versusAISkin[16].add("backButtonPresed", new Texture(Gdx.files.internal("versusScreen/backButtonPresed.png")));
+        versusAISkin[17].add("background", new Texture(Gdx.files.internal("mainMenu/Background2.png")));
+        versusAISkin[18].add("versusAITitle", new Texture(Gdx.files.internal("versusAI/titleAI.png")));
+        versusAISkin[19].add("versusMessage", new Texture(Gdx.files.internal("versusScreen/versusMessage.png")));
 
     }
 
