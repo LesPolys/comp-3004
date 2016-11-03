@@ -35,7 +35,7 @@ public class Declerations
 
     public static Skin playerSkin[];
     public static Skin pauseSkin[];
-
+    public static Skin stackSkin[];
 
 
 
@@ -93,14 +93,58 @@ public class Declerations
     //initalize the pause screen items
     public void initPauseScreen()
     {
-        pauseSkin = new Skin[5];
+        pauseSkin = new Skin[6];
 
-        for(int i=0; i<5; i++)
+        for(int i=0; i<=5; i++)
         {
             pauseSkin[i] = new Skin();
-            pauseSkin[i].addRegions(buttonAtlas);
+
         }
-        pauseSkin[4].add("pauseScreen", new Texture("pauseScreen/pauseScreen.png"));
+
+
+        pauseSkin[0].addRegions(buttonAtlas);
+        pauseSkin[1].add("backButtonUnpressed", new Texture("pauseScreen/backButtonUnpressed.png"));
+        pauseSkin[2].add("backButtonPresed", new Texture("pauseScreen/backButtonPresed.png"));
+        pauseSkin[3].add("quitButtonUnpressed", new Texture("pauseScreen/quitButtonUnpressed.png"));
+        pauseSkin[4].add("quitButtonPresed", new Texture("pauseScreen/quitButtonPresed.png"));
+        pauseSkin[5].add("pauseScreen", new Texture("pauseScreen/pauseScreen.png"));
+    }
+
+    public void initStackScreen()
+    {
+        stackSkin = new Skin[15];
+
+        for(int i=0; i<16; i++)
+        {
+            stackSkin[i] = new Skin();
+
+        }
+
+        stackSkin[0].add("selectBackground", new Texture("stackMenu/selectBackground.png"));//background
+
+        stackSkin[1].add("roadUnselected", new Texture("stackMenu/roadUnselected.png"));//road unselected
+        stackSkin[2].add("roadSelected", new Texture("stackMenu/roadSelected.png"));//road selected
+
+        stackSkin[3].add("wallUnselected", new Texture("stackMenu/wallUnselected.png"));//wall unselected
+        stackSkin[4].add("wallSelected", new Texture("stackMenu/wallSelected.png"));//wall selected
+
+        stackSkin[5].add("capUnselected", new Texture("stackMenu/capUnselected.png"));//capstone unselected
+        stackSkin[6].add("capSelected", new Texture("stackMenu/capSelected.png"));//capstone selected
+
+        stackSkin[7].add("upButtonPressed", new Texture("stackMenu/upButtonPressed.png"));//upButton UnPressed
+        stackSkin[8].add("upButtonUnpressed", new Texture("stackMenu/upButtonUnpressed.png"));//upButton Pressed
+
+        stackSkin[9].add("downButtonUnpressed", new Texture("stackMenu/downButtonUnpressed.png"));//downButton UnPressed
+        stackSkin[10].add("downButtonPressed", new Texture("stackMenu/downButtonPressed.png"));//downButton Pressed
+
+        stackSkin[11].add("selectButtonUnpressed", new Texture("stackMenu/selectButtonUnpressed.png"));//selectButton UnPressed
+        stackSkin[12].add("selectButtonPressed", new Texture("stackMenu/selectButtonPressed.png"));//selectButton Pressed
+
+        stackSkin[13].add("backButtonUnpresed", new Texture("stackMenu/backButtonUnpresed.png"));//backButton UnPressed
+        stackSkin[14].add("backButtonPresed", new Texture("stackMenu/backButtonPresed.png"));//backButton Pressed
+
+
+
     }
 
     //initalize the challenge screen items

@@ -47,6 +47,7 @@ public class PlayScreen implements Screen
 
     //calls the PauseScreen and declerations class
     private PauseScreen pauseScreen;
+    private StackScreen stackScreen;
     private Declerations declerations;
 
     public PlayScreen(SampleGame gameApp)
@@ -83,6 +84,12 @@ public class PlayScreen implements Screen
         pauseScreen = new PauseScreen(app,stage);
         pauseScreen.returnToMainMenu();
         pauseScreen.returnToGame();
+
+        stackScreen = new StackScreen(app,stage);
+        stackScreen.selectionOptions();
+        stackScreen.returnToGame();
+
+
 
 
         //initialize the images

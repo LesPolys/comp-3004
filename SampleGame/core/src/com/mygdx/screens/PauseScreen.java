@@ -34,15 +34,15 @@ public class PauseScreen
         declerations = new Declerations();
         declerations.initPauseScreen();
 
-        textButtonStyle = new TextButton.TextButtonStyle[4];
-        textButtons = new TextButton[4];
+        textButtonStyle = new TextButton.TextButtonStyle[3];
+        textButtons = new TextButton[3];
 
-        for(int i=0; i<4; i++)
+        for(int i=0; i<3; i++)
         {
             textButtonStyle[i] = new TextButton.TextButtonStyle();
         }
 
-        pauseScreenImage = new Image(declerations.pauseSkin[4],"pauseScreen");
+        pauseScreenImage = new Image(declerations.pauseSkin[5],"pauseScreen");
         pauseScreenImage.setSize(SampleGame.V_WIDTH,SampleGame.V_HEIGHT);
         pauseScreenImage.setBounds( (SampleGame.V_WIDTH /2) - 100, (SampleGame.V_HEIGHT/2) - 75, SampleGame.V_WIDTH /2, SampleGame.V_HEIGHT/2);
 
@@ -52,22 +52,19 @@ public class PauseScreen
         textButtonStyle[0].checked =  declerations.pauseSkin[0].getDrawable("pauseButtonPressed");
 
         textButtonStyle[1].font = declerations.font;
-        textButtonStyle[1].up = declerations.pauseSkin[1].getDrawable("resumeUnSelected");
-        textButtonStyle[1].down = declerations.pauseSkin[1].getDrawable("resumeSelected");
-        textButtonStyle[1].checked = declerations.pauseSkin[1].getDrawable("resumeSelected");
+        textButtonStyle[1].up = declerations.pauseSkin[1].getDrawable("backButtonUnpressed");
+        textButtonStyle[1].down = declerations.pauseSkin[2].getDrawable("backButtonPresed");
+        textButtonStyle[1].checked = declerations.pauseSkin[2].getDrawable("backButtonPresed");
 
         textButtonStyle[2].font = declerations.font;
-        textButtonStyle[2].up = declerations.pauseSkin[2].getDrawable("mainMenuUnSelected");
-        textButtonStyle[2].down = declerations.pauseSkin[2].getDrawable("mainMenuSelected");
-        textButtonStyle[2].checked = declerations.pauseSkin[2].getDrawable("mainMenuSelected");
-
-        textButtonStyle[3].font = declerations.font;
-        textButtonStyle[3].up = declerations.pauseSkin[3].getDrawable("infoButon");
-        textButtonStyle[3].down = declerations.pauseSkin[3].getDrawable("infoButon");
-        textButtonStyle[3].checked = declerations.pauseSkin[3].getDrawable("infoButon");
+        textButtonStyle[2].up = declerations.pauseSkin[3].getDrawable("quitButtonUnpressed");
+        textButtonStyle[2].down = declerations.pauseSkin[4].getDrawable("quitButtonPresed");
+        textButtonStyle[2].checked = declerations.pauseSkin[4].getDrawable("quitButtonPresed");
 
 
-        for(int i=0; i<4; i++)
+
+
+        for(int i=0; i<3; i++)
         {
             textButtons[i] = new TextButton("", textButtonStyle[i]);
         }
@@ -75,20 +72,13 @@ public class PauseScreen
         textButtons[0].setBounds(10,230,40,40);
         textButtons[1].setBounds(250,80,30,90);
         textButtons[2].setBounds(300,80,30,90);
-        textButtons[3].setBounds(15,200,30,30);
+
 
         stage.addActor(textButtons[0]);
-        stage.addActor(textButtons[3]);
 
 
-        textButtons[3].addListener(new ChangeListener()
-        {
-            @Override
-            public void changed(ChangeEvent event, Actor actor)
-            {
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
-            }
-        });
+
+
     }
 
 
