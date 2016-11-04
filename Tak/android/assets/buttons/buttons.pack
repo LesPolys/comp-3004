@@ -1,0 +1,103 @@
+
+buttons.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+pauseButtonPressed
+  rotate: false
+  xy: 1, 625
+  size: 306, 305
+  orig: 306, 305
+  offset: 0, 0
+  index: -1
+pauseButtonUnPressed
+  rotate: false
+  xy: 1, 318
+  size: 306, 305
+  orig: 306, 305
+  offset: 0, 0
+  index: -1
+infoButon
+  rotate: false
+  xy: 309, 715
+  size: 233, 215
+  orig: 233, 215
+  offset: 0, 0
+  index: -1
+playButtonPresed
+  rotate: false
+  xy: 1, 1
+  size: 83, 315
+  orig: 83, 315
+  offset: 0, 0
+  index: -1
+instructionsButtonPressed
+  rotate: false
+  xy: 309, 399
+  size: 83, 314
+  orig: 83, 314
+  offset: 0, 0
+  index: -1
+backButtonPresed
+  rotate: false
+  xy: 86, 6
+  size: 83, 310
+  orig: 83, 310
+  offset: 0, 0
+  index: -1
+mainMenuSelected
+  rotate: false
+  xy: 394, 404
+  size: 83, 309
+  orig: 83, 309
+  offset: 0, 0
+  index: -1
+resumeSelected
+  rotate: false
+  xy: 171, 7
+  size: 83, 309
+  orig: 83, 309
+  offset: 0, 0
+  index: -1
+instructionsButtonUnpressed
+  rotate: false
+  xy: 479, 408
+  size: 83, 305
+  orig: 83, 305
+  offset: 0, 0
+  index: -1
+mainMenuUnSelected
+  rotate: false
+  xy: 256, 11
+  size: 83, 305
+  orig: 83, 305
+  offset: 0, 0
+  index: -1
+playButtonUnpressed
+  rotate: false
+  xy: 341, 92
+  size: 83, 305
+  orig: 83, 305
+  offset: 0, 0
+  index: -1
+playButtonUnpressed_playButtonPresed
+  rotate: false
+  xy: 341, 92
+  size: 83, 305
+  orig: 83, 305
+  offset: 0, 0
+  index: -1
+resumeUnSelected
+  rotate: false
+  xy: 426, 97
+  size: 83, 305
+  orig: 83, 305
+  offset: 0, 0
+  index: -1
+backButtonUnpressed
+  rotate: false
+  xy: 511, 102
+  size: 82, 304
+  orig: 82, 304
+  offset: 0, 0
+  index: -1
