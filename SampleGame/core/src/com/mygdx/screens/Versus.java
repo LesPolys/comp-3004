@@ -163,7 +163,7 @@ public class Versus implements Screen
             public void changed (ChangeEvent event, Actor actor)
             {
                 stageSize = 3;
-               // System.out.println(stageSize);
+                System.out.println(stageSize);
 
             }
         });

@@ -291,6 +291,6 @@ public class VersusAI implements Screen
     public void dispose()
     {
         stage.dispose();
-        //TODO: add dispose methods for Grid and GamePiece
+
     }
 }

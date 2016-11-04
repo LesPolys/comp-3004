@@ -114,7 +114,7 @@ public class Declerations
     {
         stackSkin = new Skin[15];
 
-        for(int i=0; i<16; i++)
+        for(int i=0; i<15; i++)
         {
             stackSkin[i] = new Skin();
 
@@ -140,7 +140,7 @@ public class Declerations
         stackSkin[11].add("selectButtonUnpressed", new Texture("stackMenu/selectButtonUnpressed.png"));//selectButton UnPressed
         stackSkin[12].add("selectButtonPressed", new Texture("stackMenu/selectButtonPressed.png"));//selectButton Pressed
 
-        stackSkin[13].add("backButtonUnpresed", new Texture("stackMenu/backButtonUnpresed.png"));//backButton UnPressed
+        stackSkin[13].add("backButtonUnpressed", new Texture("stackMenu/backButtonUnpressed.png"));//backButton UnPressed
         stackSkin[14].add("backButtonPresed", new Texture("stackMenu/backButtonPresed.png"));//backButton Pressed
 
 

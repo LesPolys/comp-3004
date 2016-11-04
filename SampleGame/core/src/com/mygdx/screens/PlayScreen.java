@@ -86,8 +86,11 @@ public class PlayScreen implements Screen
         pauseScreen.returnToGame();
 
         stackScreen = new StackScreen(app,stage);
+        stackScreen.initStack();
         stackScreen.selectionOptions();
+        stackScreen.select();
         stackScreen.returnToGame();
+
 
 
 
@@ -108,7 +111,7 @@ public class PlayScreen implements Screen
         playerImage[4] = new Image(declerations.playerSkin[4] ,"player2Win");
         playerImage[5] = new Image(declerations.playerSkin[5],"playerRedWins");
         playerImage[6] = new Image(declerations.playerSkin[6],"playerBlueWins");
-        stage.addActor(playerImage[1]);
+       // stage.addActor(playerImage[1]);
 
         for(int i=0; i<5; i++)
         {
