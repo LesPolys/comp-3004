@@ -2,14 +2,16 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Old.MainMenu;
+import com.mygdx.game.Screens.PlayScreen;
 
 public class Tak extends Game
 {
 	public OrthographicCamera camera;
 	public SpriteBatch batch;
 
-	private com.mygdx.game.Old.MainMenu mainMenu;
-	//private PlayScreen playScreen;
+	//private MainMenu mainMenu;
+	private PlayScreen playScreen;
 
 	public Tak(){}
 
@@ -20,10 +22,10 @@ public class Tak extends Game
 		camera.setToOrtho(false, StaticVariables.V_WIDTH ,StaticVariables.V_HEIGHT);
 		batch = new SpriteBatch();
 
-		mainMenu = new com.mygdx.game.Old.MainMenu(this);
-		setScreen(mainMenu);
-		//playScreen = new PlayScreen(this);
-		//setScreen(playScreen);
+		//mainMenu = new com.mygdx.game.Old.MainMenu(this);
+		//setScreen(mainMenu);
+		playScreen = new PlayScreen(this);
+		setScreen(playScreen);
 	}
 }
 

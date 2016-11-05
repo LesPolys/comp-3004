@@ -12,7 +12,7 @@ public class Dragable extends Image
 {
     //stores the current player
     private String currentPlayer;
-    boolean squares[];
+    int squares[][];
 
     private PlayScreen screen;
 
@@ -20,7 +20,8 @@ public class Dragable extends Image
     {
         super(image.getDrawable());
         setCurrentPlayer("");
-        squares = new boolean[20];
+
+        squares = new int[6][6];
         screen = scrn;
 
     }
@@ -65,6 +66,7 @@ public class Dragable extends Image
                               System.out.println("event X: " + event.getStageX());
                               System.out.println("event Y: " + event.getStageY());
 
+                               /*
                               //1st row
                               if(((event.getStageX() >= 90) && (event.getStageX() <= 160)) &&
                                       ((event.getStageY() >= 0) && (event.getStageY() <= 60)))
@@ -161,9 +163,10 @@ public class Dragable extends Image
                                   //System.out.println("Test Cal8");
                                   screen.stage.addActor(getActor());
                                   getActor().addAction(Actions.moveTo(origPos.x, origPos.y, 1.0f, Interpolation.pow4Out));
-                              }
+                              }*/
                           }
                       }
+
         );
 
     }

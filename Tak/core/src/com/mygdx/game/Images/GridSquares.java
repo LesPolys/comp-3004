@@ -11,7 +11,7 @@ public class GridSquares extends GameBoardImages
         return ourInstance;
     }
 
-    private GridSquares()
+    public GridSquares()
     {
         setImage("guidlines","guideline.png", 400, 0, 50,50);
     }
