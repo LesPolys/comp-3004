@@ -40,9 +40,8 @@ public class StackScreen
         declerations = new Declerations();
         declerations.initStackScreen();
 
-        selected = 1;
-        stack = 2;
-        images = new Image[11];
+
+        images = new Image[20];
 
         for(int i=0; i<11; i++)
         {
@@ -96,21 +95,20 @@ public class StackScreen
 
 
 
-        stage.addActor( images[0]);
-        stage.addActor(textButtons[0]);
-        stage.addActor(textButtons[1]);
-        stage.addActor(textButtons[2]);
-        stage.addActor(textButtons[3]);
 
 
     }
 
-    public void initStack(){
+    private void initStack(){ //TODO TAKES IN AN ARAY OF GAME PIECES
+
+
+        selected = 1;
+        stack = 2;
 
         int shift;
         int loop = 0;
 
-       Character test[] = {'c','r','r','r','r'};
+       Character test[] = {'c','r','r','r','r','c'};
 
         for(int i = 1; i < test.length*2 ; i+=2){
 
@@ -160,10 +158,23 @@ public class StackScreen
 
     }
 
+    private void display(){
+
+        stage.addActor( images[0]);
+        stage.addActor(textButtons[0]);
+        stage.addActor(textButtons[1]);
+        stage.addActor(textButtons[2]);
+        stage.addActor(textButtons[3]);
+
+    }
 
 
-    public void selectionOptions()
+
+    public void selectionOptions() //TODO TAKES IN AN ARAY OF GAME PIECES
     {
+
+        display();
+        initStack(); //TODO PASS IN AN ARAY OF GAME PIECES
 
         textButtons[0].addListener(new ChangeListener()
         {
@@ -197,20 +208,24 @@ public class StackScreen
             }
         });
 
-
-
-    }
-
-    public void select(){
-        textButtons[2].addListener(new ChangeListener()
+        textButtons[2].addListener(new ChangeListener() //select button
         {
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-
+                select();
+                clear();
             }
         });
 
+
+
+    }
+
+    private void select(){
+
+        System.out.println(selected);
+        //return selected;
     }
 
     public void returnToGame()
@@ -220,19 +235,24 @@ public class StackScreen
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                images[0].remove();
-                textButtons[1].setChecked(false);
 
-                textButtons[0].remove();
-                textButtons[1].remove();
-                textButtons[2].remove();
-                textButtons[3].remove();
-
-                for(int i=0; i<images.length;i++){
-                    images[i].remove();
-                }
+              clear();
             }
         });
 
+    }
+
+    private void clear()
+    {
+        images[0].remove();
+
+        textButtons[0].remove();
+        textButtons[1].remove();
+        textButtons[2].remove();
+        textButtons[3].remove();
+
+        for(int i=0; i<images.length;i++){
+            images[i].remove();
+        }
     }
 }

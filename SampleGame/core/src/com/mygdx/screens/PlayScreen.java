@@ -86,9 +86,7 @@ public class PlayScreen implements Screen
         pauseScreen.returnToGame();
 
         stackScreen = new StackScreen(app,stage);
-        stackScreen.initStack();
         stackScreen.selectionOptions();
-        stackScreen.select();
         stackScreen.returnToGame();
 
 
