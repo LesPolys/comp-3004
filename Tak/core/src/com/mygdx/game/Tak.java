@@ -2,7 +2,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Old.MainMenu;
+import com.mygdx.game.Screens.MainMenu;
 import com.mygdx.game.Screens.PlayScreen;
 
 public class Tak extends Game
@@ -12,6 +12,7 @@ public class Tak extends Game
 
 	//private MainMenu mainMenu;
 	private PlayScreen playScreen;
+	private MainMenu mainMenu;
 
 	public Tak(){}
 
@@ -24,8 +25,10 @@ public class Tak extends Game
 
 		//mainMenu = new com.mygdx.game.Old.MainMenu(this);
 		//setScreen(mainMenu);
-		playScreen = new PlayScreen(this);
-		setScreen(playScreen);
+		//playScreen = new PlayScreen(this);
+		//setScreen(playScreen);
+		mainMenu = new MainMenu(this);
+		setScreen(mainMenu);
 	}
 }
 
