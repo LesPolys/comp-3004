@@ -139,7 +139,7 @@ public class PlayScreen implements Screen
 
     private void initGamePieces(int bSize)
     {
-        gameBoard = new GameBoard();
+        gameBoard = new GameBoard(bSize);
         int PIECES = 36;
         int CAP_PIECES = 1;
 
@@ -190,39 +190,26 @@ public class PlayScreen implements Screen
         for(int i=0; i<PIECES; i++)
         {
 
-            darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),this, gameBoard);
-            darkTrianglePiece1Dragable[i] = new Dragable(darkTrianglePiece1.getGamePiece(),this, gameBoard);
+            darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),this, gameBoard, bSize);
+            darkTrianglePiece1Dragable[i] = new Dragable(darkTrianglePiece1.getGamePiece(),this, gameBoard, bSize);
 
+            lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),this, gameBoard, bSize);
+            lightTriangle1PieceDragable[i] = new Dragable(lightTriangle1Piece.getGamePiece(),this, gameBoard, bSize);
 
-            lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),this, gameBoard);
-            lightTriangle1PieceDragable[i] = new Dragable(lightTriangle1Piece.getGamePiece(),this, gameBoard);
-
-
-
-            darkSquarePiece1Dragable[i].setBounds(20,55,30,30);
+            darkSquarePiece1Dragable[i].setBounds(20,90,30,30);
             darkTrianglePiece1Dragable[i].setBounds(20,125,30,30);
 
-
-
-            lightSquarePiece1Dragable[i].setBounds(50,55,30,30);
+            lightSquarePiece1Dragable[i].setBounds(50,90,30,30);
             lightTriangle1PieceDragable[i].setBounds(50,125,30,30);
-
-
-
 
             darkSquarePiece1Dragable[i].makeDraggable();
             darkTrianglePiece1Dragable[i].makeDraggable();
 
-
             lightSquarePiece1Dragable[i].makeDraggable();
             lightTriangle1PieceDragable[i].makeDraggable();
 
-
-
             stage.addActor(darkSquarePiece1Dragable[i]);
             stage.addActor(darkTrianglePiece1Dragable[i]);
-
-
 
             stage.addActor(lightSquarePiece1Dragable[i]);
             stage.addActor(lightTriangle1PieceDragable[i]);
@@ -230,8 +217,8 @@ public class PlayScreen implements Screen
         }
 
         for(int x=0; x<=CAP_PIECES-1; x++) {
-            darkCirclePiece1Dragable[x] = new Dragable(darkCirclePiece1.getGamePiece(), this, gameBoard);
-            lightCirclePiece1Dragable[x] = new Dragable(lightCirclePiece1.getGamePiece(), this, gameBoard);
+            darkCirclePiece1Dragable[x] = new Dragable(darkCirclePiece1.getGamePiece(), this, gameBoard, bSize);
+            lightCirclePiece1Dragable[x] = new Dragable(lightCirclePiece1.getGamePiece(), this, gameBoard, bSize);
 
             darkCirclePiece1Dragable[x].setBounds(20, 20, 30, 30);
             lightCirclePiece1Dragable[x].setBounds(50, 20, 30, 30);

@@ -6,54 +6,77 @@ public class GameBoard
 {
     int dimensions;
 
+
     ArrayList<Integer> xPos;
     ArrayList <Integer> yPos;
+    ArrayList <Integer> zPos;
     ArrayList<Integer> pathX;
     ArrayList<Integer> pathY;
 
-    private int board[][];
-
-    public GameBoard()
+    private int board[][][];
+    private int maxDepth;
+    public GameBoard(int bSize)
     {
-        dimensions = 8;
+        dimensions = bSize;
         xPos = new ArrayList();
         yPos = new ArrayList();
+        zPos = new ArrayList();
 
         pathX = new ArrayList();
         pathY = new ArrayList();
 
-        board = new int[dimensions][dimensions];
+        switch(bSize){
+            case 3:
+                maxDepth = 20;
+                break;
+            case 4:
+                maxDepth = 30;
+                break;
+            case 5:
+                maxDepth = 43;
+                break;
+            case 6:
+                maxDepth = 61;
+                break;
+            case 7:
+                maxDepth = 81;
+                break;
+            case 8:
+                maxDepth = 101;
+                break;
+        }
+
+        board = new int[dimensions][dimensions][maxDepth];
 
         for(int i = 0; i < dimensions; i++)
         {
             for(int j = 0; j < dimensions; j++)
             {
-                board[j][i] = 0;
+                for (int k = 0; k <maxDepth; k++) {
+                    board[j][i][k]=0;
+                }
             }
         }
 
     }
 
-    public void setSquare(int row, int col)
-    {
-        board[row][col] = 1;
-    }
-    public void getSquare(int row, int col)
-    {
-        System.out.println(board[row][col]);
-    }
+    public void setSquare(int row, int col) {board[row][col][0] = 1;}
+    public void getSquare(int row, int col, int depth) {System.out.println(board[row][col][depth]);}
 
-    public int getXSquare()
+    public int getXPos()
     {
         return 0;
     }
 
-    public int getYSquare()
+    public int getYPos()
     {
         return 0;
     }
 
-
+    public int getZPos()
+    {
+        return 0;
+    }
     /*
     public void outPut()
     {
@@ -115,21 +138,21 @@ public class GameBoard
     {
         //System.out.println(" " + x + " " + y);
 
-        if( ( (board[1])[0] == 1) && ( (board[1])[1] == 1))
+        if( ( (board[1])[0][0] == 1) && ( (board[1])[1][0] == 1))
         {
             System.out.println("test");
         }
 
         if( (x >= 1 ) && (x < board.length - 1))
         {
-            if( (board[x + 1][y]) == 1)
+            if( (board[x + 1][y][0]) == 1)
             {
                 //System.out.println("X: " + (x + 1) + "Y: " + y);
                 xPos.add(x + 1);
                 yPos.add(y);
             }
 
-            if( (board[x - 1][y]) == 1)
+            if( (board[x - 1][y][0]) == 1)
             {
                 //System.out.println("X: " + ( x - 1) + "Y: " + y);
                 xPos.add(x - 1);
@@ -139,14 +162,14 @@ public class GameBoard
 
         if( (y > 0 ) && (y < board.length - 1))
         {
-            if( (board[x][y + 1]) == 1)
+            if( (board[x][y + 1][0]) == 1)
             {
                 //System.out.println("X: " + x + "Y: " + (y + 1));
                 xPos.add(x);
                 yPos.add(y + 1);
             }
 
-            if( (board[x][y - 1]) == 1)
+            if( (board[x][y - 1][0]) == 1)
             {
                 //System.out.println("X: " + x + "Y: " + (y - 1));
                 xPos.add(x);
