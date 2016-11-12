@@ -27,12 +27,15 @@ public class GamePiece {
 
     boolean selected;
 
+
     GamePiece(int startType, boolean setPlayer)
     {
         type = startType;
         player = setPlayer;
-        x = 0;
-        y = 0;
+        inPlay = false;
+    }
+    GamePiece()
+    {
         inPlay = false;
     }
 

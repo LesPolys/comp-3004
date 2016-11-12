@@ -1,6 +1,9 @@
 package com.mygdx.game.GameLogic;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.Vector;
 
 public class GameBoard
 {
@@ -13,7 +16,10 @@ public class GameBoard
     ArrayList<Integer> pathX;
     ArrayList<Integer> pathY;
 
-    private int board[][][];
+   // private ArrayDeque<GamePiece> stack;
+
+    private  ArrayDeque<GamePiece> board[][];
+
     private int maxDepth;
     public GameBoard(int bSize)
     {
@@ -46,22 +52,32 @@ public class GameBoard
                 break;
         }
 
-        board = new int[dimensions][dimensions][maxDepth];
+        board = new ArrayDeque[dimensions][dimensions];
 
         for(int i = 0; i < dimensions; i++)
         {
             for(int j = 0; j < dimensions; j++)
             {
-                for (int k = 0; k <maxDepth; k++) {
-                    board[j][i][k]=0;
-                }
+                board[j][i] = new ArrayDeque<GamePiece>(maxDepth);
+
+
             }
         }
 
     }
 
-    public void setSquare(int row, int col) {board[row][col][0] = 1;}
-    public void getSquare(int row, int col, int depth) {System.out.println(board[row][col][depth]);}
+    public void setSquare(int row, int col,boolean player, int type) {
+        GamePiece tmpPiece = new GamePiece(type,player);
+        board[row][col].push(tmpPiece);
+
+    }
+
+    public void popSquare(int row, int col){
+        board[row][col].pop();
+    }
+
+
+    public void getSquare(int row, int col) {System.out.println(board[row][col]);}
 
     public int getXPos()
     {
@@ -129,30 +145,30 @@ public class GameBoard
         {
             for(int j=0; j < board.length; j++)
             {
-                checkForConnectedSquares(i, j, 0);
+                //checkForConnectedSquares(i, j, 0);
             }
         }
     }
-
+/*
     public void checkForConnectedSquares(int x, int y, int player)
     {
         //System.out.println(" " + x + " " + y);
 
-        if( ( (board[1])[0][0] == 1) && ( (board[1])[1][0] == 1))
+        if( ( (board[1])[0] == 1) && ( (board[1])[1] == 1))
         {
             System.out.println("test");
         }
 
         if( (x >= 1 ) && (x < board.length - 1))
         {
-            if( (board[x + 1][y][0]) == 1)
+            if( (board[x + 1][y]) == 1)
             {
                 //System.out.println("X: " + (x + 1) + "Y: " + y);
                 xPos.add(x + 1);
                 yPos.add(y);
             }
 
-            if( (board[x - 1][y][0]) == 1)
+            if( (board[x - 1][y]) == 1)
             {
                 //System.out.println("X: " + ( x - 1) + "Y: " + y);
                 xPos.add(x - 1);
@@ -162,14 +178,14 @@ public class GameBoard
 
         if( (y > 0 ) && (y < board.length - 1))
         {
-            if( (board[x][y + 1][0]) == 1)
+            if( (board[x][y + 1]) == 1)
             {
                 //System.out.println("X: " + x + "Y: " + (y + 1));
                 xPos.add(x);
                 yPos.add(y + 1);
             }
 
-            if( (board[x][y - 1][0]) == 1)
+            if( (board[x][y - 1]) == 1)
             {
                 //System.out.println("X: " + x + "Y: " + (y - 1));
                 xPos.add(x);
@@ -178,7 +194,7 @@ public class GameBoard
         }
     }
 
-
+*/
     public void checkleftColumn( int SIZE)
     {
         for(int i =0; i < SIZE; i++)

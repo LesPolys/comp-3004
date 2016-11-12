@@ -14,6 +14,10 @@ public class Dragable extends Image
 {
     //stores the current player
     private Boolean currentPlayer;
+    /*
+        true = white
+        false = black
+     */
     private int pieceType;
     /* pieceType
       0 = flat tile
@@ -22,28 +26,24 @@ public class Dragable extends Image
     */
     private PlayScreen screen;
     private int boardSize;
+    private boolean inPlay;
+
     private int xPos;
     private int yPos;
-    private int zPos;
-
-    /*
-        newMain.set2();
-		newMain.check();
-		newMain.findPath();
-		newMain.output();
-		System.out.println(newMain.checkStartAndEnd(0,2,7, 5));
-
-     */
 
     private GameBoard gameBoard;
 
-    public Dragable(Image image, PlayScreen scrn, GameBoard newGameboard, int bSize)
+    public Dragable(Image image, PlayScreen scrn, GameBoard newGameboard, int bSize ,boolean player, int type)
     {
         super(image.getDrawable());
         screen = scrn;
         gameBoard = newGameboard;
         boardSize = bSize;
-
+        currentPlayer = player;
+        pieceType = type;
+        inPlay = false;
+        xPos= -1;
+        yPos= -1;
     }
 
     public void setCurrentPlayer(boolean newCurrentPlayer) {
@@ -52,6 +52,15 @@ public class Dragable extends Image
     public boolean getCurrentPlayer() {return currentPlayer;}
 
     public GameBoard getGameBoard() {return gameBoard;}
+
+    public void toggleInPlay(){inPlay = !inPlay;}
+    public int getGridXPos(){return xPos;}
+    public int getGridYPos(){return yPos;}
+    public void setGridPos(int x,int y){
+        xPos = x;
+        yPos = y;
+        inPlay = true;
+    }
 
     public void makeDraggable()
     {
@@ -65,6 +74,7 @@ public class Dragable extends Image
             {
 
                 origPos.set(piece.getX(), piece.getY());
+                if(piece.inPlay == true){gameBoard.popSquare(piece.getGridXPos(),piece.getGridYPos());}
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
                 payload.setObject(getActor());
                 payload.setDragActor(getActor());
@@ -76,121 +86,120 @@ public class Dragable extends Image
 
             public void dragStop(InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target)
             {
-                //boardSizeX[2] = 217;
-                //boardSizeY[2]
 
-                //System.out.println("mouse: " + event.getStageX()+ " " + event.getStageY());
 
                 switch(boardSize){
-                    case 3:
+                    case 3: //3x3 board
                         for(int i = 0; i < 3; i++){
                             for (int j = 0; j < 3; j++){
                                 if(((event.getStageX() > 230 + (i* 30)) && (event.getStageX() < 260 + (i* 30) ))&&
                                         ((event.getStageY() >=120 + (j* 30)) && (event.getStageY() <= 150 + (j* 30))))
                                 {
-                                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                   // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                     piece.setPosition(235 + (i* 30), 125 + (j* 30));
-                                    screen.stage.addActor(piece);
-                                    //piece.setSquare(0,1);
-                                    gameBoard.setSquare(i,j);
+                                    screen.stage.addActor(piece);;
+                                    piece.setGridPos(i,j);
+                                    gameBoard.setSquare(i,j,currentPlayer,pieceType);
                                     gameBoard.check();
                                     gameBoard.findPath();
-                                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                                    //gameBoard.output();
+                                  //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+
                                 }
                             }
+
+
                         }
                         break;
-                    case 4:
+                    case 4: //4x4 board
                         for(int i = 0; i < 4; i++){
                             for (int j = 0; j < 4; j++){
                                 if(((event.getStageX() > 215 + (i* 30)) && (event.getStageX() < 245 + (i* 30) ))&&
                                         ((event.getStageY() >=105 + (j* 30)) && (event.getStageY() <= 135 + (j* 30))))
                                 {
-                                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                  //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                     piece.setPosition(220 + (i* 30), 110 + (j* 30));
                                     screen.stage.addActor(piece);
-                                    //piece.setSquare(0,1);
-                                    gameBoard.setSquare(i,j);
+                                    piece.setGridPos(i,j);
+                                    gameBoard.setSquare(i,j,currentPlayer,pieceType);
                                     gameBoard.check();
                                     gameBoard.findPath();
-                                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                   // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                     //gameBoard.output();
                                 }
                             }
                         }
                         break;
-                    case 5:
+                    case 5: //5x5 board
                         for(int i = 0; i < 5; i++){
                             for (int j = 0; j < 5; j++){
                                 if(((event.getStageX() > 200 + (i* 30)) && (event.getStageX() < 230 + (i* 30) ))&&
                                         ((event.getStageY() >= 90 + (j* 30)) && (event.getStageY() <= 120 + (j* 30))))
                                 {
-                                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                  //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                     piece.setPosition(205 + (i* 30), 95 + (j* 30));
                                     screen.stage.addActor(piece);
-                                    //piece.setSquare(0,1);
-                                    gameBoard.setSquare(i,j);
+                                    piece.setGridPos(i,j);
+                                    gameBoard.setSquare(i,j,currentPlayer,pieceType);
                                     gameBoard.check();
                                     gameBoard.findPath();
-                                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                   // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                     //gameBoard.output();
                                 }
                             }
                         }
                         break;
-                    case 6:
+                    case 6: //6x6 board
                         for(int i = 0; i < 6; i++){
                             for (int j = 0; j < 6; j++){
                                 if(((event.getStageX() > 185 + (i* 30)) && (event.getStageX() < 215 + (i* 30) ))&&
                                         ((event.getStageY() >=75 + (j* 30)) && (event.getStageY() <= 105 + (j* 30))))
                                 {
-                                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                   // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                     piece.setPosition(190 + (i* 30), 80 + (j* 30));
                                     screen.stage.addActor(piece);
-                                    //piece.setSquare(0,1);
-                                    gameBoard.setSquare(i,j);
+                                    piece.setGridPos(i,j);
+                                    gameBoard.setSquare(i,j,currentPlayer,pieceType);
                                     gameBoard.check();
                                     gameBoard.findPath();
-                                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                   // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                     //gameBoard.output();
                                 }
                             }
                         }
                         break;
-                    case 7:
+                    case 7: //7x7 board
                         for(int i = 0; i < 7; i++){
                             for (int j = 0; j < 7; j++){
                                 if(((event.getStageX() > 170 + (i* 30)) && (event.getStageX() < 200 + (i* 30) ))&&
                                         ((event.getStageY() >= 60 + (j* 30)) && (event.getStageY() <= 90 + (j* 30))))
                                 {
-                                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                  //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                     piece.setPosition(175 + (i* 30), 65 + (j* 30));
                                     screen.stage.addActor(piece);
-                                    //piece.setSquare(0,1);
-                                    gameBoard.setSquare(i,j);
+                                    piece.setGridPos(i,j);
+                                    gameBoard.setSquare(i,j,currentPlayer,pieceType);
                                     gameBoard.check();
                                     gameBoard.findPath();
-                                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                  //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                     //gameBoard.output();
                                 }
                             }
                         }
                         break;
-                    case 8:
+                    case 8: //8x8 board
                         for(int i = 0; i < 8; i++){
                             for (int j = 0; j < 8; j++){
                                 if(((event.getStageX() > 155 + (i* 30)) && (event.getStageX() < 185 + (i* 30) ))&&
                                         ((event.getStageY() >=45 + (j* 30)) && (event.getStageY() <= 75 + (j* 30))))
                                 {
-                                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                   // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                     piece.setPosition(160 + (i* 30), 50 + (j* 30));
                                     screen.stage.addActor(piece);
-                                    //piece.setSquare(0,1);
-                                    gameBoard.setSquare(i,j);
+                                    piece.setGridPos(i,j);
+                                    gameBoard.setSquare(i,j,currentPlayer,pieceType);
                                     gameBoard.check();
                                     gameBoard.findPath();
-                                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                   // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                     //gameBoard.output();
                                 }
                             }
@@ -199,97 +208,6 @@ public class Dragable extends Image
 
 
                 }
-
-/*
-                //row 1, col 1
-                if(((event.getStageX() > 200) && (event.getStageX() < 240))&&
-                        ((event.getStageY() >= 90) && (event.getStageY() <= 120)))
-                {
-                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                    piece.setPosition(208, 95);
-                    screen.stage.addActor(piece);
-                    //piece.setSquare(0,1);
-                    gameBoard.setSquare(0,0);
-                    gameBoard.check();
-                    gameBoard.findPath();
-                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                    //gameBoard.output();
-                }
-
-                //row 1, col2
-                else if(((event.getStageX() >= 200) && (event.getStageX() <= 240)) &&
-                        ((event.getStageY() >= 130) && (event.getStageY() <= 145)))
-                {
-                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                    piece.setPosition(208, 125);
-                    screen.stage.addActor(piece);;
-                    gameBoard.setSquare(0,1);
-                    gameBoard.check();
-                    gameBoard.findPath();
-                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-
-                   //gameBoard.output();
-                }
-
-                //row 1, col3
-                else if(((event.getStageX() >= 200) && (event.getStageX() <= 240)) &&
-                        ((event.getStageY() >= 145) && (event.getStageY() <= 175)))
-                {
-                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                    piece.setPosition(208, 155);
-                    screen.stage.addActor(piece);
-                    gameBoard.setSquare(0,2);
-                    gameBoard.check();
-                    gameBoard.findPath();
-                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                   //gameBoard.output();
-                }
-
-
-                //row 1, col4
-                else if(((event.getStageX() >= 200) && (event.getStageX() <= 240)) &&
-                        ((event.getStageY() >= 175) && (event.getStageY() <= 200)))
-                {
-                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                    piece.setPosition(208, 185);
-                    screen.stage.addActor(piece);
-                    gameBoard.setSquare(0,3);
-                    gameBoard.check();
-                    gameBoard.findPath();
-                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                    //gameBoard.output();
-                }
-
-                //row 1, col5
-                else if(((event.getStageX() >= 200) && (event.getStageX() <= 240)) &&
-                        ((event.getStageY() >= 200) && (event.getStageY() <= 240)))
-                {
-                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                    piece.setPosition(208, 215);
-                    screen.stage.addActor(piece);
-                    gameBoard.setSquare(0,4);
-                    gameBoard.check();
-                    gameBoard.findPath();
-                    //gameBoard.output();
-                    System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                }
-                else
-                {
-                    //System.out.println("Test Cal8");
-                    //screen.stage.addActor(getActor());
-                    getActor().addAction(Actions.moveTo(origPos.x, origPos.y, 1.0f, Interpolation.pow4Out));
-                }
-
-                //gameBoard.outPut();
-                //System.out.println(event.getStageX()+ " " + event.getStageY());
-                              /*
-                              //3x3
-                              if( (event.getStageX() >= 250)
-                              {
-
-                              }
-                              */
-
             }
         });
     }
