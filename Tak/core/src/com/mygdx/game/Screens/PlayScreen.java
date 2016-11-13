@@ -1,11 +1,14 @@
 package com.mygdx.game.Screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
 import com.badlogic.gdx.graphics.GL20;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameLogic.Dragable;
@@ -75,7 +78,6 @@ public class PlayScreen implements Screen
         pauseScreen.returnToGame();
 
         stackScreen = new StackScreen(app,stage);
-        stackScreen.selectionOptions();
         stackScreen.returnToGame();
     }
      @Override
@@ -137,6 +139,10 @@ public class PlayScreen implements Screen
         //input ebola here
     }
 
+    public void stackMenu(GameBoard board, int x, int y){
+        stackScreen.selectionOptions(board,x,y);
+    }
+
     private void initGamePieces(int bSize)
     {
         gameBoard = new GameBoard(bSize);
@@ -190,11 +196,11 @@ public class PlayScreen implements Screen
         for(int i=0; i<PIECES; i++)
         {
 
-            darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),this, gameBoard, bSize, false, 0);
-            darkTrianglePiece1Dragable[i] = new Dragable(darkTrianglePiece1.getGamePiece(),this, gameBoard, bSize,false, 1);
+            darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),this, gameBoard,bSize, false, 0);
+            darkTrianglePiece1Dragable[i] = new Dragable(darkTrianglePiece1.getGamePiece(),this, gameBoard,bSize,false, 1);
 
-            lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),this, gameBoard, bSize, true, 0);
-            lightTriangle1PieceDragable[i] = new Dragable(lightTriangle1Piece.getGamePiece(),this, gameBoard, bSize,true, 1);
+            lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),this, gameBoard,bSize,true, 0);
+            lightTriangle1PieceDragable[i] = new Dragable(lightTriangle1Piece.getGamePiece(),this, gameBoard,bSize,true, 1);
 
             darkSquarePiece1Dragable[i].setBounds(20,90,30,30);
             darkTrianglePiece1Dragable[i].setBounds(20,125,30,30);
@@ -214,11 +220,12 @@ public class PlayScreen implements Screen
             stage.addActor(lightSquarePiece1Dragable[i]);
             stage.addActor(lightTriangle1PieceDragable[i]);
 
+
         }
 
         for(int x=0; x<=CAP_PIECES-1; x++) {
-            darkCirclePiece1Dragable[x] = new Dragable(darkCirclePiece1.getGamePiece(), this, gameBoard, bSize, false, 2);
-            lightCirclePiece1Dragable[x] = new Dragable(lightCirclePiece1.getGamePiece(), this, gameBoard, bSize, true, 2);
+            darkCirclePiece1Dragable[x] = new Dragable(darkCirclePiece1.getGamePiece(), this, gameBoard,bSize,false, 2);
+            lightCirclePiece1Dragable[x] = new Dragable(lightCirclePiece1.getGamePiece(), this, gameBoard,bSize,true, 2);
 
             darkCirclePiece1Dragable[x].setBounds(20, 20, 30, 30);
             lightCirclePiece1Dragable[x].setBounds(50, 20, 30, 30);
@@ -276,6 +283,8 @@ public class PlayScreen implements Screen
         StartGame startGame = new StartGame();
         startGame.start();
     }
+
+
 
 }
 

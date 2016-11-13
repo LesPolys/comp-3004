@@ -130,11 +130,11 @@ public class Declerations
         stackSkin[1].add("roadUnselectedWhite", new Texture("stackMenu/lightSquare1.png"));//road unselected
         stackSkin[2].add("roadSelectedWhite", new Texture("stackMenu/lightSquare2.png"));//road selected
 
-        stackSkin[3].add("wallUnselectedWhite", new Texture("stackMenu/lightCircle1.png"));//wall unselected
-        stackSkin[4].add("wallSelectedWhite", new Texture("stackMenu/lightCircle2.png"));//wall selected
+        stackSkin[3].add("wallUnselectedWhite", new Texture("stackMenu/lightTriangle1.png"));//wall unselected
+        stackSkin[4].add("wallSelectedWhite", new Texture("stackMenu/lightTriangle2.png"));//wall selected
 
-        stackSkin[5].add("capUnselectedWhite", new Texture("stackMenu/lightTriangle1.png"));//capstone unselected
-        stackSkin[6].add("capSelectedWhite", new Texture("stackMenu/lightTriangle2.png"));//capstone selected
+        stackSkin[5].add("capUnselectedWhite", new Texture("stackMenu/lightCircle1.png"));//capstone unselected
+        stackSkin[6].add("capSelectedWhite", new Texture("stackMenu/lightCircle2.png"));//capstone selected
 //----------------------------------------------------------------------------------------------------------//
 // --------------------------------------------BLACK PIECES--------------------------------------------------//
 

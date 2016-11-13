@@ -3,6 +3,8 @@ package com.mygdx.game.GameLogic;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 public class GameBoard
@@ -70,10 +72,27 @@ public class GameBoard
         GamePiece tmpPiece = new GamePiece(type,player);
         board[row][col].push(tmpPiece);
 
+       /* System.out.println("printing elements using iterator:");
+        for(Iterator<GamePiece> itr = board[row][col].iterator(); itr.hasNext();)  {
+            System.out.println(itr.next().type);
+
+        }*/
+
     }
 
     public void popSquare(int row, int col){
         board[row][col].pop();
+    }
+
+    public boolean isEmpty(int row, int col){
+       if( board[row][col] != null){
+           return false;
+       }
+        return true;
+    }
+
+    public ArrayDeque getStack(int row, int col){
+        return board[row][col];
     }
 
 

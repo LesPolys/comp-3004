@@ -5,13 +5,18 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.Screens.StackScreen;
+import com.mygdx.game.Tak;
 
 //Will Clean Up and refactor, dirty like ebola
 
 public class Dragable extends Image
 {
+
     //stores the current player
     private Boolean currentPlayer;
     /*
@@ -30,10 +35,12 @@ public class Dragable extends Image
 
     private int xPos;
     private int yPos;
+    private int selected;
 
     private GameBoard gameBoard;
+    private StackScreen stackScreen;
 
-    public Dragable(Image image, PlayScreen scrn, GameBoard newGameboard, int bSize ,boolean player, int type)
+    public Dragable(Image image, PlayScreen scrn, GameBoard newGameboard, int bSize, boolean player, int type)
     {
         super(image.getDrawable());
         screen = scrn;
@@ -44,6 +51,8 @@ public class Dragable extends Image
         inPlay = false;
         xPos= -1;
         yPos= -1;
+
+
     }
 
     public void setCurrentPlayer(boolean newCurrentPlayer) {
@@ -62,11 +71,29 @@ public class Dragable extends Image
         inPlay = true;
     }
 
+    public int getSelected(){return selected;}
+    public void setSelected(int s){selected = s;}
+
     public void makeDraggable()
     {
         final Dragable piece = this;
         final Vector2 origPos = new Vector2();
         final DragAndDrop dnd = new DragAndDrop();
+
+
+        this.addListener(new ClickListener(){
+        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+        {
+            if(inPlay) {
+                if (gameBoard.isEmpty(piece.getGridXPos(), piece.getGridYPos()) == false) {
+                    if (gameBoard.getStack(piece.getGridXPos(), piece.getGridYPos()).size() > 1) {
+                        screen.stackMenu(gameBoard,piece.getGridXPos(), piece.getGridYPos());
+
+                    }
+                }
+            }
+            return true;
+        }});
 
         dnd.addSource(new DragAndDrop.Source(piece)
         {
@@ -74,6 +101,8 @@ public class Dragable extends Image
             {
 
                 origPos.set(piece.getX(), piece.getY());
+
+
                 if(piece.inPlay == true){gameBoard.popSquare(piece.getGridXPos(),piece.getGridYPos());}
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
                 payload.setObject(getActor());

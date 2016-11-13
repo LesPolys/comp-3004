@@ -12,9 +12,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.CharArray;
+import com.mygdx.game.GameLogic.Dragable;
+import com.mygdx.game.GameLogic.GameBoard;
+import com.mygdx.game.GameLogic.GamePiece;
 import com.mygdx.game.StaticVariables;
 import com.mygdx.game.Tak;
 import com.mygdx.game.Screens.Declerations;
+
+import java.util.ArrayDeque;
+import java.util.Iterator;
+
 
 //import com.seg3125.project.GameApp;
 
@@ -80,7 +87,7 @@ public class StackScreen
         textButtonStyle[3].font = declerations.font;
         textButtonStyle[3].up = declerations.stackSkin[19].getDrawable("backButtonUnpressed");//back
         textButtonStyle[3].down = declerations.stackSkin[20].getDrawable("backButtonPresed");
-        textButtonStyle[3].checked =  declerations.stackSkin[20].getDrawable("backButtonPresed");
+        textButtonStyle[3].checked =  declerations.stackSkin[19].getDrawable("backButtonUnpressed");
 
 
         for(int i=0; i<4; i++)
@@ -99,22 +106,25 @@ public class StackScreen
 
     }
 
-    private void initStack(){ //TODO TAKES IN AN ARAY OF GAME PIECES
+    public void initStack(GameBoard board, int x, int y){ //TODO TAKES IN AN ARAY OF GAME PIECES
 
-
+       ArrayDeque<GamePiece> array = board.getStack(x,y);
+        Iterator <GamePiece> tmp = array.iterator();
+      // GamePiece tmpPiece = (GamePiece)tmp.next();
+        GamePiece tmpPiece;
         selected = 1;
         stack = 2;
 
         int shift;
         int loop = 0;
+        int i = 1;
 
-       Character test[] = {'c','r','r','r','r','c'};
-
-        for(int i = 1; i < test.length*2 ; i+=2){
+        while(tmp.hasNext()){
+            tmpPiece = (GamePiece)tmp.next();
 
             shift = 25 * i;
-            if(true) { //WHITE PIECES
-                if (true) { //road
+            if (tmpPiece.getPlayer()) { //WHITE PIECES
+                if (tmpPiece.getType() == 0) { //road
                     images[i] = new Image(declerations.stackSkin[1], "roadUnselectedWhite"); //unselected
                     //images[i].setSize(0, 0);
                     images[i].setBounds(100 + shift, (StaticVariables.V_HEIGHT / 2) + 50, 50, 50);
@@ -125,7 +135,7 @@ public class StackScreen
                     images[i + 1].setBounds(100 + shift, (StaticVariables.V_HEIGHT / 2) + 50, 50, 50);
 
 
-                } else if (false) { //wall
+                } else if (tmpPiece.getType() == 1) { //wall
                     images[i] = new Image(declerations.stackSkin[3], "wallUnselectedWhite"); //unselected
                     // images[i].setSize(0, 0);
                     images[i].setBounds(100 + shift, (StaticVariables.V_HEIGHT / 2) + 50, 50, 50);
@@ -136,7 +146,7 @@ public class StackScreen
                     images[i + 1].setBounds(100 + shift, (StaticVariables.V_HEIGHT / 2) + 50, 50, 50);
 
 
-                } else if (test[loop] == 'c') { //cap
+                } else if (tmpPiece.getType() == 2) { //cap
                     images[i] = new Image(declerations.stackSkin[5], "capUnselectedWhite"); //unselected
                     //images[i].setSize(0, 0);
                     images[i].setBounds(100 + shift, (StaticVariables.V_HEIGHT / 2) + 50, 50, 50);
@@ -145,8 +155,8 @@ public class StackScreen
                     //images[i+1].setSize(0, 0);
                     images[i + 1].setBounds(100 + shift, (StaticVariables.V_HEIGHT / 2) + 50, 50, 50);
                 }
-            }else{ //BLACK PIECES
-                if (test[loop] == 'r') { //road
+            } else { //BLACK PIECES
+                if (tmpPiece.getType() == 0) { //road
                     images[i] = new Image(declerations.stackSkin[7], "roadUnselectedBlack"); //unselected
                     //images[i].setSize(0, 0);
                     images[i].setBounds(100 + shift, (StaticVariables.V_HEIGHT / 2) + 50, 50, 50);
@@ -157,7 +167,7 @@ public class StackScreen
                     images[i + 1].setBounds(100 + shift, (StaticVariables.V_HEIGHT / 2) + 50, 50, 50);
 
 
-                } else if (false) { //wall
+                } else if (tmpPiece.getType() == 1) { //wall
                     images[i] = new Image(declerations.stackSkin[9], "wallUnselectedBlack"); //unselected
                     // images[i].setSize(0, 0);
                     images[i].setBounds(100 + shift, (StaticVariables.V_HEIGHT / 2) + 50, 50, 50);
@@ -168,7 +178,7 @@ public class StackScreen
                     images[i + 1].setBounds(100 + shift, (StaticVariables.V_HEIGHT / 2) + 50, 50, 50);
 
 
-                } else if (test[loop] == 'c') { //cap
+                } else if (tmpPiece.getType() == 2) { //cap
                     images[i] = new Image(declerations.stackSkin[11], "capUnselectedBlack"); //unselected
                     //images[i].setSize(0, 0);
                     images[i].setBounds(100 + shift, (StaticVariables.V_HEIGHT / 2) + 50, 50, 50);
@@ -180,7 +190,10 @@ public class StackScreen
             }
 
             loop++;
+            i+=2;
+
         }
+        displayStackMenu();
 
     }
 
@@ -206,11 +219,11 @@ public class StackScreen
 
 
 
-    public void selectionOptions() //TODO TAKES IN AN ARAY OF GAME PIECES
+    public void selectionOptions(GameBoard board, int x, int y)
     {
 
-       // displayStackMenu();
-        initStack(); //TODO PASS IN AN ARAY OF GAME PIECES
+
+        initStack(board,x,y);
 
         textButtons[0].addListener(new ChangeListener()
         {
@@ -223,7 +236,7 @@ public class StackScreen
                     stage.addActor(images[stack-1]);
                     selected--;
                     stack -=2;
-                    System.out.println(selected);
+                   // System.out.println(selected);
                 }
 
             }
@@ -237,7 +250,7 @@ public class StackScreen
                 if(selected < 4) {
                     selected++;
                     stack += 2;
-                    System.out.println(selected);
+                   // System.out.println(selected);
                     images[stack - 1].remove();
                     stage.addActor(images[stack]);
                 }
@@ -249,7 +262,7 @@ public class StackScreen
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                select();
+               //piece.setSelected(selected);
                 clear();
             }
         });
@@ -258,11 +271,7 @@ public class StackScreen
 
     }
 
-    private void select(){
 
-        System.out.println(selected);
-        //return selected;
-    }
 
     public void returnToGame()
     {
@@ -289,6 +298,7 @@ public class StackScreen
 
         for(int i=0; i<images.length;i++){
             if(images[i] != null) {
+                images[i].clear();
                 images[i].remove();
             }
         }

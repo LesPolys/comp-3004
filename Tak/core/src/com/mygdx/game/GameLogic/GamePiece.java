@@ -39,6 +39,9 @@ public class GamePiece {
         inPlay = false;
     }
 
+    public boolean getPlayer(){return player;}
+    public int getType(){return type;}
+
     void changeType(int newType)
     {
         type = newType;
