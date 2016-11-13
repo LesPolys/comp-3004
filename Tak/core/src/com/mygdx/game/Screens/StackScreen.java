@@ -106,7 +106,7 @@ public class StackScreen
 
     }
 
-    public void initStack(GameBoard board, int x, int y){ //TODO TAKES IN AN ARAY OF GAME PIECES
+    public void initStack(GameBoard board, int x, int y){
 
        ArrayDeque<GamePiece> array = board.getStack(x,y);
         Iterator <GamePiece> tmp = array.iterator();
@@ -219,7 +219,7 @@ public class StackScreen
 
 
 
-    public void selectionOptions(GameBoard board, int x, int y)
+    public void selectionOptions(GameBoard board, int x, int y,final Dragable p)
     {
 
 
@@ -263,6 +263,7 @@ public class StackScreen
             public void changed(ChangeEvent event, Actor actor)
             {
                //piece.setSelected(selected);
+                p.setSelected(selected);
                 clear();
             }
         });

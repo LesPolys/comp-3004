@@ -35,7 +35,7 @@ public class Dragable extends Image
 
     private int xPos;
     private int yPos;
-    private int selected;
+    private Integer selected;
 
     private GameBoard gameBoard;
     private StackScreen stackScreen;
@@ -51,7 +51,6 @@ public class Dragable extends Image
         inPlay = false;
         xPos= -1;
         yPos= -1;
-
 
     }
 
@@ -69,10 +68,12 @@ public class Dragable extends Image
         xPos = x;
         yPos = y;
         inPlay = true;
+        selected = 0;
     }
 
     public int getSelected(){return selected;}
-    public void setSelected(int s){selected = s;}
+    public void setSelected(int s){selected = s; }
+
 
     public void makeDraggable()
     {
@@ -81,19 +82,22 @@ public class Dragable extends Image
         final DragAndDrop dnd = new DragAndDrop();
 
 
+
         this.addListener(new ClickListener(){
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
         {
             if(inPlay) {
                 if (gameBoard.isEmpty(piece.getGridXPos(), piece.getGridYPos()) == false) {
                     if (gameBoard.getStack(piece.getGridXPos(), piece.getGridYPos()).size() > 1) {
-                        screen.stackMenu(gameBoard,piece.getGridXPos(), piece.getGridYPos());
+                     screen.stackMenu(gameBoard,piece.getGridXPos(), piece.getGridYPos(),piece);
 
                     }
                 }
             }
             return true;
         }});
+
+
 
         dnd.addSource(new DragAndDrop.Source(piece)
         {

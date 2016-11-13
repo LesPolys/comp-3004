@@ -139,8 +139,8 @@ public class PlayScreen implements Screen
         //input ebola here
     }
 
-    public void stackMenu(GameBoard board, int x, int y){
-        stackScreen.selectionOptions(board,x,y);
+    public void stackMenu(GameBoard board, int x, int y,Dragable p){
+        stackScreen.selectionOptions(board,x,y,p);
     }
 
     private void initGamePieces(int bSize)
