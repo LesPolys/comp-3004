@@ -82,7 +82,7 @@ public class StackScreen
         textButtonStyle[2].font = declerations.font;
         textButtonStyle[2].up = declerations.stackSkin[17].getDrawable("selectButtonUnpressed");//select
         textButtonStyle[2].down = declerations.stackSkin[18].getDrawable("selectButtonPressed");
-        textButtonStyle[2].checked =  declerations.stackSkin[18].getDrawable("selectButtonPressed");
+        textButtonStyle[2].checked =  declerations.stackSkin[17].getDrawable("selectButtonUnpressed");
 
         textButtonStyle[3].font = declerations.font;
         textButtonStyle[3].up = declerations.stackSkin[19].getDrawable("backButtonUnpressed");//back

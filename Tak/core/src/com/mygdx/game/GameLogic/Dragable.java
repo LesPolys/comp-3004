@@ -255,6 +255,8 @@ public class Dragable extends Image
                                                 (piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ))||
                                                 (piece.pieceType == 2 && gameBoard.topType(i,j) == 1 )||
                                                 (piece.pieceType == 0 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 1 )||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 2 )||
                                                 (piece.pieceType == 2 && gameBoard.topType(i,j) == 0 )||
                                                 (piece.pieceType == 1 && gameBoard.topType(i,j) == 0 )) { //road tries to move onto a wall or cap
                                             //invalid move, put them back to their old spot
@@ -343,6 +345,8 @@ public class Dragable extends Image
                                                 (piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ))||
                                                 (piece.pieceType == 2 && gameBoard.topType(i,j) == 1 )||
                                                 (piece.pieceType == 0 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 1 )||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 2 )||
                                                 (piece.pieceType == 2 && gameBoard.topType(i,j) == 0 )||
                                                 (piece.pieceType == 1 && gameBoard.topType(i,j) == 0 )) { //road tries to move onto a wall or cap
                                             //invalid move, put them back to their old spot
@@ -428,6 +432,8 @@ public class Dragable extends Image
                                                 (piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ))||
                                                 (piece.pieceType == 2 && gameBoard.topType(i,j) == 1 )||
                                                 (piece.pieceType == 0 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 1 )||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 2 )||
                                                 (piece.pieceType == 2 && gameBoard.topType(i,j) == 0 )||
                                                 (piece.pieceType == 1 && gameBoard.topType(i,j) == 0 )) { //road tries to move onto a wall or cap
                                             //invalid move, put them back to their old spot
@@ -513,6 +519,8 @@ public class Dragable extends Image
                                                 (piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ))||
                                                 (piece.pieceType == 2 && gameBoard.topType(i,j) == 1 )||
                                                 (piece.pieceType == 0 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 1 )||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 2 )||
                                                 (piece.pieceType == 2 && gameBoard.topType(i,j) == 0 )||
                                                 (piece.pieceType == 1 && gameBoard.topType(i,j) == 0 )) { //road tries to move onto a wall or cap
                                             //invalid move, put them back to their old spot
@@ -598,6 +606,8 @@ public class Dragable extends Image
                                                 (piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ))||
                                                 (piece.pieceType == 2 && gameBoard.topType(i,j) == 1 )||
                                                 (piece.pieceType == 0 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 1 )||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 2 )||
                                                 (piece.pieceType == 2 && gameBoard.topType(i,j) == 0 )||
                                                 (piece.pieceType == 1 && gameBoard.topType(i,j) == 0 )) { //road tries to move onto a wall or cap
                                             //invalid move, put them back to their old spot
@@ -683,6 +693,8 @@ public class Dragable extends Image
                                                 (piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ))||
                                                 (piece.pieceType == 2 && gameBoard.topType(i,j) == 1 )||
                                                 (piece.pieceType == 0 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 1 )||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 2 )||
                                                 (piece.pieceType == 2 && gameBoard.topType(i,j) == 0 )||
                                                 (piece.pieceType == 1 && gameBoard.topType(i,j) == 0 )) { //road tries to move onto a wall or cap
                                             //invalid move, put them back to their old spot
