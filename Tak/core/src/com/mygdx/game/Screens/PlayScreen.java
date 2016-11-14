@@ -140,6 +140,7 @@ public class PlayScreen implements Screen
     }
 
     public void stackMenu(GameBoard board, int x, int y,Dragable p){
+        stage.cancelTouchFocus();
         stackScreen.selectionOptions(board,x,y,p);
     }
 

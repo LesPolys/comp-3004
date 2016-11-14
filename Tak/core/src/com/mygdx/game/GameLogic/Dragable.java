@@ -12,6 +12,9 @@ import com.mygdx.game.Screens.PlayScreen;
 import com.mygdx.game.Screens.StackScreen;
 import com.mygdx.game.Tak;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+
 //Will Clean Up and refactor, dirty like ebola
 
 public class Dragable extends Image
@@ -35,10 +38,16 @@ public class Dragable extends Image
 
     private int xPos;
     private int yPos;
+
+    private int startingX;
+    private int startingY;
+
+    private int maxDepth;
     private Integer selected;
 
     private GameBoard gameBoard;
     private StackScreen stackScreen;
+    private Dragable stack[];
 
     public Dragable(Image image, PlayScreen scrn, GameBoard newGameboard, int bSize, boolean player, int type)
     {
@@ -51,6 +60,56 @@ public class Dragable extends Image
         inPlay = false;
         xPos= -1;
         yPos= -1;
+
+
+        if(pieceType == 0) {
+            if(currentPlayer) {
+                startingX =50;
+                startingY =90;
+            }else{
+                startingX =20;
+                startingY =90;
+            }
+        }else if(pieceType == 1){
+            if(currentPlayer) {
+                startingX =50;
+                startingY =125;
+            }else{
+                startingX =20;
+                startingY =125;
+            }
+        }else if(pieceType == 2){
+            if(currentPlayer) {
+                startingX =50;
+                startingY =20;
+            }else{
+                startingX =20;
+                startingY =20;
+            }
+        }
+
+        switch(bSize){
+            case 3:
+                maxDepth = 20;
+                break;
+            case 4:
+                maxDepth = 30;
+                break;
+            case 5:
+                maxDepth = 43;
+                break;
+            case 6:
+                maxDepth = 61;
+                break;
+            case 7:
+                maxDepth = 81;
+                break;
+            case 8:
+                maxDepth = 101;
+                break;
+        }
+
+        stack = new Dragable[maxDepth];
 
     }
 
@@ -67,12 +126,23 @@ public class Dragable extends Image
     public void setGridPos(int x,int y){
         xPos = x;
         yPos = y;
-        inPlay = true;
+
+
         selected = 0;
     }
 
     public int getSelected(){return selected;}
     public void setSelected(int s){selected = s; }
+
+    public void fillStack(GameBoard board, int x, int y){
+        for (int i =0; i < selected; i++){
+
+        }
+    }
+
+    public void clearStack(){
+
+    }
 
 
     public void makeDraggable()
@@ -117,6 +187,8 @@ public class Dragable extends Image
             }
 
 
+
+
             public void dragStop(InputEvent event, float x, float y, int pointer, DragAndDrop.Payload payload, DragAndDrop.Target target)
             {
 
@@ -129,13 +201,80 @@ public class Dragable extends Image
                                         ((event.getStageY() >=120 + (j* 30)) && (event.getStageY() <= 150 + (j* 30))))
                                 {
                                    // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                                    piece.setPosition(235 + (i* 30), 125 + (j* 30));
-                                    screen.stage.addActor(piece);;
-                                    piece.setGridPos(i,j);
-                                    gameBoard.setSquare(i,j,currentPlayer,pieceType);
-                                    gameBoard.check();
-                                    gameBoard.findPath();
-                                  //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                    if(piece.inPlay) {
+                                        if(
+                                                ((i < piece.getGridXPos())&&(j < piece.getGridYPos()))||
+                                                ((i > piece.getGridXPos())&&(j > piece.getGridYPos()))||
+                                                ((i < piece.getGridXPos())&&(j > piece.getGridYPos()))||
+                                                ((i > piece.getGridXPos())&&(j < piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos()+1))||
+                                                        ((i < piece.getGridXPos()-1))||
+                                                        ((j > piece.getGridYPos()+1))||
+                                                        ((j < piece.getGridYPos()-1)))
+                                        { //tries to move diagonally (both x and y are less,both and y are greater, x is less and y is greater,y is less and x is greater) or tries to move more than one space
+
+                                            piece.setPosition(235 + (piece.getGridXPos() * 30), 125 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(),piece.getGridYPos(),currentPlayer,pieceType);
+
+
+                                        } else if(piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || gameBoard.topType(i,j) == 2  ) ){ //road tries to move onto a wall or cap
+                                            //invalid move, put them back to their old spot
+                                            piece.setPosition(235 + (piece.getGridXPos() * 30), 125 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType);
+                                        }else if(piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ){ //wall tries to move onto a cap
+                                            piece.setPosition(235 + (piece.getGridXPos() * 30), 125 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType);
+                                        }else {
+                                            piece.setPosition(235 + (i * 30), 125 + (j * 30));
+                                            screen.stage.addActor(piece);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+                                        }
+                                        /*else if(piece.pieceType == 2 && gameBoard.topType(i,j) == 1 ) { //cap tries to move onto a wall
+                                            //flatten it
+                                            piece.setPosition(235 + (i * 30), 125 + (j * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.squashTop(i,j);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+
+                                        }
+                                        }*/
+                                    }else {
+
+                                        if((piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || (gameBoard.topType(i,j) == 2  ))|| //road tries to move onto a wall or cap
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ))||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 1 )||
+                                                (piece.pieceType == 0 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 0 )) { //road tries to move onto a wall or cap
+                                            //invalid move, put them back to their old spot
+                                            piece.setPosition(startingX,startingY);
+                                            screen.stage.addActor(piece);
+
+
+                                        }else {
+
+                                            piece.setPosition(235 + (i * 30), 125 + (j * 30));
+                                            screen.stage.addActor(piece);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+                                            inPlay = true;
+                                            //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                        }
+                                    }
 
                                 }
                             }
@@ -149,15 +288,81 @@ public class Dragable extends Image
                                 if(((event.getStageX() > 215 + (i* 30)) && (event.getStageX() < 245 + (i* 30) ))&&
                                         ((event.getStageY() >=105 + (j* 30)) && (event.getStageY() <= 135 + (j* 30))))
                                 {
-                                  //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                                    piece.setPosition(220 + (i* 30), 110 + (j* 30));
-                                    screen.stage.addActor(piece);
-                                    piece.setGridPos(i,j);
-                                    gameBoard.setSquare(i,j,currentPlayer,pieceType);
-                                    gameBoard.check();
-                                    gameBoard.findPath();
-                                   // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                                    //gameBoard.output();
+
+                                    if(piece.inPlay) {
+                                        if(
+                                                ((i < piece.getGridXPos())&&(j < piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos())&&(j > piece.getGridYPos()))||
+                                                        ((i < piece.getGridXPos())&&(j > piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos())&&(j < piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos()+1))||
+                                                        ((i < piece.getGridXPos()-1))||
+                                                        ((j > piece.getGridYPos()+1))||
+                                                        ((j < piece.getGridYPos()-1)))
+                                        { //tries to move diagonally (both x and y are less,both and y are greater, x is less and y is greater,y is less and x is greater) or tries to move more than one space
+
+                                            piece.setPosition(220 + (piece.getGridXPos() * 30), 110 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(),piece.getGridYPos(),currentPlayer,pieceType);
+
+
+                                        } else if(piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || gameBoard.topType(i,j) == 2  ) ){ //road tries to move onto a wall or cap
+                                            //invalid move, put them back to their old spot
+                                            piece.setPosition(220 + (piece.getGridXPos() * 30), 110 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType);
+                                        }else if(piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ){ //wall tries to move onto a cap
+                                            piece.setPosition(220 + (piece.getGridXPos() * 30), 110 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType);
+                                        }else {
+                                            piece.setPosition(220 + (i * 30), 110 + (j * 30));
+                                            screen.stage.addActor(piece);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+                                        }
+                                        /*else if(piece.pieceType == 2 && gameBoard.topType(i,j) == 1 ) { //cap tries to move onto a wall
+                                            //flatten it
+                                            piece.setPosition(235 + (i * 30), 125 + (j * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.squashTop(i,j);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+
+                                        }
+                                        }*/
+                                    }else {
+
+                                        if((piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || (gameBoard.topType(i,j) == 2  ))|| //road tries to move onto a wall or cap
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ))||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 1 )||
+                                                (piece.pieceType == 0 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 0 )) { //road tries to move onto a wall or cap
+                                            //invalid move, put them back to their old spot
+                                            piece.setPosition(startingX,startingY);
+                                            screen.stage.addActor(piece);
+
+
+                                        }else {
+
+                                            piece.setPosition(220 + (i * 30), 110 + (j * 30));
+                                            screen.stage.addActor(piece);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+                                            inPlay = true;
+                                            //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -168,15 +373,82 @@ public class Dragable extends Image
                                 if(((event.getStageX() > 200 + (i* 30)) && (event.getStageX() < 230 + (i* 30) ))&&
                                         ((event.getStageY() >= 90 + (j* 30)) && (event.getStageY() <= 120 + (j* 30))))
                                 {
-                                  //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                                    piece.setPosition(205 + (i* 30), 95 + (j* 30));
-                                    screen.stage.addActor(piece);
-                                    piece.setGridPos(i,j);
-                                    gameBoard.setSquare(i,j,currentPlayer,pieceType);
-                                    gameBoard.check();
-                                    gameBoard.findPath();
-                                   // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                                    //gameBoard.output();
+
+                                    if(piece.inPlay) {
+                                        if(
+                                                ((i < piece.getGridXPos())&&(j < piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos())&&(j > piece.getGridYPos()))||
+                                                        ((i < piece.getGridXPos())&&(j > piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos())&&(j < piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos()+1))||
+                                                        ((i < piece.getGridXPos()-1))||
+                                                        ((j > piece.getGridYPos()+1))||
+                                                        ((j < piece.getGridYPos()-1)))
+                                        { //tries to move diagonally (both x and y are less,both and y are greater, x is less and y is greater,y is less and x is greater) or tries to move more than one space
+
+                                            piece.setPosition(205 + (piece.getGridXPos() * 30), 95 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(),piece.getGridYPos(),currentPlayer,pieceType);
+
+
+                                        } else if(piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || gameBoard.topType(i,j) == 2  ) ){ //road tries to move onto a wall or cap
+                                            //invalid move, put them back to their old spot
+                                            piece.setPosition(205 + (piece.getGridXPos() * 30), 95 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType);
+                                        }else if(piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ){ //wall tries to move onto a cap
+                                            piece.setPosition(205 + (piece.getGridXPos() * 30), 95 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType);
+                                        }else {
+                                            piece.setPosition(205 + (i * 30), 95 + (j * 30));
+                                            screen.stage.addActor(piece);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+                                        }
+                                        /*else if(piece.pieceType == 2 && gameBoard.topType(i,j) == 1 ) { //cap tries to move onto a wall
+                                            //flatten it
+                                            piece.setPosition(235 + (i * 30), 125 + (j * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.squashTop(i,j);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+
+                                        }
+                                        }*/
+                                    }else {
+
+                                        if((piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || (gameBoard.topType(i,j) == 2  ))|| //road tries to move onto a wall or cap
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ))||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 1 )||
+                                                (piece.pieceType == 0 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 0 )) { //road tries to move onto a wall or cap
+                                            //invalid move, put them back to their old spot
+                                            piece.setPosition(startingX,startingY);
+                                            screen.stage.addActor(piece);
+
+
+                                        }else {
+
+                                            piece.setPosition(205 + (i * 30), 95 + (j * 30));
+                                            screen.stage.addActor(piece);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+                                            inPlay = true;
+                                            //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                        }
+                                    }
+
                                 }
                             }
                         }
@@ -187,15 +459,80 @@ public class Dragable extends Image
                                 if(((event.getStageX() > 185 + (i* 30)) && (event.getStageX() < 215 + (i* 30) ))&&
                                         ((event.getStageY() >=75 + (j* 30)) && (event.getStageY() <= 105 + (j* 30))))
                                 {
-                                   // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                                    piece.setPosition(190 + (i* 30), 80 + (j* 30));
-                                    screen.stage.addActor(piece);
-                                    piece.setGridPos(i,j);
-                                    gameBoard.setSquare(i,j,currentPlayer,pieceType);
-                                    gameBoard.check();
-                                    gameBoard.findPath();
-                                   // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                                    //gameBoard.output();
+                                    if(piece.inPlay) {
+                                        if(
+                                                ((i < piece.getGridXPos())&&(j < piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos())&&(j > piece.getGridYPos()))||
+                                                        ((i < piece.getGridXPos())&&(j > piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos())&&(j < piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos()+1))||
+                                                        ((i < piece.getGridXPos()-1))||
+                                                        ((j > piece.getGridYPos()+1))||
+                                                        ((j < piece.getGridYPos()-1)))
+                                        { //tries to move diagonally (both x and y are less,both and y are greater, x is less and y is greater,y is less and x is greater) or tries to move more than one space
+
+                                            piece.setPosition(190 + (piece.getGridXPos() * 30), 80 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(),piece.getGridYPos(),currentPlayer,pieceType);
+
+
+                                        } else if(piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || gameBoard.topType(i,j) == 2  ) ){ //road tries to move onto a wall or cap
+                                            //invalid move, put them back to their old spot
+                                            piece.setPosition(190 + (piece.getGridXPos() * 30), 80 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType);
+                                        }else if(piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ){ //wall tries to move onto a cap
+                                            piece.setPosition(190 + (piece.getGridXPos() * 30), 80 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType);
+                                        }else {
+                                            piece.setPosition(190 + (i * 30), 80 + (j * 30));
+                                            screen.stage.addActor(piece);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+                                        }
+                                        /*else if(piece.pieceType == 2 && gameBoard.topType(i,j) == 1 ) { //cap tries to move onto a wall
+                                            //flatten it
+                                            piece.setPosition(235 + (i * 30), 125 + (j * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.squashTop(i,j);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+
+                                        }
+                                        }*/
+                                    }else {
+
+                                        if((piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || (gameBoard.topType(i,j) == 2  ))|| //road tries to move onto a wall or cap
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ))||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 1 )||
+                                                (piece.pieceType == 0 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 0 )) { //road tries to move onto a wall or cap
+                                            //invalid move, put them back to their old spot
+                                            piece.setPosition(startingX,startingY);
+                                            screen.stage.addActor(piece);
+
+
+                                        }else {
+
+                                            piece.setPosition(190 + (i * 30), 80 + (j * 30));
+                                            screen.stage.addActor(piece);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+                                            inPlay = true;
+                                            //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -206,15 +543,82 @@ public class Dragable extends Image
                                 if(((event.getStageX() > 170 + (i* 30)) && (event.getStageX() < 200 + (i* 30) ))&&
                                         ((event.getStageY() >= 60 + (j* 30)) && (event.getStageY() <= 90 + (j* 30))))
                                 {
-                                  //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                                    piece.setPosition(175 + (i* 30), 65 + (j* 30));
-                                    screen.stage.addActor(piece);
-                                    piece.setGridPos(i,j);
-                                    gameBoard.setSquare(i,j,currentPlayer,pieceType);
-                                    gameBoard.check();
-                                    gameBoard.findPath();
-                                  //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                                    //gameBoard.output();
+
+                                    if(piece.inPlay) {
+                                        if(
+                                                ((i < piece.getGridXPos())&&(j < piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos())&&(j > piece.getGridYPos()))||
+                                                        ((i < piece.getGridXPos())&&(j > piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos())&&(j < piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos()+1))||
+                                                        ((i < piece.getGridXPos()-1))||
+                                                        ((j > piece.getGridYPos()+1))||
+                                                        ((j < piece.getGridYPos()-1)))
+                                        { //tries to move diagonally (both x and y are less,both and y are greater, x is less and y is greater,y is less and x is greater) or tries to move more than one space
+
+                                            piece.setPosition(175 + (piece.getGridXPos() * 30), 65 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(),piece.getGridYPos(),currentPlayer,pieceType);
+
+
+                                        } else if(piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || gameBoard.topType(i,j) == 2  ) ){ //road tries to move onto a wall or cap
+                                            //invalid move, put them back to their old spot
+                                            piece.setPosition(175 + (piece.getGridXPos() * 30), 65 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType);
+                                        }else if(piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ){ //wall tries to move onto a cap
+                                            piece.setPosition(175 + (piece.getGridXPos() * 30), 65 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType);
+                                        }else {
+                                            piece.setPosition(175 + (i * 30), 65 + (j * 30));
+                                            screen.stage.addActor(piece);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+                                        }
+                                        /*else if(piece.pieceType == 2 && gameBoard.topType(i,j) == 1 ) { //cap tries to move onto a wall
+                                            //flatten it
+                                            piece.setPosition(235 + (i * 30), 125 + (j * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.squashTop(i,j);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+
+                                        }
+                                        }*/
+                                    }else {
+
+                                        if((piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || (gameBoard.topType(i,j) == 2  ))|| //road tries to move onto a wall or cap
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ))||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 1 )||
+                                                (piece.pieceType == 0 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 0 )) { //road tries to move onto a wall or cap
+                                            //invalid move, put them back to their old spot
+                                            piece.setPosition(startingX,startingY);
+                                            screen.stage.addActor(piece);
+
+
+                                        }else {
+
+                                            piece.setPosition(175 + (i * 30), 65 + (j * 30));
+                                            screen.stage.addActor(piece);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+                                            inPlay = true;
+                                            //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                        }
+                                    }
+
                                 }
                             }
                         }
@@ -225,15 +629,80 @@ public class Dragable extends Image
                                 if(((event.getStageX() > 155 + (i* 30)) && (event.getStageX() < 185 + (i* 30) ))&&
                                         ((event.getStageY() >=45 + (j* 30)) && (event.getStageY() <= 75 + (j* 30))))
                                 {
-                                   // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                                    piece.setPosition(160 + (i* 30), 50 + (j* 30));
-                                    screen.stage.addActor(piece);
-                                    piece.setGridPos(i,j);
-                                    gameBoard.setSquare(i,j,currentPlayer,pieceType);
-                                    gameBoard.check();
-                                    gameBoard.findPath();
-                                   // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                                    //gameBoard.output();
+                                    if(piece.inPlay) {
+                                        if(
+                                                ((i < piece.getGridXPos())&&(j < piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos())&&(j > piece.getGridYPos()))||
+                                                        ((i < piece.getGridXPos())&&(j > piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos())&&(j < piece.getGridYPos()))||
+                                                        ((i > piece.getGridXPos()+1))||
+                                                        ((i < piece.getGridXPos()-1))||
+                                                        ((j > piece.getGridYPos()+1))||
+                                                        ((j < piece.getGridYPos()-1)))
+                                        { //tries to move diagonally (both x and y are less,both and y are greater, x is less and y is greater,y is less and x is greater) or tries to move more than one space
+
+                                            piece.setPosition(160 + (piece.getGridXPos() * 30), 50 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(),piece.getGridYPos(),currentPlayer,pieceType);
+
+
+                                        } else if(piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || gameBoard.topType(i,j) == 2  ) ){ //road tries to move onto a wall or cap
+                                            //invalid move, put them back to their old spot
+                                            piece.setPosition(160 + (piece.getGridXPos() * 30), 50 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType);
+                                        }else if(piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ){ //wall tries to move onto a cap
+                                            piece.setPosition(160 + (piece.getGridXPos() * 30), 50 + (piece.getGridYPos() * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType);
+                                        }else {
+                                            piece.setPosition(160 + (i * 30), 50 + (j * 30));
+                                            screen.stage.addActor(piece);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+                                        }
+                                        /*else if(piece.pieceType == 2 && gameBoard.topType(i,j) == 1 ) { //cap tries to move onto a wall
+                                            //flatten it
+                                            piece.setPosition(235 + (i * 30), 125 + (j * 30));
+                                            screen.stage.addActor(piece);
+                                            gameBoard.squashTop(i,j);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+
+                                        }
+                                        }*/
+                                    }else {
+
+                                        if((piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || (gameBoard.topType(i,j) == 2  ))|| //road tries to move onto a wall or cap
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ))||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 1 )||
+                                                (piece.pieceType == 0 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 0 )||
+                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 0 )) { //road tries to move onto a wall or cap
+                                            //invalid move, put them back to their old spot
+                                            piece.setPosition(startingX,startingY);
+                                            screen.stage.addActor(piece);
+
+
+                                        }else {
+
+                                            piece.setPosition(160 + (i * 30), 50 + (j * 30));
+                                            screen.stage.addActor(piece);
+
+                                            piece.setGridPos(i, j);
+                                            gameBoard.setSquare(i, j, currentPlayer, pieceType);
+                                            gameBoard.check();
+                                            gameBoard.findPath();
+                                            inPlay = true;
+                                            //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
+                                        }
+                                    }
                                 }
                             }
                         }

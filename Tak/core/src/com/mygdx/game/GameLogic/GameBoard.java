@@ -91,6 +91,18 @@ public class GameBoard
         return true;
     }
 
+    public int topType (int row, int col){
+        if(board[row][col].isEmpty()){
+          return  -1;
+        }
+        return board[row][col].getFirst().getType();
+
+    }
+
+    public void squashTop(int row, int col){
+        board[row][col].getFirst().switchType();
+    }
+
     public ArrayDeque getStack(int row, int col){
         return board[row][col];
     }

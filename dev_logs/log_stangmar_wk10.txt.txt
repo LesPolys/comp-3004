@@ -1,0 +1,9 @@
+Name: John Logan Stewart
+Student Number: 100881265
+
+Work Done: 
+-Game and Menu systems 90% merged 5hrs
+-finished snapping of pieces to board locations 1hrs
+-finished the board size generation 1hrs
+-refactored GamePieces,Dragable,and GameBoard 6hrs'
+-implemented movement/placement restrictions 2hrs

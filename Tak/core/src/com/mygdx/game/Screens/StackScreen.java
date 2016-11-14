@@ -219,7 +219,7 @@ public class StackScreen
 
 
 
-    public void selectionOptions(GameBoard board, int x, int y,final Dragable p)
+    public void selectionOptions(final GameBoard board,final int x, final int y,final Dragable p)
     {
 
 
@@ -264,6 +264,7 @@ public class StackScreen
             {
                //piece.setSelected(selected);
                 p.setSelected(selected);
+                p.fillStack(board,x,y);
                 clear();
             }
         });
