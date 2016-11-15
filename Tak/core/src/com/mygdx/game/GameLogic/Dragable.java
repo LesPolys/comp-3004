@@ -233,8 +233,9 @@ public class Dragable extends Image
 
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType);
-                                            gameBoard.check();
-                                            gameBoard.findPath();
+                                            gameBoard.addSelected();
+                                            //gameBoard.check();
+                                            //gameBoard.findPath();
                                         }
                                         /*else if(piece.pieceType == 2 && gameBoard.topType(i,j) == 1 ) { //cap tries to move onto a wall
                                             //flatten it
@@ -271,8 +272,9 @@ public class Dragable extends Image
 
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType);
-                                            gameBoard.check();
-                                            gameBoard.findPath();
+                                            gameBoard.addSelected();
+                                            //gameBoard.check();
+                                            //gameBoard.findPath();
                                             inPlay = true;
                                             //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                         }
@@ -323,8 +325,9 @@ public class Dragable extends Image
 
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType);
-                                            gameBoard.check();
-                                            gameBoard.findPath();
+                                            gameBoard.addSelected();
+                                            //gameBoard.check();
+                                            //gameBoard.findPath();
                                         }
                                         /*else if(piece.pieceType == 2 && gameBoard.topType(i,j) == 1 ) { //cap tries to move onto a wall
                                             //flatten it
@@ -361,8 +364,9 @@ public class Dragable extends Image
 
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType);
-                                            gameBoard.check();
-                                            gameBoard.findPath();
+                                            //gameBoard.check();
+                                            //gameBoard.findPath();
+                                            gameBoard.addSelected();
                                             inPlay = true;
                                             //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                         }
@@ -410,8 +414,9 @@ public class Dragable extends Image
 
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType);
-                                            gameBoard.check();
-                                            gameBoard.findPath();
+                                            //gameBoard.check();
+                                            //gameBoard.findPath();
+                                            gameBoard.addSelected();
                                         }
                                         /*else if(piece.pieceType == 2 && gameBoard.topType(i,j) == 1 ) { //cap tries to move onto a wall
                                             //flatten it
@@ -448,8 +453,9 @@ public class Dragable extends Image
 
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType);
-                                            gameBoard.check();
-                                            gameBoard.findPath();
+                                            //gameBoard.check();
+                                            //gameBoard.findPath();
+                                            gameBoard.addSelected();
                                             inPlay = true;
                                             //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                         }
@@ -497,8 +503,9 @@ public class Dragable extends Image
 
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType);
-                                            gameBoard.check();
-                                            gameBoard.findPath();
+                                            //gameBoard.check();
+                                            //gameBoard.findPath();
+                                            gameBoard.addSelected();
                                         }
                                         /*else if(piece.pieceType == 2 && gameBoard.topType(i,j) == 1 ) { //cap tries to move onto a wall
                                             //flatten it
@@ -535,8 +542,9 @@ public class Dragable extends Image
 
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType);
-                                            gameBoard.check();
-                                            gameBoard.findPath();
+                                            //gameBoard.check();
+                                            //gameBoard.findPath();
+                                            gameBoard.addSelected();
                                             inPlay = true;
                                             //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                         }
@@ -584,8 +592,9 @@ public class Dragable extends Image
 
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType);
-                                            gameBoard.check();
-                                            gameBoard.findPath();
+                                            //gameBoard.check();
+                                            //gameBoard.findPath();
+                                            gameBoard.addSelected();
                                         }
                                         /*else if(piece.pieceType == 2 && gameBoard.topType(i,j) == 1 ) { //cap tries to move onto a wall
                                             //flatten it
@@ -622,8 +631,9 @@ public class Dragable extends Image
 
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType);
-                                            gameBoard.check();
-                                            gameBoard.findPath();
+                                            //gameBoard.check();
+                                            //gameBoard.findPath();
+                                            gameBoard.addSelected();
                                             inPlay = true;
                                             //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                         }
@@ -671,8 +681,10 @@ public class Dragable extends Image
 
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType);
-                                            gameBoard.check();
-                                            gameBoard.findPath();
+                                            //gameBoard.check();
+                                            //gameBoard.findPath();
+                                            gameBoard.addSelected();
+                                            //gameBoard.createPath();
                                         }
                                         /*else if(piece.pieceType == 2 && gameBoard.topType(i,j) == 1 ) { //cap tries to move onto a wall
                                             //flatten it
@@ -709,8 +721,9 @@ public class Dragable extends Image
 
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType);
-                                            gameBoard.check();
-                                            gameBoard.findPath();
+                                            //gameBoard.check();
+                                            //gameBoard.findPath();
+                                            gameBoard.addSelected();
                                             inPlay = true;
                                             //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
                                         }

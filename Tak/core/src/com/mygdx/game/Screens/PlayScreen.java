@@ -13,19 +13,12 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameLogic.Dragable;
 import com.mygdx.game.GameLogic.GameBoard;
-import com.mygdx.game.GameLogic.StartGame;
 import com.mygdx.game.GamePieces.DarkCirclePiece1;
-import com.mygdx.game.GamePieces.DarkCirclePiece2;
 import com.mygdx.game.GamePieces.DarkSquarePiece1;
-import com.mygdx.game.GamePieces.DarkSquarePiece2;
 import com.mygdx.game.GamePieces.DarkTrianglePiece1;
-import com.mygdx.game.GamePieces.DarkTrianglePiece2;
 import com.mygdx.game.GamePieces.LightCirclePiece1;
-import com.mygdx.game.GamePieces.LightCirclePiece2;
 import com.mygdx.game.GamePieces.LightSquarePiece1;
-import com.mygdx.game.GamePieces.LightSquarePiece2;
 import com.mygdx.game.GamePieces.LightTriangle1;
-import com.mygdx.game.GamePieces.LightTriangle2;
 import com.mygdx.game.Images.BackgroundImage;
 import com.mygdx.game.Images.Board3x3;
 import com.mygdx.game.Images.Board4x4;
@@ -135,8 +128,6 @@ public class PlayScreen implements Screen
         stage.addActor(backgroundImage.getImage());
         //stage.addActor(gridSquares.getImage());
 
-
-        //input ebola here
     }
 
     public void stackMenu(GameBoard board, int x, int y,Dragable p){
@@ -278,14 +269,6 @@ public class PlayScreen implements Screen
         }
 
     }
-
-    public void startGame()
-    {
-        StartGame startGame = new StartGame();
-        startGame.start();
-    }
-
-
 
 }
 

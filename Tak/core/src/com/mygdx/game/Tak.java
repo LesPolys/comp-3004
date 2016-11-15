@@ -14,7 +14,10 @@ public class Tak extends Game
 	private PlayScreen playScreen;
 	private MainMenu mainMenu;
 
-	public Tak(){}
+	private Tak obj;
+
+	public Tak(){obj = this;}
+
 
 	@Override
 	public void create()
@@ -23,12 +26,19 @@ public class Tak extends Game
 		camera.setToOrtho(false, StaticVariables.V_WIDTH ,StaticVariables.V_HEIGHT);
 		batch = new SpriteBatch();
 
+
 		//mainMenu = new com.mygdx.game.Old.MainMenu(this);
 		//setScreen(mainMenu);
 		//playScreen = new PlayScreen(this);
 		//setScreen(playScreen);
-		mainMenu = new MainMenu(this);
+		obj = this;
+		mainMenu = new MainMenu(obj);
 		setScreen(mainMenu);
+	}
+
+	public Tak getTak()
+	{
+		return obj;
 	}
 }
 

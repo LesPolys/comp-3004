@@ -94,10 +94,6 @@ public class MainMenu implements Screen
         declerations.mainMenutextButtonStyles[2].checked = declerations.mainMenuSkins[9].getDrawable("versusAIButtonPresed");
 
 
-
-
-
-
         for(int i=0; i < 3; i++)
         {
             int shift = 75 * i;
@@ -105,10 +101,6 @@ public class MainMenu implements Screen
             textButtons[i].setBounds((250 + shift),(StaticVariables.V_WIDTH/2)-210,50,200);
             stage.addActor(textButtons[i]);
         }
-
-
-
-
 
         //button listeners
         textButtons[0].addListener(new ChangeListener()
@@ -168,6 +160,10 @@ public class MainMenu implements Screen
 
     }
 
+    public Stage getStage()
+    {
+        return stage;
+    }
 
 
     @Override

@@ -12,10 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.mygdx.game.StaticVariables;
 import com.mygdx.game.Tak;
 import com.mygdx.game.Screens.Declerations;
-//import com.seg3125.project.Declerations;
-
-//import com.seg3125.project.GameApp;
-
 public class PauseScreen
 {
     private Tak app;
@@ -27,7 +23,19 @@ public class PauseScreen
 
     private Declerations declerations;
 
+    public PauseScreen()
+    {
+        initalize(app.getTak(), new MainMenu(app.getTak()).getStage());
+
+    }
+
     public PauseScreen(Tak gameApp, Stage appStage)
+    {
+        initalize(gameApp,appStage);
+
+    }
+
+    public void initalize(Tak gameApp, Stage appStage)
     {
         app = gameApp;
         stage = appStage;
@@ -81,7 +89,6 @@ public class PauseScreen
 
 
     }
-
 
     public void returnToMainMenu()
     {

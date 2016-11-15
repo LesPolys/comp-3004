@@ -23,8 +23,6 @@ import java.util.ArrayDeque;
 import java.util.Iterator;
 
 
-//import com.seg3125.project.GameApp;
-
 public class StackScreen
 {
     private Tak app;
