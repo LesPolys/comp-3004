@@ -45,9 +45,13 @@ public class GameBoard
     private  ArrayDeque<GamePiece> board[][];
 
     private int maxDepth;
-    public GameBoard(int bSize)
+    Tak app;
+
+    //public GameBoard(int bSize)
+    public GameBoard(int bSize, Tak obj)
     {
         dimensions = bSize;
+        app = obj;
 
         blackPlayersPath = new ArrayList<String>();
         whitePlayersPath = new ArrayList<String>();
@@ -476,6 +480,7 @@ public class GameBoard
 
             System.out.println("Path Complete");
 
+            ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
             //((Game) Gdx.app.getApplicationListener()).setScreen(new PauseScreen());
         }
 
@@ -641,8 +646,8 @@ public class GameBoard
 
         if(start && finish == true)
         {
-
             System.out.println("Path Complete");
+            ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
         }
 
     }

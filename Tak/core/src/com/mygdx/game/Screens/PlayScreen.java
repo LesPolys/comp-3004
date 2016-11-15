@@ -137,7 +137,7 @@ public class PlayScreen implements Screen
 
     private void initGamePieces(int bSize)
     {
-        gameBoard = new GameBoard(bSize);
+        gameBoard = new GameBoard(bSize, app);
         int PIECES = 36;
         int CAP_PIECES = 1;
 
@@ -188,11 +188,11 @@ public class PlayScreen implements Screen
         for(int i=0; i<PIECES; i++)
         {
 
-            darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),this, gameBoard,bSize, false, 0);
-            darkTrianglePiece1Dragable[i] = new Dragable(darkTrianglePiece1.getGamePiece(),this, gameBoard,bSize,false, 1);
+            darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),this, gameBoard,bSize, false, 0,app);
+            darkTrianglePiece1Dragable[i] = new Dragable(darkTrianglePiece1.getGamePiece(),this, gameBoard,bSize,false, 1, app);
 
-            lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),this, gameBoard,bSize,true, 0);
-            lightTriangle1PieceDragable[i] = new Dragable(lightTriangle1Piece.getGamePiece(),this, gameBoard,bSize,true, 1);
+            lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),this, gameBoard,bSize,true, 0,app);
+            lightTriangle1PieceDragable[i] = new Dragable(lightTriangle1Piece.getGamePiece(),this, gameBoard,bSize,true, 1,app);
 
             darkSquarePiece1Dragable[i].setBounds(20,90,30,30);
             darkTrianglePiece1Dragable[i].setBounds(20,125,30,30);
@@ -216,8 +216,8 @@ public class PlayScreen implements Screen
         }
 
         for(int x=0; x<=CAP_PIECES-1; x++) {
-            darkCirclePiece1Dragable[x] = new Dragable(darkCirclePiece1.getGamePiece(), this, gameBoard,bSize,false, 2);
-            lightCirclePiece1Dragable[x] = new Dragable(lightCirclePiece1.getGamePiece(), this, gameBoard,bSize,true, 2);
+            darkCirclePiece1Dragable[x] = new Dragable(darkCirclePiece1.getGamePiece(), this, gameBoard,bSize,false, 2, app);
+            lightCirclePiece1Dragable[x] = new Dragable(lightCirclePiece1.getGamePiece(), this, gameBoard,bSize,true, 2, app);
 
             darkCirclePiece1Dragable[x].setBounds(20, 20, 30, 30);
             lightCirclePiece1Dragable[x].setBounds(50, 20, 30, 30);
