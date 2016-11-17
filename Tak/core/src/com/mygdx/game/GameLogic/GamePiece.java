@@ -22,9 +22,7 @@ public class GamePiece {
     int index;
 
     boolean covered;
-
     boolean inPlay;
-
     boolean selected;
 
 
@@ -68,6 +66,5 @@ public class GamePiece {
             type = 0;
         }
     }
-
 
 }

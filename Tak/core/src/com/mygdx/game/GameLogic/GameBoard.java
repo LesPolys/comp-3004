@@ -23,29 +23,25 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 import java.util.Vector;
 
 public class GameBoard
 {
     int dimensions;
 
-    ArrayList<String> blackPlayer;
-    ArrayList<String> whitePlayer;
-
-    //ArrayList<String> blackPlayerPath;
-    //ArrayList<String> whitePlayerPath;
-
-    ArrayList<String> blackPlayersPath;// = new ArrayList<String>();
-    ArrayList<String> whitePlayersPath;
-
-    ArrayList<String> validateBpPath;
-    ArrayList<String> validateWpPath;
-    // private ArrayDeque<GamePiece> stack;
-
     private  ArrayDeque<GamePiece> board[][];
 
     private int maxDepth;
     Tak app;
+
+    //added this
+    private GamePiece blackPlayer;
+    private GamePiece whitePlayer;
+    private GamePiece AI;
+
+    ArrayList<String> blackPlayerSquares;
+    ArrayList<String> whitePlayerSquares;
 
     //public GameBoard(int bSize)
     public GameBoard(int bSize, Tak obj)
@@ -53,17 +49,11 @@ public class GameBoard
         dimensions = bSize;
         app = obj;
 
-        blackPlayersPath = new ArrayList<String>();
-        whitePlayersPath = new ArrayList<String>();
+        blackPlayer = new GamePiece();
+        whitePlayer = new GamePiece();
 
-        validateBpPath = new ArrayList<String>();
-        validateWpPath = new ArrayList<String>();
-
-        blackPlayer = new ArrayList<String>();
-        //blackPlayerPath  = new ArrayList<String>();
-
-        whitePlayer = new ArrayList<String>();
-        //blackPlayerPath  = new ArrayList<String>();
+        blackPlayerSquares = new ArrayList<String>();
+        whitePlayerSquares = new ArrayList<String>();
 
         switch(bSize){
             case 3:
@@ -93,11 +83,26 @@ public class GameBoard
             for(int j = 0; j < dimensions; j++)
             {
                 board[j][i] = new ArrayDeque<GamePiece>(maxDepth);
-                //board[j][i] = null;
             }
         }
 
     }
+
+    public void setGamePiece(GamePiece piece)
+    {
+        if(!(piece.getPlayer()))
+        {
+            blackPlayer = piece;
+        }
+        else
+        {
+            whitePlayer = piece;
+        }
+
+    }
+
+    public GamePiece getWhitePiece(){return whitePlayer;}
+    public GamePiece getBlackPiece(){return blackPlayer;}
 
     public int getDimensions(){return dimensions;}
 
@@ -107,24 +112,14 @@ public class GameBoard
         GamePiece tmpPiece = new GamePiece(type,player);
         board[row][col].push(tmpPiece);
 
-        /* System.out.println("printing elements using iterator:");
-        for(Iterator<GamePiece> itr = board[row][col].iterator(); itr.hasNext();)  {
-            System.out.println(itr.next().type);
-        }*/
-
+        setGamePiece(tmpPiece);
     }
 
     public void popSquare(int row, int col){
         board[row][col].pop();
     }
-
     public boolean isEmpty(int row, int col)
     {
-       /*
-       if( board[row][col] != null){
-           return false;
-       }
-       */
 
         //added the board is idealized to false by default
         if(board[row][col].isEmpty())
@@ -170,141 +165,207 @@ public class GameBoard
         return board[row][col];
     }
 
-
     public void getSquare(int row, int col) {System.out.println(board[row][col]);}
-
     public int getXPos()
     {
         return 0;
     }
-
     public int getYPos()
     {
         return 0;
     }
-
     public int getZPos()
     {
         return 0;
     }
-    /*
-    public void outPut()
-    {
-        System.out.println("====================");
-        for(int i = 0; i < dimensions; i++)
-        {
-            for(int j = 0; j < dimensions; j++)
-            {
-                System.out.print(board[i][j]);
-            }
-            System.out.println();
-        }
-    }
-    */
+
 
     public void addSelected()
     {
-        //output selection
 
-        //System.out.println("test" + isType(0,0,0));
+        getPlayerSquares();
 
-        for(int i = 0; i < dimensions; i++)
+    }
+
+    public void getPlayerSquares()
+    {
+        GamePiece blackGamePiece = getBlackPiece();
+        GamePiece whiteGamePiece = getWhitePiece();
+
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+        if( (blackGamePiece != null) )
         {
-            for (int j = 0; j < dimensions; j++)
+            for (int i = 0; i < getDimensions(); i++)
             {
-                if( (!(isEmpty(i,j))) &&
-                        (isPlayer(i,j,false)) &&
-                        (isType(i,j,0))
-                        )
+                for (int j = 0; j < getDimensions(); j++)
                 {
-                    //System.out.println("hit" + i + " " + j);
-                    //xPos.add(i);
-                    //yPos.add(j);
+                    if ((!board[i][j].isEmpty()) && (board[i][j].element().getPlayer() == blackGamePiece.getPlayer()))
+                    {
+                        findLeftConnectedSquares(i,j, blackGamePiece);
+                        findRightConnectedSquares(i,j, blackGamePiece);
+                        findUpConnectedSquares(i,j, blackGamePiece);
+                        findDownConnectedSquares(i,j, blackGamePiece);
+                        removeDuplicates();
+                        completeGraph(blackPlayerSquares);
+                        //System.out.println("Squares: row " + i + " col: " + j);
 
-                    blackPlayer.add("" + i + "," + "" + j);
+                    }
                 }
-
-                else if( (!(isEmpty(i,j))) &&
-                        (isPlayer(i,j,false)) &&
-                        (isType(i,j,1))
-                        )
-                {
-                    //System.out.println("hit" + i + " " + j);
-                    //xPos.add(i);
-                    //yPos.add(j);
-
-                    blackPlayer.add("" + i + "," + "" + j);
-                }
-
-                else if( (!(isEmpty(i,j))) &&
-                        (isPlayer(i,j,false)) &&
-                        (isType(i,j,2))
-                        )
-                {
-                    //System.out.println("hit" + i + " " + j);
-                    //xPos.add(i);
-                    //yPos.add(j);
-
-                    blackPlayer.add("" + i + "," + "" + j);
-                }
-
-                //white
-                if( (!(isEmpty(i,j))) &&
-                        (isPlayer(i,j,true)) &&
-                        (isType(i,j,0))
-                        )
-                {
-                    //System.out.println("hit" + i + " " + j);
-                    //xPos.add(i);
-                    //yPos.add(j);
-
-                    whitePlayer.add("" + i + "," + "" + j);
-                }
-                else if( (!(isEmpty(i,j))) &&
-                        (isPlayer(i,j,true)) &&
-                        (isType(i,j,1))
-                        )
-                {
-                    //System.out.println("hit" + i + " " + j);
-                    //xPos.add(i);
-                    //yPos.add(j);
-
-                    whitePlayer.add("" + i + "," + "" + j);
-                }
-                if( (!(isEmpty(i,j))) &&
-                        (isPlayer(i,j,true)) &&
-                        (isType(i,j,2))
-                        )
-                {
-                    //System.out.println("hit" + i + " " + j);
-                    //xPos.add(i);
-                    //yPos.add(j);
-
-                    whitePlayer.add("" + i + "," + "" + j);
-                }
-                /*
-                if (board[i][j].contains(check))
-                {
-                    System.out.println("dd" + i + " " + j);
-                }
-                */
-                //System.out.println("dd" + board[i][j].contains(check));
             }
         }
 
-        removeDuplicates();
-        createPathBlackPlayer();
-        createPathWhitePlayer();
+        if( (whiteGamePiece != null) )
+        {
+            for (int i = 0; i < getDimensions(); i++)
+            {
+                for (int j = 0; j < getDimensions(); j++)
+                {
+                    if ((!board[i][j].isEmpty()) && (board[i][j].element().getPlayer() == whiteGamePiece.getPlayer()))
+                    {
+                        findLeftConnectedSquares(i,j, whiteGamePiece);
+                        findRightConnectedSquares(i,j, whiteGamePiece);
+                        findUpConnectedSquares(i,j, whiteGamePiece);
+                        findDownConnectedSquares(i,j, whiteGamePiece);
+                        removeDuplicates();
+                        completeGraph(whitePlayerSquares);
+                        //System.out.println("Squares: row " + i + " col: " + j);
+
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    public boolean findLeftConnectedSquares(int row, int col, GamePiece player)
+    {
+        if( (col >= 1))
+        {
+            if ((!board[row][col - 1].isEmpty()) &&
+                    (board[row][col - 1].element().getPlayer() == player.getPlayer()) &&
+                    (board[row][col - 1].element().getType() == player.getType())
+                    ) {
+
+                //System.out.println("Left Connected");
+                //System.out.println("row: " + (row) + " col: " + (col - 1));
+
+                if(player.getPlayer() == false)
+                {
+                    blackPlayerSquares.add("" + row + "," + col);
+                }
+                else
+                {
+                    whitePlayerSquares.add("" + row + "," + col);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean findRightConnectedSquares(int row, int col, GamePiece player)
+    {
+        if( (col < getDimensions() - 2))
+        {
+            if ((!board[row][col + 1].isEmpty()) &&
+                    (board[row][col + 1].element().getPlayer() == player.getPlayer()) &&
+                    (board[row][col + 1].element().getType() == player.getType())
+                    ) {
+
+                //System.out.println("Right Connected");
+                //System.out.println("row: " + (row) + " col: " + (col + 1));
+                //blackPlayerSquares.add("" + row + "," +col);
+
+                if(player.getPlayer() == false)
+                {
+                    blackPlayerSquares.add("" + row + "," + col);
+                }
+                else
+                {
+                    whitePlayerSquares.add("" + row + "," + col);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean findUpConnectedSquares(int row, int col, GamePiece player)
+    {
+        if( (row >= 1))
+        {
+            if ((!board[row - 1][col].isEmpty()) &&
+                    (board[row - 1][col].element().getPlayer() == player.getPlayer()) &&
+                    (board[row - 1][col].element().getType() == player.getType())
+                    ) {
+
+                //System.out.println("Up Connected");
+                //System.out.println("Row: " + (row - 1) + "Col: " + (col));
+                //blackPlayerSquares.add("" + row + "," +col);
+
+                if(player.getPlayer() == false)
+                {
+                    blackPlayerSquares.add("" + row + "," + col);
+                }
+                else
+                {
+                    whitePlayerSquares.add("" + row + "," + col);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean findDownConnectedSquares(int row, int col, GamePiece player)
+    {
+        if( (row <= getDimensions() - 2))
+        {
+            if ((!board[row + 1][col].isEmpty()) &&
+                    (board[row + 1][col].element().getPlayer() == player.getPlayer()) &&
+                    (board[row + 1][col].element().getType() == player.getType())
+                    ) {
+
+                //System.out.println("Down Connected");
+                //System.out.println("row: " + (row + 1) + "col: " + (col));
+                blackPlayerSquares.add("" + row + "," +col);
+
+                if(player.getPlayer() == false)
+                {
+                    blackPlayerSquares.add("" + row + "," + col);
+                }
+                else
+                {
+                    whitePlayerSquares.add("" + row + "," + col);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void removeDuplicates()
     {
+        Set<String> set1=new HashSet<String>(blackPlayerSquares);
+        blackPlayerSquares = new ArrayList<String>(set1);
 
-        Set<String> set1=new HashSet<String>(blackPlayer);
-        blackPlayer = new ArrayList<String>(set1);
+        Collections.sort(blackPlayerSquares);
 
-        Set<String> set2=new HashSet<String>(whitePlayer);
-        whitePlayer = new ArrayList<String>(set2);
+        Set<String> set2=new HashSet<String>(whitePlayerSquares);
+        whitePlayerSquares = new ArrayList<String>(set2);
+
+        Collections.sort(whitePlayerSquares);
+
     }
 
     public int convertXPositonToInt(String obj)
@@ -319,345 +380,63 @@ public class GameBoard
         return value;
     }
 
-    public void createPathBlackPlayer()
+    public int topType (int row, int col)
     {
-        int currentX = 0;
-        int currentY = 0;
-        int previousX = 0;
-        int previousY = 0;
-        int nextX = 0;
-        int nextY = 0;
-
-
-        for(int i=0; i < blackPlayer.size(); i++)
+        if(board[row][col].isEmpty())
         {
-            if( (i >= 1))
-            {
-                currentX = convertXPositonToInt(blackPlayer.get(i));
-                currentY = convertYPositonToInt(blackPlayer.get(i));
-
-                previousX = convertXPositonToInt(blackPlayer.get(i - 1));
-                previousY = convertYPositonToInt(blackPlayer.get(i - 1));
-
-                //System.out.println("Curr " + currentX + " " + currentY);
-
-                //CHECK ROWS
-                if((currentX == previousX) && (currentY == (previousY + 1)))
-                {
-                    //System.out.println("hit" + previousX + "," + previousY);
-                    //System.out.println("hit" + currentX + "," + currentY);
-
-                    blackPlayersPath.add("" + previousX + "," + previousY);
-                    blackPlayersPath.add("" + currentX + "," + currentY);
-
-                    /*
-                    pathX.add(previousX);
-                    pathX.add(previousY);
-
-                    pathY.add(currentX);
-                    pathY.add(currentY);
-                    */
-
-                }
-                if((currentX == previousX) && (currentY == (previousY - 1)))
-                {
-                    //System.out.println("hit" + previousX + "," + previousY);
-                    //System.out.println("hit" + currentX + "," + currentY);
-
-                    blackPlayersPath.add("" + previousX + "," + previousY);
-                    blackPlayersPath.add("" + currentX + "," + currentY);
-
-                    /*
-                    pathX.add(previousX);
-                    pathX.add(previousY);
-
-                    pathY.add(currentX);
-                    pathY.add(currentY);
-                    */
-                }
-
-                //System.out.println("curX" + currentX + "curY" + currentY);
-                ///added this
-                if((currentX == (previousX + 1)) && (currentY == previousY ))
-                {
-                    //System.out.println("hit" + previousX + "," + previousY);
-                    //System.out.println("hit" + currentX + "," + currentY);
-
-                    blackPlayersPath.add("" + previousX + "," + previousY);
-                    blackPlayersPath.add("" + currentX + "," + currentY);
-
-                    /*
-                    pathX.add(previousX);
-                    pathX.add(previousY);
-
-                    pathY.add(currentX);
-                    pathY.add(currentY);
-                    */
-                }
-                if((currentX == (previousX - 1)) && (currentY == previousY ))
-                {
-                    //System.out.println("hit" + previousX + "," + previousY);
-                    //System.out.println("hit" + currentX + "," + currentY);
-
-                    blackPlayersPath.add("" + previousX + "," + previousY);
-                    blackPlayersPath.add("" + currentX + "," + currentY);
-
-                    /*
-                    pathX.add(previousX);
-                    pathX.add(previousY);
-
-                    pathY.add(currentX);
-                    pathY.add(currentY);
-                    */
-                }
-            }
-
-            //check last row
-            //System.out.println("cur" + currentX + ": " +currentY);
-            //if( (blackPlayer.size() >= getDimensions() - 1))
-            //{
-            if((currentX == previousX) && ((currentY == (previousY - 1)) && (currentY == (getDimensions() - 1))))
-            {
-                System.out.println("end row");
-                //System.out.println("hit" + previousX + "," + previousY);
-                //System.out.println("hit" + currentX + "," + currentY);
-
-                blackPlayersPath.add("" + previousX + "," + previousY);
-                blackPlayersPath.add("" + currentX + "," + currentY);
-
-                /*
-                pathX.add(previousX);
-                pathX.add(previousY);
-
-                pathY.add(currentX);
-                pathY.add(currentY);
-                */
-            }
-
-            //System.out.println("p" + previousX + " c" + currentX);
-            if( ((currentX == getDimensions() || (previousX == getDimensions() - 1)) && (currentY == previousY)))
-            {
-                System.out.println("end col");
-                //System.out.println("hit" + previousX + "," + previousY);
-                //System.out.println("hit" + currentX + "," + currentY);
-
-                blackPlayersPath.add("" + previousX + "," + previousY);
-                blackPlayersPath.add("" + currentX + "," + currentY);
-
-
-            }
-            //}
-
-
-        }
-
-        Set<String> set2=new HashSet<String>(blackPlayersPath);
-        validateBpPath = new ArrayList<String>(set2);
-
-
-        boolean start = false;
-        boolean finish = false;
-        System.out.println("xxxxx");
-
-        Collections.sort(validateBpPath);
-        for(int l=0; l<validateBpPath.size(); l++)
-        {
-            if(validateBpPath.get(l).contains("0"))
-            {
-                start = true;
-            }
-
-
-            if(validateBpPath.get(l).contains("" + (getDimensions() - 1)))
-            {
-                finish = true;
-            }
-            System.out.println(validateBpPath.get(l));
-        }
-
-        if(start && finish == true)
-        {
-
-            System.out.println("Path Complete");
-
-            ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
-            //((Game) Gdx.app.getApplicationListener()).setScreen(new PauseScreen());
-        }
-
-    }
-
-    public void createPathWhitePlayer()
-    {
-        int currentX = 0;
-        int currentY = 0;
-        int previousX = 0;
-        int previousY = 0;
-        int nextX = 0;
-        int nextY = 0;
-
-
-        for(int i=0; i < whitePlayer.size(); i++)
-        {
-            if( (i >= 1))
-            {
-                currentX = convertXPositonToInt(whitePlayer.get(i));
-                currentY = convertYPositonToInt(whitePlayer.get(i));
-
-                previousX = convertXPositonToInt(whitePlayer.get(i - 1));
-                previousY = convertYPositonToInt(whitePlayer.get(i - 1));
-
-                //System.out.println("Curr " + currentX + " " + currentY);
-
-                //CHECK ROWS
-                if((currentX == previousX) && (currentY == (previousY + 1)))
-                {
-                    //System.out.println("hit" + previousX + "," + previousY);
-                    //System.out.println("hit" + currentX + "," + currentY);
-
-                    whitePlayersPath.add("" + previousX + "," + previousY);
-                    whitePlayersPath.add("" + currentX + "," + currentY);
-
-                    /*
-                    pathX.add(previousX);
-                    pathX.add(previousY);
-
-                    pathY.add(currentX);
-                    pathY.add(currentY);
-                    */
-
-                }
-                if((currentX == previousX) && (currentY == (previousY - 1)))
-                {
-                    //System.out.println("hit" + previousX + "," + previousY);
-                    //System.out.println("hit" + currentX + "," + currentY);
-
-                    whitePlayersPath.add("" + previousX + "," + previousY);
-                    whitePlayersPath.add("" + currentX + "," + currentY);
-
-                    /*
-                    pathX.add(previousX);
-                    pathX.add(previousY);
-
-                    pathY.add(currentX);
-                    pathY.add(currentY);
-                    */
-                }
-
-                //System.out.println("curX" + currentX + "curY" + currentY);
-                ///added this
-                if((currentX == (previousX + 1)) && (currentY == previousY ))
-                {
-                    //System.out.println("hit" + previousX + "," + previousY);
-                    //System.out.println("hit" + currentX + "," + currentY);
-
-                    whitePlayersPath.add("" + previousX + "," + previousY);
-                    whitePlayersPath.add("" + currentX + "," + currentY);
-
-                    /*
-                    pathX.add(previousX);
-                    pathX.add(previousY);
-
-                    pathY.add(currentX);
-                    pathY.add(currentY);
-                    */
-                }
-                if((currentX == (previousX - 1)) && (currentY == previousY ))
-                {
-                    //System.out.println("hit" + previousX + "," + previousY);
-                    //System.out.println("hit" + currentX + "," + currentY);
-
-                    whitePlayersPath.add("" + previousX + "," + previousY);
-                    whitePlayersPath.add("" + currentX + "," + currentY);
-
-                    /*
-                    pathX.add(previousX);
-                    pathX.add(previousY);
-
-                    pathY.add(currentX);
-                    pathY.add(currentY);
-                    */
-                }
-            }
-
-            //check last row
-            //System.out.println("cur" + currentX + ": " +currentY);
-            //if( (blackPlayer.size() >= getDimensions() - 1))
-            //{
-            if((currentX == previousX) && ((currentY == (previousY - 1)) && (currentY == (getDimensions() - 1))))
-            {
-                System.out.println("end row");
-                //System.out.println("hit" + previousX + "," + previousY);
-                //System.out.println("hit" + currentX + "," + currentY);
-
-                whitePlayersPath.add("" + previousX + "," + previousY);
-                whitePlayersPath.add("" + currentX + "," + currentY);
-
-                /*
-                pathX.add(previousX);
-                pathX.add(previousY);
-
-                pathY.add(currentX);
-                pathY.add(currentY);
-                */
-            }
-
-            //System.out.println("p" + previousX + " c" + currentX);
-            if( ((currentX == getDimensions() || (previousX == getDimensions() - 1)) && (currentY == previousY)))
-            {
-                System.out.println("end col");
-                //System.out.println("hit" + previousX + "," + previousY);
-                //System.out.println("hit" + currentX + "," + currentY);
-
-                whitePlayersPath.add("" + previousX + "," + previousY);
-                whitePlayersPath.add("" + currentX + "," + currentY);
-
-
-            }
-            //}
-
-
-        }
-
-        System.out.println(whitePlayersPath.size());
-
-
-        Set<String> set2=new HashSet<String>(whitePlayersPath);
-        validateWpPath = new ArrayList<String>(set2);
-
-        boolean start = false;
-        boolean finish = false;
-        System.out.println("xxxxx");
-
-        Collections.sort(validateWpPath);
-        for(int l=0; l<validateWpPath.size(); l++)
-        {
-            if(validateWpPath.get(l).contains("0"))
-            {
-                start = true;
-            }
-
-
-            if(validateWpPath.get(l).contains("" + (getDimensions() - 1)))
-            {
-                finish = true;
-            }
-            System.out.println(validateWpPath.get(l));
-        }
-
-        if(start && finish == true)
-        {
-            System.out.println("Path Complete");
-            ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
-        }
-
-    }
-
-
-    public int topType (int row, int col){
-        if(board[row][col].isEmpty()){
             return  -1;
         }
         return board[row][col].getFirst().getType();
+
+    }
+
+    public void completeGraph(ArrayList<String> path)
+    {
+        removeDuplicates();
+        //ArrayList<String> path = blackPlayerSquares;
+
+
+        System.out.println("xxxxxxxxxxxxxx");
+
+        for(int i=0; i < path.size() - 1; i++)
+        {
+
+            int currentXPos = convertXPositonToInt(path.get(i));
+            int currentYPos = convertYPositonToInt(path.get(i));
+            int nextXPos = convertXPositonToInt(path.get(i + 1));
+            int nextYPos = convertYPositonToInt(path.get(i + 1));
+            /*
+            if((nextXPos - currentXPos > 0) &&  (nextYPos - currentYPos > 1))
+
+            {
+
+             path.remove(i + 1);
+
+            }
+
+            */
+
+            if((path.size() >= getDimensions()-1 ) && (nextXPos == getDimensions()-1 ) && (i >= getDimensions()))
+            {
+                //System.out.println("Win");
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
+            }
+
+
+
+            if((path.size() >= getDimensions()-1 ) && (nextYPos == getDimensions()-1 )&& (i >= getDimensions()))
+            {
+                //System.out.println("Win");
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
+            }
+
+
+
+        }
+        for(int i=0; i<path.size(); i++)
+        {
+            System.out.println(path.get(i));
+        }
 
     }
 
