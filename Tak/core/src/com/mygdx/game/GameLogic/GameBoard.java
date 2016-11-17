@@ -416,15 +416,17 @@ public class GameBoard
 
             */
 
-            if((path.size() >= getDimensions()-1 ) && (nextXPos == getDimensions()-1 ) && (i >= getDimensions()))
+            if((path.size() >= getDimensions()-1 ) && (nextXPos == getDimensions()-1 ))
             {
+                System.out.println();
+
                 //System.out.println("Win");
                 ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
             }
 
 
 
-            if((path.size() >= getDimensions()-1 ) && (nextYPos == getDimensions()-1 )&& (i >= getDimensions()))
+            if((path.size() >= getDimensions()-1 ) && (nextYPos == getDimensions()-1 ))
             {
                 //System.out.println("Win");
                 ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
