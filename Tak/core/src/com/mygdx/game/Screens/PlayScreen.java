@@ -140,32 +140,46 @@ public class PlayScreen implements Screen
         gameBoard = new GameBoard(bSize, app);
         int PIECES = 36;
         int CAP_PIECES = 1;
-
+        int TOTAL_PIECES = 37;
+        int piecesType = 0;
+        int counter = 1;
 
         switch(bSize){
             case 3:
                 PIECES = 10;
                 CAP_PIECES = 0;
+                TOTAL_PIECES = (PIECES*4)+(CAP_PIECES*2);
+                System.out.println(TOTAL_PIECES);
                 break;
             case 4:
                 PIECES = 15;
                 CAP_PIECES = 0;
+                TOTAL_PIECES = (PIECES*4)+(CAP_PIECES*2);
+                System.out.println(TOTAL_PIECES);
                 break;
             case 5:
                 PIECES = 21;
                 CAP_PIECES = 1;
+                TOTAL_PIECES = (PIECES*4)+(CAP_PIECES*2);
+                System.out.println(TOTAL_PIECES);
                 break;
             case 6:
                 PIECES = 30;
                 CAP_PIECES = 1;
+                TOTAL_PIECES = (PIECES*4)+(CAP_PIECES*2);
+                System.out.println(TOTAL_PIECES);
                 break;
             case 7:
                 PIECES = 40;
                 CAP_PIECES = 2;
+                TOTAL_PIECES = (PIECES*4)+(CAP_PIECES*2);
+                System.out.println(TOTAL_PIECES);
                 break;
             case 8:
                 PIECES = 50;
                 CAP_PIECES = 2;
+                TOTAL_PIECES = (PIECES*4)+(CAP_PIECES*2);
+                System.out.println(TOTAL_PIECES);
                 break;
         }
 
@@ -177,60 +191,79 @@ public class PlayScreen implements Screen
         LightSquarePiece1 lightSquarePiece1 = new LightSquarePiece1();
         LightTriangle1 lightTriangle1Piece = new LightTriangle1();
 
-        Dragable[] darkCirclePiece1Dragable = new Dragable[PIECES];
-        Dragable[] darkSquarePiece1Dragable = new Dragable[PIECES];
-        Dragable[] darkTrianglePiece1Dragable = new Dragable[PIECES];
+        Dragable[] piecesDragable = new Dragable[TOTAL_PIECES];
 
-        Dragable[] lightCirclePiece1Dragable = new Dragable[PIECES];
-        Dragable[] lightSquarePiece1Dragable = new Dragable[PIECES];
-        Dragable[] lightTriangle1PieceDragable = new Dragable[PIECES];
+        for(int i=0; i<TOTAL_PIECES; i++) {
 
-        for(int i=0; i<PIECES; i++)
-        {
+            if(i  == TOTAL_PIECES /2){
+                //System.out.println("HALFWAY: " );
+                piecesType = 0;
+            }
 
-            darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),this, gameBoard,bSize, false, 0,app);
-            darkTrianglePiece1Dragable[i] = new Dragable(darkTrianglePiece1.getGamePiece(),this, gameBoard,bSize,false, 1, app);
+            //System.out.println("Counter: " + counter);
+            if (i < TOTAL_PIECES / 2 ) { //white pieces
+                //System.out.println("White: " );
+                if (piecesType == 0) { //road
+                    piecesDragable[i] = new Dragable(lightSquarePiece1.getGamePiece(), i, this, gameBoard, bSize, true, 0, app);
+                    piecesDragable[i].setBounds(50, 90, 30, 30);
+                    piecesDragable[i].makeDraggable();
+                    stage.addActor(piecesDragable[i]);
 
-            lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),this, gameBoard,bSize,true, 0,app);
-            lightTriangle1PieceDragable[i] = new Dragable(lightTriangle1Piece.getGamePiece(),this, gameBoard,bSize,true, 1,app);
 
-            darkSquarePiece1Dragable[i].setBounds(20,90,30,30);
-            darkTrianglePiece1Dragable[i].setBounds(20,125,30,30);
+                } else if (piecesType == 1) { //wall
+                    piecesDragable[i] = new Dragable(lightTriangle1Piece.getGamePiece(), i, this, gameBoard, bSize, true, 1, app);
+                    piecesDragable[i].setBounds(50, 125, 30, 30);
+                    piecesDragable[i].makeDraggable();
+                    stage.addActor(piecesDragable[i]);
 
-            lightSquarePiece1Dragable[i].setBounds(50,90,30,30);
-            lightTriangle1PieceDragable[i].setBounds(50,125,30,30);
+                } else if (piecesType == 2) { //cap
+                    piecesDragable[i] = new Dragable(lightCirclePiece1.getGamePiece(), i, this, gameBoard, bSize, true, 2, app);
+                    piecesDragable[i].setBounds(50, 20, 30, 30);
+                    piecesDragable[i].makeDraggable();
+                    stage.addActor(piecesDragable[i]);
 
-            darkSquarePiece1Dragable[i].makeDraggable();
-            darkTrianglePiece1Dragable[i].makeDraggable();
 
-            lightSquarePiece1Dragable[i].makeDraggable();
-            lightTriangle1PieceDragable[i].makeDraggable();
+                }
 
-            stage.addActor(darkSquarePiece1Dragable[i]);
-            stage.addActor(darkTrianglePiece1Dragable[i]);
+            } else { //black pieces
+               // System.out.println("Black: " );
+                if (piecesType == 0) { //road
+                    piecesDragable[i] = new Dragable(darkSquarePiece1.getGamePiece(), i, this, gameBoard, bSize, false, 0, app);
+                    piecesDragable[i].setBounds(20, 90, 30, 30);
+                    piecesDragable[i].makeDraggable();
+                    stage.addActor(piecesDragable[i]);
 
-            stage.addActor(lightSquarePiece1Dragable[i]);
-            stage.addActor(lightTriangle1PieceDragable[i]);
 
+                } else if (piecesType == 1) { //wall
+                    piecesDragable[i] = new Dragable(darkTrianglePiece1.getGamePiece(), i, this, gameBoard, bSize, false, 1, app);
+                    piecesDragable[i].setBounds(20, 125, 30, 30);
+                    piecesDragable[i].makeDraggable();
+                    stage.addActor(piecesDragable[i]);
+
+                } else if (piecesType == 2) {//cap
+                    piecesDragable[i] = new Dragable(darkCirclePiece1.getGamePiece(), i, this, gameBoard, bSize, false, 2, app);
+                    piecesDragable[i].setBounds(20, 20, 30, 30);
+                    piecesDragable[i].makeDraggable();
+                    stage.addActor(piecesDragable[i]);
+
+                }
+
+            }
+
+
+            if(counter == PIECES) {
+                piecesType++;
+                counter = 1;
+                //System.out.println("NEXT PIECE TYPE ");
+            }else if(piecesType == 2 && counter == CAP_PIECES){
+                piecesType = 0;
+                counter = 1;
+                //System.out.println("PIECE TYPE ROLLBACK ");
+            }else {
+                counter++;
+            }
 
         }
-
-        for(int x=0; x<=CAP_PIECES-1; x++) {
-            darkCirclePiece1Dragable[x] = new Dragable(darkCirclePiece1.getGamePiece(), this, gameBoard,bSize,false, 2, app);
-            lightCirclePiece1Dragable[x] = new Dragable(lightCirclePiece1.getGamePiece(), this, gameBoard,bSize,true, 2, app);
-
-            darkCirclePiece1Dragable[x].setBounds(20, 20, 30, 30);
-            lightCirclePiece1Dragable[x].setBounds(50, 20, 30, 30);
-
-            darkCirclePiece1Dragable[x].makeDraggable();
-            lightCirclePiece1Dragable[x].makeDraggable();
-
-            stage.addActor(darkCirclePiece1Dragable[x]);
-            stage.addActor(lightCirclePiece1Dragable[x]);
-        }
-
-
-
     }
 
     private void initBoardItems(int bSize)

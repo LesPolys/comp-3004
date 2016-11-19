@@ -48,14 +48,16 @@ public class Dragable extends Image
     private GameBoard gameBoard;
     private StackScreen stackScreen;
     private Dragable stack[];
+    private int index;
 
     //added this temp for demo reasons s
     private Tak tak;
 
-    public Dragable(Image image, PlayScreen scrn, GameBoard newGameboard, int bSize, boolean player, int type, Tak obj)
+    public Dragable(Image image, int i, PlayScreen scrn, GameBoard newGameboard, int bSize, boolean player, int type, Tak obj)
     //public Dragable(Image image, PlayScreen scrn, GameBoard newGameboard, int bSize, boolean player, int type)
     {
         super(image.getDrawable());
+        index = i;
         screen = scrn;
         gameBoard = newGameboard;
         boardSize = bSize;
@@ -65,6 +67,7 @@ public class Dragable extends Image
         xPos= -1;
         yPos= -1;
         tak = obj;
+
 
         if(pieceType == 0) {
             if(currentPlayer) {
