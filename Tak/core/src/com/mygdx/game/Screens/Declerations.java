@@ -33,9 +33,13 @@ public class Declerations
     public static Skin challengeSkin[] = new Skin[5];
     public static TextButton.TextButtonStyle challengeMenutextButtonStyles[];
 
+    public static Skin winSkin[] = new Skin[6];
+    public static TextButton.TextButtonStyle winMenutextButtonStyles[];
+
     public static Skin playerSkin[];
     public static Skin pauseSkin[];
     public static Skin stackSkin[];
+
 
 
 
@@ -160,6 +164,30 @@ public class Declerations
         stackSkin[19].add("backButtonUnpressed", new Texture("stackMenu/backButtonUnpressed.png"));//backButton UnPressed
         stackSkin[20].add("backButtonPresed", new Texture("stackMenu/backButtonPresed.png"));//backButton Pressed
 
+
+
+    }
+
+    public void initWinScreen(){
+
+        winSkin = new Skin[6];
+        winMenutextButtonStyles = new TextButton.TextButtonStyle[6];
+
+        for(int i=0; i<6; i++)
+        {
+            winSkin[i] = new Skin();
+            winMenutextButtonStyles[i] = new TextButton.TextButtonStyle();
+            winMenutextButtonStyles[i].font = font;
+        }
+
+        winSkin[0].add("background", new Texture(Gdx.files.internal("winScreen/Background2.png"))); //back
+        winSkin[1].add("winTitle", new Texture(Gdx.files.internal("winScreen/winTitle.png")));
+
+        winSkin[2].add("whiteStatus", new Texture(Gdx.files.internal("winScreen/whiteStatus.png")));//white win
+        winSkin[3].add("blackStatus", new Texture(Gdx.files.internal("winScreen/blackStatus.png")));//black win
+
+        winSkin[4].add("backButtonUnpressed", new Texture(Gdx.files.internal("winScreen/backButtonUnpressed.png")));
+        winSkin[5].add("backButtonPresed", new Texture(Gdx.files.internal("winScreen/backButtonPresed.png")));
 
 
     }

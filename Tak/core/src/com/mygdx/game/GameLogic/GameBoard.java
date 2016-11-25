@@ -10,6 +10,7 @@ import com.mygdx.game.Screens.Challenge;
 import com.mygdx.game.Screens.MainMenu;
 import com.mygdx.game.Screens.PauseScreen;
 import com.mygdx.game.Screens.Versus;
+import com.mygdx.game.Screens.WinScreen;
 import com.mygdx.game.StaticVariables;
 import com.mygdx.game.Tak;
 
@@ -207,7 +208,7 @@ public class GameBoard
                         findUpConnectedSquares(i,j, blackGamePiece);
                         findDownConnectedSquares(i,j, blackGamePiece);
                         removeDuplicates();
-                        completeGraph(blackPlayerSquares);
+                        completeGraph(blackPlayerSquares,false);
                         //System.out.println("Squares: row " + i + " col: " + j);
 
                     }
@@ -228,7 +229,7 @@ public class GameBoard
                         findUpConnectedSquares(i,j, whiteGamePiece);
                         findDownConnectedSquares(i,j, whiteGamePiece);
                         removeDuplicates();
-                        completeGraph(whitePlayerSquares);
+                        completeGraph(whitePlayerSquares,true);
                         //System.out.println("Squares: row " + i + " col: " + j);
 
                     }
@@ -390,7 +391,7 @@ public class GameBoard
 
     }
 
-    public void completeGraph(ArrayList<String> path)
+    public void completeGraph(ArrayList<String> path,boolean player)
     {
         removeDuplicates();
         //ArrayList<String> path = blackPlayerSquares;
@@ -421,7 +422,7 @@ public class GameBoard
                 System.out.println();
 
                 //System.out.println("Win");
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new WinScreen(app,player));
             }
 
 
@@ -429,7 +430,7 @@ public class GameBoard
             if((path.size() >= getDimensions()-1 ) && (nextYPos == getDimensions()-1 ))
             {
                 //System.out.println("Win");
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new WinScreen(app,player));
             }
 
 

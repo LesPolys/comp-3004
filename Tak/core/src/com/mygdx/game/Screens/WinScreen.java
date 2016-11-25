@@ -26,7 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import java.awt.ScrollPane;
 
-public class MainMenu implements Screen
+public class WinScreen implements Screen
 {
     private Tak app;
     public Stage stage;
@@ -35,7 +35,7 @@ public class MainMenu implements Screen
     private TextButton textButtons[];
     private Declerations declerations;
 
-    public MainMenu(Tak gameApp)
+    public WinScreen(Tak gameApp,boolean winner)
     {
         app = gameApp;
         Viewport viewport = new FillViewport(StaticVariables.V_WIDTH, StaticVariables.V_HEIGHT, gameApp.camera);
@@ -43,7 +43,7 @@ public class MainMenu implements Screen
         Gdx.input.setInputProcessor(stage);
 
         declerations = new Declerations();
-        declerations.initMainMenu();
+        declerations.initWinScreen();
 
         textButtons = new TextButton[4];
 
@@ -59,48 +59,42 @@ public class MainMenu implements Screen
         //Background , Main Title, Versus Title, Challenge Title
 
 
-        images[0] = new Image(declerations.mainMenuSkins[1],"background");
+        images[0] = new Image(declerations.winSkin[0],"background");
         images[0].setSize(StaticVariables.V_WIDTH,StaticVariables.V_HEIGHT);
         images[0].setBounds(0,0, StaticVariables.V_WIDTH, StaticVariables.V_HEIGHT);
         stage.addActor(images[0]);
 
-        images[1] = new Image(declerations.mainMenuSkins[3],"howToPlay");
+        images[1] = new Image(declerations.winSkin[1],"winTitle");//TITLE
         images[1].setSize(StaticVariables.V_WIDTH,StaticVariables.V_HEIGHT);
-        images[1].setBounds(0,0, StaticVariables.V_WIDTH, StaticVariables.V_HEIGHT);
+        images[1].setBounds(25, (StaticVariables.V_HEIGHT/2)-100, 74 ,200);
+        stage.addActor( images[1]);
 
-        images[2] = new Image(declerations.mainMenuSkins[2],"title");
+        images[2] = new Image(declerations.winSkin[2],"whiteStatus");//WHITEWIN
         images[2].setSize(StaticVariables.V_WIDTH,StaticVariables.V_HEIGHT);
-        images[2].setBounds(50, (StaticVariables.V_HEIGHT/2)-100, 150 ,200);
+        images[2].setBounds(105,(StaticVariables.V_HEIGHT/2)-100,50,200);
 
-        images[3] = new Image(declerations.mainMenuSkins[2],"title");
+        images[3] = new Image(declerations.winSkin[3],"blackStatus");//BLACKWIN
         images[3].setSize(StaticVariables.V_WIDTH,StaticVariables.V_HEIGHT);
-        images[3].setBounds(50, (StaticVariables.V_HEIGHT/2)-95, 150 ,200);
+        images[3].setBounds(105,(StaticVariables.V_HEIGHT/2)-100,50,200);
 
-        stage.addActor( images[2]);
+        if(winner){
+            stage.addActor( images[2]);
+        }else {
+            stage.addActor( images[3]);
+        }
+
 
 
         //for the buttons
-        declerations.mainMenutextButtonStyles[0].up = declerations.mainMenuSkins[4].getDrawable("versusButtonUnpressed"); //VS
-        declerations.mainMenutextButtonStyles[0].down = declerations.mainMenuSkins[5].getDrawable("versusButtonPresed");
-        declerations.mainMenutextButtonStyles[0].checked = declerations.mainMenuSkins[5].getDrawable("versusButtonPresed");
-
-        declerations.mainMenutextButtonStyles[1].up = declerations.mainMenuSkins[6].getDrawable("challengeButtonUnpressed"); //CH
-        declerations.mainMenutextButtonStyles[1].down = declerations.mainMenuSkins[7].getDrawable("challengeButtonPresed");
-        declerations.mainMenutextButtonStyles[1].checked = declerations.mainMenuSkins[7].getDrawable("challengeButtonPresed");
+        declerations.winMenutextButtonStyles[0].up = declerations.winSkin[4].getDrawable("backButtonUnpressed"); //VS
+        declerations.winMenutextButtonStyles[0].down = declerations.winSkin[5].getDrawable("backButtonPresed");
+        declerations.winMenutextButtonStyles[0].checked = declerations.winSkin[4].getDrawable("backButtonUnpressed");
 
 
-        declerations.mainMenutextButtonStyles[2].up = declerations.mainMenuSkins[8].getDrawable("versusAIButtonUnpressed"); //VSAI
-        declerations.mainMenutextButtonStyles[2].down = declerations.mainMenuSkins[9].getDrawable("versusAIButtonPresed");
-        declerations.mainMenutextButtonStyles[2].checked = declerations.mainMenuSkins[9].getDrawable("versusAIButtonPresed");
+            textButtons[0] = new TextButton("", declerations.winMenutextButtonStyles[0]);
+            textButtons[0].setBounds((250 ),(StaticVariables.V_WIDTH/2)-210,50,200);
+            stage.addActor(textButtons[0]);
 
-
-        for(int i=0; i < 3; i++)
-        {
-            int shift = 75 * i;
-            textButtons[i] = new TextButton("", declerations.mainMenutextButtonStyles[i]);
-            textButtons[i].setBounds((250 + shift),(StaticVariables.V_WIDTH/2)-210,50,200);
-            stage.addActor(textButtons[i]);
-        }
 
         //button listeners
         textButtons[0].addListener(new ChangeListener()
@@ -109,33 +103,11 @@ public class MainMenu implements Screen
             public void changed (ChangeEvent event, Actor actor)
             {
 
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new Versus(app));
-                //((Game) Gdx.app.getApplicationListener()).setScreen(new WinScreen(app,false));
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu(app));
 
             }
         });
 
-        textButtons[1].addListener(new ChangeListener()
-        {
-            @Override
-            public void changed (ChangeEvent event, Actor actor)
-            {
-
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new Challenge(app));
-
-            }
-        });
-
-        textButtons[2].addListener(new ChangeListener()
-        {
-            @Override
-            public void changed (ChangeEvent event, Actor actor)
-            {
-
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new VersusAI(app));
-
-            }
-        });
 
     }
 
