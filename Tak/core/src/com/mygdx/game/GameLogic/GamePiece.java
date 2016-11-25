@@ -26,11 +26,12 @@ public class GamePiece {
     boolean selected;
 
 
-    GamePiece(int startType, boolean setPlayer)
+    GamePiece(int startType, boolean setPlayer,int i)
     {
         type = startType;
         player = setPlayer;
         inPlay = false;
+        index = i;
     }
     GamePiece()
     {
@@ -39,6 +40,10 @@ public class GamePiece {
 
     public boolean getPlayer(){return player;}
     public int getType(){return type;}
+
+
+    void setIndex(int i){index = i;}
+    int getIndex(){return index;}
 
     void changeType(int newType)
     {

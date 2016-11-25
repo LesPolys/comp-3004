@@ -107,10 +107,10 @@ public class GameBoard
 
     public int getDimensions(){return dimensions;}
 
-    public void setSquare(int row, int col, boolean player, int type)
+    public void setSquare(int row, int col, boolean player, int type, int i)
     //public void setSquare(int row, int col, String player, int type)
     {
-        GamePiece tmpPiece = new GamePiece(type,player);
+        GamePiece tmpPiece = new GamePiece(type,player, i);
         board[row][col].push(tmpPiece);
 
         setGamePiece(tmpPiece);
@@ -129,6 +129,16 @@ public class GameBoard
         }
 
         return false;
+    }
+
+    public void squashTop(int row, int col){
+
+        board[row][col].element().switchType();
+
+    }
+
+    public int getIndex(int row, int col){
+        return board[row][col].element().getIndex();
     }
 
     //added this method
@@ -388,6 +398,16 @@ public class GameBoard
             return  -1;
         }
         return board[row][col].getFirst().getType();
+
+    }
+
+    public boolean topPlayer (int row, int col)
+    {
+        if(board[row][col].isEmpty())
+        {
+            return  true;
+        }
+        return board[row][col].getFirst().getPlayer();
 
     }
 

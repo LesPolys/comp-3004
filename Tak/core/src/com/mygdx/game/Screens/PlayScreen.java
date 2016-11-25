@@ -46,6 +46,15 @@ public class PlayScreen implements Screen
     private PauseScreen pauseScreen;
     private StackScreen stackScreen;
     private Declerations declerations;
+    private Dragable[] piecesDragable;
+
+    DarkCirclePiece1 darkCirclePiece1 ;
+    DarkSquarePiece1 darkSquarePiece1 ;
+    DarkTrianglePiece1 darkTrianglePiece1;
+
+    LightCirclePiece1 lightCirclePiece1 ;
+    LightSquarePiece1 lightSquarePiece1;
+    LightTriangle1 lightTriangle1Piece ;
 
     public PlayScreen(Tak gameApp, int boardSize)
     {
@@ -134,6 +143,30 @@ public class PlayScreen implements Screen
         stage.cancelTouchFocus();
         stackScreen.selectionOptions(board,x,y,p);
     }
+    public void squashPiece(int i){
+        Dragable tmpDragable =   piecesDragable[i];
+        int bSize = tmpDragable.getDimensions();
+        piecesDragable[i].remove();
+        piecesDragable[i].clear();
+        if (tmpDragable.getPlayer()) {
+            piecesDragable[i]= new Dragable(lightSquarePiece1.getGamePiece(), i, this, gameBoard, bSize, true, 0, app);
+            piecesDragable[i].setSize(30,30);
+            piecesDragable[i].setPosition(tmpDragable.getX(),tmpDragable.getY());
+            piecesDragable[i].makeDraggable();
+
+        }else{
+            piecesDragable[i] = new Dragable(darkSquarePiece1.getGamePiece(), i, this, gameBoard, bSize, false, 0, app);
+            piecesDragable[i].setSize(30,30);
+            piecesDragable[i].setPosition(tmpDragable.getX(),tmpDragable.getY());
+            piecesDragable[i].makeDraggable();
+        }
+
+    }
+
+    public Dragable getPiece(int i){
+        return piecesDragable[i];
+    }
+
 
     private void initGamePieces(int bSize)
     {
@@ -183,15 +216,15 @@ public class PlayScreen implements Screen
                 break;
         }
 
-        DarkCirclePiece1 darkCirclePiece1 = new DarkCirclePiece1();
-        DarkSquarePiece1 darkSquarePiece1 = new DarkSquarePiece1();
-        DarkTrianglePiece1 darkTrianglePiece1 = new DarkTrianglePiece1();
+         darkCirclePiece1 = new DarkCirclePiece1();
+         darkSquarePiece1 = new DarkSquarePiece1();
+         darkTrianglePiece1 = new DarkTrianglePiece1();
 
-        LightCirclePiece1 lightCirclePiece1 = new LightCirclePiece1();
-        LightSquarePiece1 lightSquarePiece1 = new LightSquarePiece1();
-        LightTriangle1 lightTriangle1Piece = new LightTriangle1();
+        lightCirclePiece1 = new LightCirclePiece1();
+        lightSquarePiece1 = new LightSquarePiece1();
+        lightTriangle1Piece = new LightTriangle1();
 
-        Dragable[] piecesDragable = new Dragable[TOTAL_PIECES];
+         piecesDragable = new Dragable[TOTAL_PIECES];
 
         for(int i=0; i<TOTAL_PIECES; i++) {
 
