@@ -101,6 +101,9 @@ public class GameBoard
         }
 
     }
+    public void setboard(ArrayDeque<GamePiece> newboard[][]){
+        board = newboard;
+    }
 
     public GamePiece getWhitePiece(){return whitePlayer;}
     public GamePiece getBlackPiece(){return blackPlayer;}

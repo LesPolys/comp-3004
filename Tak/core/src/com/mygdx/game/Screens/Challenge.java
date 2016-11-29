@@ -12,6 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.GameLogic.Dragable;
+import com.mygdx.game.GamePieces.DarkSquarePiece1;
+import com.mygdx.game.GamePieces.LightSquarePiece1;
 import com.mygdx.game.StaticVariables;
 import com.mygdx.game.Tak;
 import com.mygdx.game.Screens.Declerations;
@@ -143,7 +146,283 @@ public class Challenge implements Screen
             {
 
                 //launch challenge based on challenge select variable proabbaly use a switch here for it
+//launch challenge based on challenge select variable proabbaly use a switch here for it
+                int bsize;
+                PlayScreen challengeScreen;
+                DarkSquarePiece1 darkSquarePiece1;
+                LightSquarePiece1 lightSquarePiece1;
 
+                Dragable[] darkSquarePiece1Dragable;
+                Dragable[] lightSquarePiece1Dragable;
+
+                int posX, posY, i, type, index;
+                boolean player;
+
+                switch(challengeSelect) {
+                    case 1:
+                        bsize = 3;
+
+                        challengeScreen = new PlayScreen(app, bsize);
+
+                        darkSquarePiece1 = new DarkSquarePiece1();
+                        lightSquarePiece1 = new LightSquarePiece1();
+
+                        darkSquarePiece1Dragable = new Dragable[4];
+                        lightSquarePiece1Dragable = new Dragable[4];
+
+
+                        //black piece creation and placement
+                        player = false;
+                        index = 0;
+                        //0,0
+                        i = 0;posX = 0;posY = 0;type = 0;
+                        darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        darkSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        darkSquarePiece1Dragable[i].setBounds(235+(posX*30),125+(posY*30),30,30);
+                        darkSquarePiece1Dragable[i].makeDraggable();
+                        darkSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //0,2
+                        i = 1;posX = 0;posY = 2;type = 0;
+                        darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        darkSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        darkSquarePiece1Dragable[i].setBounds(235+(posX*30),125+(posY*30),30,30);
+                        darkSquarePiece1Dragable[i].makeDraggable();
+                        darkSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //2,0
+                        i = 2;posX = 2;posY = 0;type = 0;
+                        darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        darkSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        darkSquarePiece1Dragable[i].setBounds(235+(posX*30),125+(posY*30),30,30);
+                        darkSquarePiece1Dragable[i].makeDraggable();
+                        darkSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //2,2
+                        i = 3;posX = 2;posY = 2;type = 0;
+                        darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        darkSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        darkSquarePiece1Dragable[i].setBounds(235+(posX*30),125+(posY*30),30,30);
+                        darkSquarePiece1Dragable[i].makeDraggable();
+                        darkSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //white piece creation and placement
+                        player = true;
+                        //1,0
+                        i = 0;posX = 1;posY = 0;type = 0;
+                        lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        lightSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        lightSquarePiece1Dragable[i].setBounds(235+(posX*30),125+(posY*30),30,30);
+                        lightSquarePiece1Dragable[i].makeDraggable();
+                        lightSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(lightSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //1,1 1
+                        i = 1;posX = 1;posY = 1;type = 0;
+                        lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        lightSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        lightSquarePiece1Dragable[i].setBounds(235+(posX*30),125+(posY*30),30,30);
+                        lightSquarePiece1Dragable[i].makeDraggable();
+                        lightSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(lightSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //1,1 2
+                        i = 2;posX = 1;posY = 1;type = 0;index =1;
+                        lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        lightSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        lightSquarePiece1Dragable[i].setBounds(235+(posX*30),125+(posY*30),30,30);
+                        lightSquarePiece1Dragable[i].makeDraggable();
+                        lightSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(lightSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index );
+
+                        //2,1
+                        i = 3;posX = 2;posY = 1;type = 0;index =0;
+                        lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        lightSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        lightSquarePiece1Dragable[i].setBounds(235+(posX*30),125+(posY*30),30,30);
+                        lightSquarePiece1Dragable[i].makeDraggable();
+                        lightSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(lightSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        ((Game) Gdx.app.getApplicationListener()).setScreen(challengeScreen);
+
+
+                        break;
+                    case 2:
+                        //challenge 2
+                        bsize = 4;
+
+                        challengeScreen = new PlayScreen(app, bsize);
+
+                        darkSquarePiece1 = new DarkSquarePiece1();
+                        lightSquarePiece1 = new LightSquarePiece1();
+
+                        darkSquarePiece1Dragable = new Dragable[6];
+                        lightSquarePiece1Dragable = new Dragable[7];
+
+
+                        //0,0
+                        i = 0;posX = 0;posY = 0;type = 0;player = false;index = 0;
+                        darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        darkSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        darkSquarePiece1Dragable[i].setBounds(220+(posX*30),110+(posY*30),30,30);
+                        darkSquarePiece1Dragable[i].makeDraggable();
+                        darkSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //0,1
+                        i = 1;posX = 0;posY = 1;type = 0;player = false;
+                        darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        darkSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        darkSquarePiece1Dragable[i].setBounds(220+(posX*30),110+(posY*30),30,30);
+                        darkSquarePiece1Dragable[i].makeDraggable();
+                        darkSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //0,2
+                        i = 0;posX = 0;posY = 2;type = 0;player = true;
+                        lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        lightSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        lightSquarePiece1Dragable[i].setBounds(220+(posX*30),110+(posY*30),30,30);
+                        lightSquarePiece1Dragable[i].makeDraggable();
+                        lightSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(lightSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //1,1 1
+                        i = 1;posX = 1;posY = 1;type = 0;player = true;
+                        lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        lightSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        lightSquarePiece1Dragable[i].setBounds(220+(posX*30),110+(posY*30),30,30);
+                        lightSquarePiece1Dragable[i].makeDraggable();
+                        lightSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(lightSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //1,1 2
+                        i = 2;posX = 1;posY = 1;type = 0;player = false;index = 1;
+                        darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        darkSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        darkSquarePiece1Dragable[i].setBounds(220+(posX*30),110+(posY*30),30,30);
+                        darkSquarePiece1Dragable[i].makeDraggable();
+                        darkSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //1,2
+                        i = 2;posX = 1;posY = 2;type = 0;player = true;index = 0;
+                        lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        lightSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        lightSquarePiece1Dragable[i].setBounds(220+(posX*30),110+(posY*30),30,30);
+                        lightSquarePiece1Dragable[i].makeDraggable();
+                        lightSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(lightSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index );
+
+                        //1,3
+                        i = 3;posX = 1;posY = 3;type = 0;player = false;
+                        darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        darkSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        darkSquarePiece1Dragable[i].setBounds(220+(posX*30),110+(posY*30),30,30);
+                        darkSquarePiece1Dragable[i].makeDraggable();
+                        darkSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //2,0
+                        i = 3;posX = 2;posY = 0;type = 0;player = true;
+                        lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        lightSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        lightSquarePiece1Dragable[i].setBounds(220+(posX*30),110+(posY*30),30,30);
+                        lightSquarePiece1Dragable[i].makeDraggable();
+                        lightSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(lightSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //2,2
+                        i = 4;posX = 2;posY = 2;type = 0;player = false;
+                        darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        darkSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        darkSquarePiece1Dragable[i].setBounds(220+(posX*30),110+(posY*30),30,30);
+                        darkSquarePiece1Dragable[i].makeDraggable();
+                        darkSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //2,3
+                        i = 5;posX = 2;posY = 3;type = 0;player = false;
+                        darkSquarePiece1Dragable[i] = new Dragable(darkSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        darkSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        darkSquarePiece1Dragable[i].setBounds(220+(posX*30),110+(posY*30),30,30);
+                        darkSquarePiece1Dragable[i].makeDraggable();
+                        darkSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //3,1
+                        i = 4;posX = 3;posY = 1;type = 0;player = true;
+                        lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        lightSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        lightSquarePiece1Dragable[i].setBounds(220+(posX*30),110+(posY*30),30,30);
+                        lightSquarePiece1Dragable[i].makeDraggable();
+                        lightSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(lightSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index );
+
+                        //3,2
+                        i = 5;posX = 3;posY = 2;type = 0;player = true;
+                        lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        lightSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        lightSquarePiece1Dragable[i].setBounds(220+(posX*30),110+(posY*30),30,30);
+                        lightSquarePiece1Dragable[i].makeDraggable();
+                        lightSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(lightSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+                        //3,3
+                        i = 6;posX = 3;posY = 3;type = 0;player = true;
+                        lightSquarePiece1Dragable[i] = new Dragable(lightSquarePiece1.getGamePiece(),index ,challengeScreen, challengeScreen.getGameBoard(), bsize, player, type,app);
+                        lightSquarePiece1Dragable[i].setGridPos(posX, posY);
+                        lightSquarePiece1Dragable[i].setBounds(220+(posX*30),110+(posY*30),30,30);
+                        lightSquarePiece1Dragable[i].makeDraggable();
+                        lightSquarePiece1Dragable[i].toggleInPlay();
+                        challengeScreen.stage.addActor(lightSquarePiece1Dragable[i]);
+                        challengeScreen.getGameBoard().setSquare(posX,posY,player,type,index);
+
+
+                        ((Game) Gdx.app.getApplicationListener()).setScreen(challengeScreen);
+
+                        break;
+                    case 3:
+                        //challenge 3
+                        break;
+                    case 4:
+                        //challenge 4
+                        break;
+                    case 5:
+                        //challenge 5
+                        break;
+                    case 6:
+                        //challenge 6
+                        break;
+                    default:
+                        break;
+
+                }
             }
         });
 
@@ -163,7 +442,7 @@ public class Challenge implements Screen
             @Override
             public void changed (ChangeEvent event, Actor actor)
             {
-                //challengeSelect = 1;
+                challengeSelect = 1;
 
 
             }
@@ -174,7 +453,7 @@ public class Challenge implements Screen
             @Override
             public void changed (ChangeEvent event, Actor actor)
             {
-                //challengeSelect = 2;
+                challengeSelect = 2;
 
 
             }

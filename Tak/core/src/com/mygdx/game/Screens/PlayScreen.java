@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.GameLogic.Dragable;
 import com.mygdx.game.GameLogic.GameBoard;
+import com.mygdx.game.GameLogic.GamePiece;
 import com.mygdx.game.GamePieces.DarkCirclePiece1;
 import com.mygdx.game.GamePieces.DarkSquarePiece1;
 import com.mygdx.game.GamePieces.DarkTrianglePiece1;
@@ -30,7 +31,7 @@ import com.mygdx.game.StaticVariables;
 import com.mygdx.game.Tak;
 
 
-
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 
@@ -334,6 +335,16 @@ public class PlayScreen implements Screen
                 break;
         }
 
+    }
+
+    public void setGameBoard(ArrayDeque<GamePiece> newboard[][])
+    {
+        gameBoard.setboard(newboard);
+    }
+
+    public GameBoard getGameBoard()
+    {
+        return gameBoard;
     }
 
 }
