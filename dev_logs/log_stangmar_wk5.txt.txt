@@ -1,0 +1,7 @@
+Name: John Logan Stewart
+Student Number: 100881265
+
+-Libgdx Practice and expermientation with Skins and Stages
+-Main group member focus decided
+-UI Designing
+-

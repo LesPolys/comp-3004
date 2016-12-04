@@ -1,0 +1,7 @@
+Name: John Logan Stewart
+Student Number: 100881265
+
+Work Done: 
+-Refined movement and placement restrictions 2-hrs
+-Added new restrictions 2-hrs
+-removed bug where pieces when moved off the board would deleted themselves 2-hrs

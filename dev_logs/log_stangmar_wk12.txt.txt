@@ -1,0 +1,7 @@
+Name: John Logan Stewart
+Student Number: 100881265
+
+Work Done: 
+-Cleanup of some Dragable code 2-hrs
+-Added the Ai difficulty menu options 1-hrs
+-D4 Video - 4hrs
