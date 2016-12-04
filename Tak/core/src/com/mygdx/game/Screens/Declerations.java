@@ -317,10 +317,10 @@ public class Declerations
         versusAISkin[18].add("versusAITitle", new Texture(Gdx.files.internal("versusAI/titleAI.png")));
         versusAISkin[19].add("versusMessage", new Texture(Gdx.files.internal("versusScreen/versusMessage.png")));
         versusAISkin[20].add("difficultyMessage", new Texture(Gdx.files.internal("versusAI/difficultyMessage.png")));
-        versusAISkin[21].add("difficultyOneUnpressed", new Texture(Gdx.files.internal("versusAI/BlankButton.png")));
-        versusAISkin[22].add("difficultyOnePressed", new Texture(Gdx.files.internal("versusAI/BlankButton.png")));
-        versusAISkin[23].add("difficultyTwoUnpressed", new Texture(Gdx.files.internal("versusAI/BlankButton.png")));
-        versusAISkin[24].add("difficultyTwoPressed", new Texture(Gdx.files.internal("versusAI/BlankButton.png")));
+        versusAISkin[21].add("difficultyOneUnpressed", new Texture(Gdx.files.internal("versusAI/AIButton1.png")));
+        versusAISkin[22].add("difficultyOnePressed", new Texture(Gdx.files.internal("versusAI/AIButton1selected.png")));
+        versusAISkin[23].add("difficultyTwoUnpressed", new Texture(Gdx.files.internal("versusAI/AIButton2.png")));
+        versusAISkin[24].add("difficultyTwoPressed", new Texture(Gdx.files.internal("versusAI/AIButton2selected.png")));
 
 
     }
