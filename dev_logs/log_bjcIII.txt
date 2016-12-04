@@ -4,13 +4,19 @@ Student Number: 100811212
 -----------------------------
 Week 1:
 -----------------------------
-
+Pre-prep code framwork for game use.
 -----------------------------
+
 Week 2:
 -----------------------------
+Clean up the code and present framwork to group.
+Deploy to mobile device.
+
 -----------------------------
 Week 3:
 -----------------------------
+Prepare 
+
 -----------------------------
 Week 4:
 -----------------------------
