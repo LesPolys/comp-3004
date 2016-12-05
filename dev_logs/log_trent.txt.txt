@@ -1,0 +1,58 @@
+Name: Trent Houghton
+Student number: 100889983
+
+wk.1
+-finding and constructing group
+
+
+wk.2
+-Brainstorm and flesh out projecct ideas
+
+
+wk.3
+-nothing (other class priorities and such)
+-project still undecided
+
+
+wk.4
+-project decided
+-layout goals to meet and extra features should we need them
+
+
+wk.5
+-install android studio and fiddle around with the environment
+-main jobs divided
+-install GIMP for asset creation
+
+
+wk.6
+-created basic game piece assets 2h
+
+
+wk.7
+-designed several possible challenges to be immplemented 2h
+-play tested each one 1h
+-looked for other bugs and posted them to discord 1h
+
+
+wk. 8
+-reworked the game piece assets to match our aesthetic 3h
+
+
+wk.9
+-created extra selected versions of all game pieces 2h
+-more QA new bugs posted 1h
+
+
+wk.10
+-began set up code to allow for challenge implementation 5h
+
+
+
+wk.11
+-finished structure for challenge implementation 6h
+-implemented 2 of 6 challenges 3h
+
+wk.12
+-created AI difficulty menu option assets 5h
+- implemented remaining 4 challenges 8h
