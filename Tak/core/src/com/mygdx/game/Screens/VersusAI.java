@@ -49,6 +49,7 @@ public class VersusAI implements Screen
     private TextButton textButtons[];
     private Declerations declerations;
     private int stageSize;
+    private int difficulty;
 
     public VersusAI(Tak gameApp)
     {
@@ -64,6 +65,7 @@ public class VersusAI implements Screen
         textButtons = new TextButton[10];
 
         stageSize = 3;
+        difficulty = 1;
 
         images = new Image[4];
 
@@ -82,15 +84,20 @@ public class VersusAI implements Screen
         stage.addActor(images[0]);
 
 
-        images[1] = new Image(declerations.versusAISkin[18],"versusAITitle"); //Background
+        images[1] = new Image(declerations.versusAISkin[18],"versusAITitle");//title
         images[1].setSize(StaticVariables.V_WIDTH,StaticVariables.V_HEIGHT);
         images[1].setBounds(25, (StaticVariables.V_HEIGHT/2)-100, 74 ,200);
         stage.addActor(images[1]);
 
-        images[2] = new Image(declerations.versusAISkin[19],"versusMessage"); //Background
+        images[2] = new Image(declerations.versusAISkin[19],"versusMessage"); //message
         images[2].setSize(StaticVariables.V_WIDTH,StaticVariables.V_HEIGHT);
         images[2].setBounds(105,(StaticVariables.V_HEIGHT/2)-100,50,200);
         stage.addActor(images[2]);
+
+        images[3] = new Image(declerations.versusAISkin[20],"difficultyMessage"); //difficulty
+        images[3].setSize(StaticVariables.V_WIDTH,StaticVariables.V_HEIGHT);
+        images[3].setBounds(290,(StaticVariables.V_HEIGHT/2)-100,50,200);
+        stage.addActor(images[3]);
 
 
         declerations.versusAIMenutextButtonStyles[0].up = declerations.versusAISkin[13].getDrawable("playUnpressed");
@@ -125,17 +132,23 @@ public class VersusAI implements Screen
         declerations.versusAIMenutextButtonStyles[7].down = declerations.versusAISkin[12].getDrawable("8x8Pressed");
         Declerations.versusAIMenutextButtonStyles[7].checked = declerations.versusAISkin[12].getDrawable("8x8Pressed");
 
+        declerations.versusAIMenutextButtonStyles[8].up = declerations.versusAISkin[21].getDrawable("difficultyOneUnpressed");// Difficulty 1
+        declerations.versusAIMenutextButtonStyles[8].down = declerations.versusAISkin[22].getDrawable("difficultyOnePressed");
+        Declerations.versusAIMenutextButtonStyles[8].checked = declerations.versusAISkin[22].getDrawable("difficultyOnePressed");
 
+        declerations.versusAIMenutextButtonStyles[9].up = declerations.versusAISkin[23].getDrawable("difficultyTwoUnpressed");// Difficulty 2
+        declerations.versusAIMenutextButtonStyles[9].down = declerations.versusAISkin[24].getDrawable("difficultyTwoPressed");
+        Declerations.versusAIMenutextButtonStyles[9].checked = declerations.versusAISkin[24].getDrawable("difficultyTwoPressed");
 
-        for(int i=0; i < 2; i++)
+        for(int i=0; i < 2; i++) //play and back
         {
             int shift = 75 * i;
             textButtons[i] = new TextButton("", declerations.versusAIMenutextButtonStyles[i]);
-            textButtons[i].setBounds((300 + shift),(StaticVariables.V_HEIGHT/2)-100,50,200);
+            textButtons[i].setBounds((400 + shift),(StaticVariables.V_HEIGHT/2)-100,50,200);
             stage.addActor(textButtons[i]);
         }
 
-        int counter = 2;
+        int counter = 2; // board size
         for(int x=0; x < 2; x++)
         {
             for(int y=0; y < 3; y++) {
@@ -157,15 +170,35 @@ public class VersusAI implements Screen
 
 
 
+        textButtons[8] = new TextButton("", declerations.versusAIMenutextButtonStyles[8]);
+        textButtons[8].setBounds(345, (StaticVariables.V_HEIGHT/2)-75 , 50, 50);
+        stage.addActor(textButtons[8]);
+
+        textButtons[9] = new TextButton("", declerations.versusAIMenutextButtonStyles[9]);
+        textButtons[9].setBounds(345, ((StaticVariables.V_HEIGHT/2)+25), 50, 50);
+        stage.addActor(textButtons[9]);
+
+        ButtonGroup difficultyGroup = new ButtonGroup(textButtons[8],textButtons[9]);
+//next set the max and min amount to be checked
+        difficultyGroup.setMaxCheckCount(1);
+        difficultyGroup.setMinCheckCount(1);
+        difficultyGroup.setChecked("");
+//it may be useful to use this method:
+        difficultyGroup.setUncheckLast(true); //If true, when the maximum number of buttons are checked and an additional button is checked, the last button to be checked is unchecked so that the maximum is not exceeded.
+
+
         //button listeners
         textButtons[0].addListener(new ChangeListener()
         {
+
             @Override
             public void changed (ChangeEvent event, Actor actor)
             {
+                //added this
+                PlayScreen obj = new PlayScreen(app,stageSize);
+                obj.gameAISetttings();
 
-
-
+                ((Game) Gdx.app.getApplicationListener()).setScreen(obj);
             }
         });
 
@@ -198,7 +231,7 @@ public class VersusAI implements Screen
             {
                 stageSize = 4;
 
-               // System.out.println(stageSize);
+                // System.out.println(stageSize);
             }
         });
 
@@ -208,7 +241,7 @@ public class VersusAI implements Screen
             public void changed (ChangeEvent event, Actor actor)
             {
                 stageSize = 5;
-               // System.out.println(stageSize);
+                // System.out.println(stageSize);
 
             }
         });
@@ -220,7 +253,7 @@ public class VersusAI implements Screen
             {
                 stageSize = 6;
 
-               // System.out.println(stageSize);
+                // System.out.println(stageSize);
             }
         });
 
@@ -241,7 +274,29 @@ public class VersusAI implements Screen
             public void changed (ChangeEvent event, Actor actor)
             {
                 stageSize = 8;
-               // System.out.println(stageSize);
+                // System.out.println(stageSize);
+
+            }
+        });
+
+        textButtons[8].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+                difficulty = 1;
+                // System.out.println(stageSize);
+
+            }
+        });
+
+        textButtons[9].addListener(new ChangeListener()
+        {
+            @Override
+            public void changed (ChangeEvent event, Actor actor)
+            {
+                difficulty = 2;
+                // System.out.println(stageSize);
 
             }
         });

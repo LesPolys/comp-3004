@@ -57,6 +57,8 @@ public class PlayScreen implements Screen
     LightSquarePiece1 lightSquarePiece1;
     LightTriangle1 lightTriangle1Piece ;
 
+    private Boolean setGameAI;
+
     public PlayScreen(Tak gameApp, int boardSize)
     {
         app = gameApp;
@@ -82,8 +84,12 @@ public class PlayScreen implements Screen
 
         stackScreen = new StackScreen(app,stage);
         stackScreen.returnToGame();
+
+        setGameAI = false;
+
+        //drawAI();
     }
-     @Override
+    @Override
     public void show(){}
 
     public void update(float delta)
@@ -149,7 +155,10 @@ public class PlayScreen implements Screen
         int bSize = tmpDragable.getDimensions();
         piecesDragable[i].remove();
         piecesDragable[i].clear();
-        if (tmpDragable.getPlayer()) {
+
+
+        if (tmpDragable.getPlayer())
+        {
             piecesDragable[i]= new Dragable(lightSquarePiece1.getGamePiece(), i, this, gameBoard, bSize, true, 0, app);
             piecesDragable[i].setSize(30,30);
             piecesDragable[i].setPosition(tmpDragable.getX(),tmpDragable.getY());
@@ -217,15 +226,15 @@ public class PlayScreen implements Screen
                 break;
         }
 
-         darkCirclePiece1 = new DarkCirclePiece1();
-         darkSquarePiece1 = new DarkSquarePiece1();
-         darkTrianglePiece1 = new DarkTrianglePiece1();
+        darkCirclePiece1 = new DarkCirclePiece1();
+        darkSquarePiece1 = new DarkSquarePiece1();
+        darkTrianglePiece1 = new DarkTrianglePiece1();
 
         lightCirclePiece1 = new LightCirclePiece1();
         lightSquarePiece1 = new LightSquarePiece1();
         lightTriangle1Piece = new LightTriangle1();
 
-         piecesDragable = new Dragable[TOTAL_PIECES];
+        piecesDragable = new Dragable[TOTAL_PIECES];
 
         for(int i=0; i<TOTAL_PIECES; i++) {
 
@@ -260,7 +269,7 @@ public class PlayScreen implements Screen
                 }
 
             } else { //black pieces
-               // System.out.println("Black: " );
+                // System.out.println("Black: " );
                 if (piecesType == 0) { //road
                     piecesDragable[i] = new Dragable(darkSquarePiece1.getGamePiece(), i, this, gameBoard, bSize, false, 0, app);
                     piecesDragable[i].setBounds(20, 90, 30, 30);
@@ -345,6 +354,19 @@ public class PlayScreen implements Screen
     public GameBoard getGameBoard()
     {
         return gameBoard;
+    }
+
+    public void gameAISetttings(){setGameAI = true;}
+    public boolean isGameAISet(){return setGameAI;}
+
+    public void drawAI()
+    {
+
+        //darkCirclePiece1.setImage("darkcircle1","GamePiece/darkCircle1.png",269,155,50,50);
+
+        darkCirclePiece1.setBounds(265,155,50,50);
+        stage.addActor(darkCirclePiece1.getGamePiece());
+
     }
 
 }
