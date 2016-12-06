@@ -1,21 +1,23 @@
-package com.mygdx.game.GamePieces;
+package com.mygdx.game.GameLogic.GamePieces;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+//public abstract class GamePieces extends Image
 public class GamePieces extends Image
 {
     private Image gamePiece;
     private Skin gamePieceSkin;
-    private String imageID;
-    private String imageTexturePath;
 
     private int x;
     private int y;
     private int xSize;
     private int ySize;
+
+    private String imageID;
+    private String imageTexturePath;
 
     public GamePieces()
     {
@@ -26,20 +28,18 @@ public class GamePieces extends Image
     public void setImage(String id, String texturePath, int xPos, int yPos, int newXSize, int newYSize)
     {
 
-        x = xPos;
-        y = yPos;
-        xSize = newXSize;
-        ySize = newYSize;
+        int x = xPos;
+        int y = yPos;
+        int xSize = newXSize;
+        int ySize = newYSize;
+
         imageID = id;
         imageTexturePath = texturePath;
 
-        gamePieceSkin.add(id, new Texture( Gdx.files.internal(imageTexturePath)));
+        gamePieceSkin.add(imageID, new Texture( Gdx.files.internal(imageTexturePath)));
         gamePiece = new Image(gamePieceSkin, id);
         gamePiece.setBounds(x,y,xSize,ySize);
     }
-
-    public String getImageId(){return imageID;}
-    public String getImageTexturePath(){return imageTexturePath;}
 
     public Image getGamePiece()
     {
@@ -51,4 +51,7 @@ public class GamePieces extends Image
     public float getY(){return y;}
     public int getXSize(){return xSize;}
     public int getYSize(){return ySize;}
+
+    public String getId(){return imageID;}
+    public String getTexturePath(){return imageTexturePath;}
 }

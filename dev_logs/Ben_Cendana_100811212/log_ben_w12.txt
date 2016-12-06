@@ -1,0 +1,29 @@
+Name: Benjamin Cendana
+Student Number: 100811212
+
+-----------------------------
+Week 12:
+-----------------------------
+Fix Game Logic
+Fix Game AI
+Prepare for D4
+
+Total: 6hrs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+Name: Benjamin Cendana
+Student Number: 100811212
+
+-----------------------------
+Week 9:
+-----------------------------
+Fix Game Logic Bugs
+QA work
+
+Total: 3hrs
+
+

@@ -1,0 +1,11 @@
+Name: Benjamin Cendana
+Student Number: 100811212
+
+-----------------------------
+Week 11:
+-----------------------------
+Fix New Game Discovered Logic Bugs 
+Write Game AI 
+
+Total: 6hrs
+

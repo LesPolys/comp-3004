@@ -1,0 +1,9 @@
+Name: Benjamin Cendana
+Student Number: 100811212
+
+-----------------------------
+Week 5:
+-----------------------------
+Write pre-Game Logic and plan 
+UML diagrams
+

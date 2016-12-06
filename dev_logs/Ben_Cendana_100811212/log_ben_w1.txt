@@ -1,0 +1,11 @@
+Name: Benjamin Cendana
+Student Number: 100811212
+
+-----------------------------
+Week 1:
+-----------------------------
+
+Find a group
+Pre-prep code framwork for game use.
+-----------------------------
+

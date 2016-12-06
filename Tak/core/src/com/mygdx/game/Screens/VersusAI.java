@@ -190,12 +190,15 @@ public class VersusAI implements Screen
         //button listeners
         textButtons[0].addListener(new ChangeListener()
         {
+
             @Override
             public void changed (ChangeEvent event, Actor actor)
-            {//play
+            {
+                //added this
+                PlayScreen obj = new PlayScreen(app,stageSize);
+                obj.gameAISetttings();
 
-
-
+                ((Game) Gdx.app.getApplicationListener()).setScreen(obj);
             }
         });
 
@@ -228,7 +231,7 @@ public class VersusAI implements Screen
             {
                 stageSize = 4;
 
-               // System.out.println(stageSize);
+                // System.out.println(stageSize);
             }
         });
 
@@ -238,7 +241,7 @@ public class VersusAI implements Screen
             public void changed (ChangeEvent event, Actor actor)
             {
                 stageSize = 5;
-               // System.out.println(stageSize);
+                // System.out.println(stageSize);
 
             }
         });
@@ -250,7 +253,7 @@ public class VersusAI implements Screen
             {
                 stageSize = 6;
 
-               // System.out.println(stageSize);
+                // System.out.println(stageSize);
             }
         });
 
@@ -271,7 +274,7 @@ public class VersusAI implements Screen
             public void changed (ChangeEvent event, Actor actor)
             {
                 stageSize = 8;
-               // System.out.println(stageSize);
+                // System.out.println(stageSize);
 
             }
         });
