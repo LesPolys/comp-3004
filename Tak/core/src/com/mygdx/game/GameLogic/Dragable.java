@@ -77,7 +77,7 @@ public class Dragable extends Image
         yPos= -1;
         tak = obj;
 
-        gameAi = new AI();
+        gameAi = new AI(boardSize);
 
         if(pieceType == 0) {
             if(currentPlayer) {
@@ -1073,8 +1073,9 @@ public class Dragable extends Image
         //y = left right
         //x = up down
 
-        int randomX = randomGem(0,getDimensions() - 1);
-        int randomY = randomGem(0,getDimensions() - 1);
+        int randomX = randomGem(0,(getDimensions() - 1));
+        int randomY = randomGem(0,(getDimensions() - 1));
+
 
 
         if( (gameAi.isSquareEmpty(randomX,randomY) == true))// && (randomX < getDimensions()) && (randomY < getDimensions()))
@@ -1090,7 +1091,7 @@ public class Dragable extends Image
 
         System.out.println("ol" + randomX);
         System.out.println("ol" + randomY);
-        System.out.println("squre" + randomX + " " +randomY + gameAi.isSquareEmpty(randomX,randomY));
+        //System.out.println("squre" + randomX + " " +randomY + gameAi.isSquareEmpty(randomX,randomY));
 
 
         switch(boardSize)

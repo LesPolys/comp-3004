@@ -8,9 +8,9 @@ public class AI
     //1 is white
     //2 is black
 
-    public AI()
+    public AI(int boardSize)
     {
-        gameBoard = new int[3][3];
+        gameBoard = new int[boardSize][boardSize];
 
         for(int r =0; r < gameBoard.length; r++)
         {
