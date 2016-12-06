@@ -1,0 +1,8 @@
+Name: Cal McLelland
+Student Number: 100858499
+
+Week 9
+
+1) added more complex ai
+
+2) fixed gamerule issues

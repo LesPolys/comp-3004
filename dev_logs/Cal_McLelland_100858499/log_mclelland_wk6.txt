@@ -1,0 +1,6 @@
+Name: Cal McLelland
+Student Number: 100858499
+
+Week 6
+
+1) created a gameboard and allowed for players to place pieces
