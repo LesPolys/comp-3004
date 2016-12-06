@@ -1,0 +1,7 @@
+Name: Trent Houghton
+Student number: 100889983
+
+wk.7
+-designed several possible challenges to be immplemented 2h
+-play tested each one 1h
+-looked for other bugs and posted them to discord 1h

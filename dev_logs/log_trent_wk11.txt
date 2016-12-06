@@ -1,0 +1,6 @@
+Name: Trent Houghton
+Student number: 100889983
+
+wk.11
+-finished structure for challenge implementation 6h
+-implemented 2 of 6 challenges 3h

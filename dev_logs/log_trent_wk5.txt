@@ -1,0 +1,6 @@
+Name: Trent Houghton
+Student number: 100889983
+
+wk.5
+-install android studio and fiddle around with the environment
+-main jobs divided

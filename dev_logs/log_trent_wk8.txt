@@ -1,0 +1,5 @@
+Name: Trent Houghton
+Student number: 100889983
+
+wk. 8
+-reworked the game piece assets to match our aesthetic 3h

@@ -1,0 +1,6 @@
+Name: Trent Houghton
+Student number: 100889983
+
+wk.12
+-created AI difficulty menu option assets 5h
+- implemented remaining 4 challenges 8h

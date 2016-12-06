@@ -1,0 +1,5 @@
+Name: Trent Houghton
+Student number: 100889983
+
+wk.10
+-began set up code to allow for challenge implementation 5h

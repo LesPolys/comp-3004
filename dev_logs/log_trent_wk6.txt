@@ -1,0 +1,5 @@
+Name: Trent Houghton
+Student number: 100889983
+
+wk.6
+-created basic game piece assets 2h
