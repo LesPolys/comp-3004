@@ -195,7 +195,7 @@ public class VersusAI implements Screen
             public void changed (ChangeEvent event, Actor actor)
             {
                 //added this
-                PlayScreen obj = new PlayScreen(app,stageSize);
+                PlayScreen obj = new PlayScreen(app,stageSize, false);
                 obj.gameAISetttings();
 
                 ((Game) Gdx.app.getApplicationListener()).setScreen(obj);

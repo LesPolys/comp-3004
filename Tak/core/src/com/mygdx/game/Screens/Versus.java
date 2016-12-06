@@ -141,7 +141,7 @@ public class Versus implements Screen
             @Override
             public void changed (ChangeEvent event, Actor actor)
             {
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(app,stageSize));
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(app,stageSize, false));
 
 
             }

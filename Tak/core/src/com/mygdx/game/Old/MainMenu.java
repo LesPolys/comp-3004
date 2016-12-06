@@ -116,7 +116,7 @@ public class MainMenu implements Screen
             public void changed (ChangeEvent event, Actor actor)
             {
 
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(app,0));
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new PlayScreen(app,0, false));
 
             }
         });

@@ -172,14 +172,18 @@ public class Challenge implements Screen
                     case 1:
                         bsize = 3;
 
-                        challengeScreen = new PlayScreen(app, bsize);
+                        challengeScreen = new PlayScreen(app, bsize, true);
 
                         darkSquarePiece1 = new DarkSquarePiece1();
                         lightSquarePiece1 = new LightSquarePiece1();
 
-                        darkSquarePiece1Dragable = new Dragable[4];
+                        darkSquarePiece1Dragable = new Dragable[5];
                         lightSquarePiece1Dragable = new Dragable[4];
 
+                        darkSquarePiece1Dragable[4] = new Dragable(darkSquarePiece1.getGamePiece(), 4, challengeScreen, challengeScreen.getGameBoard(), bsize, false, 0, app);
+                        darkSquarePiece1Dragable[4].setBounds(20, 90, 30, 30);
+                        darkSquarePiece1Dragable[4].makeDraggable();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[4]);
 
                         //black piece creation and placement
                         player = false;
@@ -275,14 +279,19 @@ public class Challenge implements Screen
                         //challenge 2
                         bsize = 4;
 
-                        challengeScreen = new PlayScreen(app, bsize);
+                        challengeScreen = new PlayScreen(app, bsize, true);
 
                         darkSquarePiece1 = new DarkSquarePiece1();
                         lightSquarePiece1 = new LightSquarePiece1();
 
-                        darkSquarePiece1Dragable = new Dragable[6];
+                        darkSquarePiece1Dragable = new Dragable[7];
                         lightSquarePiece1Dragable = new Dragable[7];
                         index = 0;
+
+                        darkSquarePiece1Dragable[6] = new Dragable(darkSquarePiece1.getGamePiece(), 6, challengeScreen, challengeScreen.getGameBoard(), bsize, false, 0, app);
+                        darkSquarePiece1Dragable[6].setBounds(20, 90, 30, 30);
+                        darkSquarePiece1Dragable[6].makeDraggable();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[6]);
 
                         //0,0
                         i = 0;posX = 0;posY = 0;type = 0;player = false;
@@ -423,16 +432,21 @@ public class Challenge implements Screen
                         //challenge 3
                         bsize = 4;
 
-                        challengeScreen = new PlayScreen(app, bsize);
+                        challengeScreen = new PlayScreen(app, bsize, true);
 
                         darkSquarePiece1 = new DarkSquarePiece1();
                         lightSquarePiece1 = new LightSquarePiece1();
                         lightTrianglePiece1 = new LightTriangle1();
                         darkTrianglePiece1 = new DarkTrianglePiece1();
 
-                        darkSquarePiece1Dragable = new Dragable[9];
+                        darkSquarePiece1Dragable = new Dragable[10];
                         lightSquarePiece1Dragable = new Dragable[9];
                         index =0;
+
+                        darkSquarePiece1Dragable[9] = new Dragable(darkSquarePiece1.getGamePiece(), 9, challengeScreen, challengeScreen.getGameBoard(), bsize, false, 0, app);
+                        darkSquarePiece1Dragable[9].setBounds(20, 90, 30, 30);
+                        darkSquarePiece1Dragable[9].makeDraggable();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[9]);
 
                         //0,0
                         i = 0;posX = 0;posY = 0;type = 1;player = true;
@@ -622,14 +636,19 @@ public class Challenge implements Screen
                         //challenge 4
                         bsize = 4;
 
-                        challengeScreen = new PlayScreen(app, bsize);
+                        challengeScreen = new PlayScreen(app, bsize, true);
 
                         darkSquarePiece1 = new DarkSquarePiece1();
                         lightSquarePiece1 = new LightSquarePiece1();
 
-                        darkSquarePiece1Dragable = new Dragable[8];
+                        darkSquarePiece1Dragable = new Dragable[9];
                         lightSquarePiece1Dragable = new Dragable[8];
                         index =0;
+
+                        darkSquarePiece1Dragable[8] = new Dragable(darkSquarePiece1.getGamePiece(), 8, challengeScreen, challengeScreen.getGameBoard(), bsize, false, 0, app);
+                        darkSquarePiece1Dragable[8].setBounds(20, 90, 30, 30);
+                        darkSquarePiece1Dragable[8].makeDraggable();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[8]);
 
                         //0,0
                         i = 0;posX = 0;posY = 0;type = 0;player = false;
@@ -803,16 +822,21 @@ public class Challenge implements Screen
                         //challenge 5
                         bsize = 5;
 
-                        challengeScreen = new PlayScreen(app, bsize);
+                        challengeScreen = new PlayScreen(app, bsize, true);
 
                         darkSquarePiece1 = new DarkSquarePiece1();
                         lightSquarePiece1 = new LightSquarePiece1();
                         lightTrianglePiece1 = new LightTriangle1();
                         darkTrianglePiece1 = new DarkTrianglePiece1();
 
-                        darkSquarePiece1Dragable = new Dragable[14];
+                        darkSquarePiece1Dragable = new Dragable[15];
                         lightSquarePiece1Dragable = new Dragable[14];
                         index =0;
+
+                        darkSquarePiece1Dragable[14] = new Dragable(darkSquarePiece1.getGamePiece(), 14, challengeScreen, challengeScreen.getGameBoard(), bsize, false, 0, app);
+                        darkSquarePiece1Dragable[14].setBounds(20, 90, 30, 30);
+                        darkSquarePiece1Dragable[14].makeDraggable();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[14]);
 
                         //0,0
                         i = 0;posX = 0;posY = 0;type = 0;player = false;
@@ -1106,7 +1130,7 @@ public class Challenge implements Screen
                         //challenge 6
                         bsize = 5;
 
-                        challengeScreen = new PlayScreen(app, bsize);
+                        challengeScreen = new PlayScreen(app, bsize, true);
 
                         darkSquarePiece1 = new DarkSquarePiece1();
                         lightSquarePiece1 = new LightSquarePiece1();
@@ -1115,9 +1139,14 @@ public class Challenge implements Screen
                         lightCirclePiece = new LightCirclePiece1();
                         darkCirclePiece = new DarkCirclePiece1();
 
-                        darkSquarePiece1Dragable = new Dragable[18];
+                        darkSquarePiece1Dragable = new Dragable[19];
                         lightSquarePiece1Dragable = new Dragable[18];
                         index =0;
+
+                        darkSquarePiece1Dragable[18] = new Dragable(darkSquarePiece1.getGamePiece(), 18, challengeScreen, challengeScreen.getGameBoard(), bsize, false, 0, app);
+                        darkSquarePiece1Dragable[18].setBounds(20, 90, 30, 30);
+                        darkSquarePiece1Dragable[18].makeDraggable();
+                        challengeScreen.stage.addActor(darkSquarePiece1Dragable[18]);
 
                         //0, 1
                         i = 0;posX = 0;posY = 1;type = 0;player = true;
