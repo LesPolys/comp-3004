@@ -1,5 +1,7 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Screens.MainMenu;
@@ -22,6 +24,9 @@ public class Tak extends Game
 	@Override
 	public void create()
 	{
+		Music music = Gdx.audio.newMusic(Gdx.files.internal("Nova.wav"));
+		music.play();
+
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, StaticVariables.V_WIDTH ,StaticVariables.V_HEIGHT);
 		batch = new SpriteBatch();

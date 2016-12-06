@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -60,6 +61,8 @@ public class PlayScreen implements Screen
     private Boolean setGameAI;
     private Boolean ischallenge = false;
 
+    private Music playMusic;
+
     public PlayScreen(Tak gameApp, int boardSize, boolean challenge)
     {
         app = gameApp;
@@ -91,6 +94,8 @@ public class PlayScreen implements Screen
         setGameAI = false;
 
         //drawAI();
+
+
     }
     @Override
     public void show(){}

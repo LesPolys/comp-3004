@@ -58,6 +58,7 @@ public class Dragable extends Image
     private Dragable stack[];
     private int index;
 
+    private AI gameAi;
     //added this temp for demo reasons s
     private Tak tak;
 
@@ -75,6 +76,8 @@ public class Dragable extends Image
         xPos= -1;
         yPos= -1;
         tak = obj;
+
+        gameAi = new AI();
 
         if(pieceType == 0) {
             if(currentPlayer) {
@@ -216,68 +219,71 @@ public class Dragable extends Image
                 switch(boardSize)
                 {
                     case 3: //3x3 board
-
-                        //ADDED HERE
-                        //=====================================================================
-                        for(int i = 0; i < 3; i++) {
+                    {
+                        for (int i = 0; i < 3; i++) {
                             for (int j = 0; j < 3; j++) {
                                 if (((event.getStageX() > 230 + (i * 30)) && (event.getStageX() < 260 + (i * 30))) &&
-                                        ((event.getStageY() >= 120 + (j * 30)) && (event.getStageY() <= 150 + (j * 30))))
-                                {
-                                    if(screen.isGameAISet() == true)
-                                    {
-                                        drawAI(event.getStageX(), event.getStageY(), i, j, 3);
-                                    }
-
-                                }
-                            }
-                        }
-
-
-
-
-                        for(int i = 0; i < 3; i++){
-                            for (int j = 0; j < 3; j++){
-                                if(((event.getStageX() > 230 + (i* 30)) && (event.getStageX() < 260 + (i* 30) ))&&
-                                        ((event.getStageY() >=120 + (j* 30)) && (event.getStageY() <= 150 + (j* 30))))
-                                {
+                                        ((event.getStageY() >= 120 + (j * 30)) && (event.getStageY() <= 150 + (j * 30)))) {
                                     // System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
-                                    if(piece.inPlay)
-                                    {
 
-                                        if(
-                                                ((i < piece.getGridXPos())&&(j < piece.getGridYPos()))||
-                                                        ((i > piece.getGridXPos())&&(j > piece.getGridYPos()))||
-                                                        ((i < piece.getGridXPos())&&(j > piece.getGridYPos()))||
-                                                        ((i > piece.getGridXPos())&&(j < piece.getGridYPos()))||
-                                                        ((i > piece.getGridXPos()+1))||
-                                                        ((i < piece.getGridXPos()-1))||
-                                                        ((j > piece.getGridYPos()+1))||
-                                                        ((j < piece.getGridYPos()-1)))
-                                        { //tries to move diagonally (both x and y are less,both and y are greater, x is less and y is greater,y is less and x is greater) or tries to move more than one space
+                                    System.out.println("xxxxx");
+                                    System.out.println("hit1");
+                                    System.out.println("xxxxx");
+
+                                    gameAi.addGameBoard(i, j);
+
+                                    if (piece.inPlay)
+                                    {
+                                        System.out.println("xxxxx");
+                                        System.out.println("hit2");
+                                        System.out.println("xxxxx");
+
+                                        if
+                                                (
+                                                ((i < piece.getGridXPos()) && (j < piece.getGridYPos())) ||
+                                                        ((i > piece.getGridXPos()) && (j > piece.getGridYPos())) ||
+                                                        ((i < piece.getGridXPos()) && (j > piece.getGridYPos())) ||
+                                                        ((i > piece.getGridXPos()) && (j < piece.getGridYPos())) ||
+                                                        ((i > piece.getGridXPos() + 1)) ||
+                                                        ((i < piece.getGridXPos() - 1)) ||
+                                                        ((j > piece.getGridYPos() + 1)) ||
+                                                        ((j < piece.getGridYPos() - 1))) { //tries to move diagonally (both x and y are less,both and y are greater, x is less and y is greater,y is less and x is greater) or tries to move more than one space
 
                                             piece.setPosition(235 + (piece.getGridXPos() * 30), 125 + (piece.getGridYPos() * 30));
 
 
                                             //System.out.println("gameAI" + screen.isGameAISet());
 
-                                            gameBoard.setSquare(piece.getGridXPos(),piece.getGridYPos(),currentPlayer,pieceType,index);
-                                                     //setSquare(int row, int col, boolean player, int type, int i)
+                                            gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType, index);
+                                            gameAi.addGameBoard(piece.getGridXPos(), piece.getGridYPos());
 
-                                        } else if(piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || gameBoard.topType(i,j) == 2  ) ){ //road tries to move onto a wall or cap
+                                            System.out.println("xxxxx");
+                                            System.out.println("hit3");
+                                            System.out.println("xxxxx");
+
+                                        }
+                                        else if (piece.pieceType == 0 && (gameBoard.topType(i, j) == 1 || gameBoard.topType(i, j) == 2)) { //road tries to move onto a wall or cap
                                             //invalid move, put them back to their old spot
                                             piece.setPosition(235 + (piece.getGridXPos() * 30), 125 + (piece.getGridYPos() * 30));
                                             screen.stage.addActor(piece);
                                             gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType, index);
+                                            gameAi.addGameBoard(piece.getGridXPos(), piece.getGridYPos());
 
+                                            System.out.println("xxxxx");
+                                            System.out.println("hit4");
+                                            System.out.println("xxxxx");
 
                                         }
-                                        else if (piece.pieceType == 1 && gameBoard.topType(i,j) == 1)
+                                        else if (piece.pieceType == 1 && gameBoard.topType(i, j) == 1)
                                         {
                                             piece.setPosition(235 + (piece.getGridXPos() * 30), 125 + (piece.getGridYPos() * 30));
                                             screen.stage.addActor(piece);
                                             gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType, index);
+                                            gameAi.addGameBoard(piece.getGridXPos(), piece.getGridYPos());
 
+                                            System.out.println("xxxxx");
+                                            System.out.println("hit5");
+                                            System.out.println("xxxxx");
                                         }
                                         else
                                         {
@@ -286,10 +292,14 @@ public class Dragable extends Image
 //System.out.println("ITEST");
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType, index);
+                                            gameAi.addGameBoard(i, j);
                                             gameBoard.addSelected();
                                             //gameBoard.check();
                                             //gameBoard.findPath();
 
+                                            System.out.println("xxxxx");
+                                            System.out.println("hit6");
+                                            System.out.println("xxxxx");
                                         }
 
                                     }
@@ -301,21 +311,23 @@ public class Dragable extends Image
                                         //System.out.println("d" + screen.isGameAISet());
 
 
-                                        if((piece.pieceType == 0 && (gameBoard.topType(i,j) == 1 || (gameBoard.topType(i,j) == 2  ))||
+                                        if ((piece.pieceType == 0 && (gameBoard.topType(i, j) == 1 || (gameBoard.topType(i, j) == 2)) ||
                                                 //road tries to move onto a wall or cap
-                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 2 ))||
-                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 1 )||
-                                                (piece.pieceType == 0 && gameBoard.topType(i,j) == 0 )||
-                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 1 )||
-                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 2 )||
-                                                (piece.pieceType == 2 && gameBoard.topType(i,j) == 0 )||
-                                                (piece.pieceType == 1 && gameBoard.topType(i,j) == 0 ))
-                                        { //road tries to move onto a wall or cap
+                                                (piece.pieceType == 1 && gameBoard.topType(i, j) == 2)) ||
+                                                (piece.pieceType == 2 && gameBoard.topType(i, j) == 1) ||
+                                                (piece.pieceType == 0 && gameBoard.topType(i, j) == 0) ||
+                                                (piece.pieceType == 1 && gameBoard.topType(i, j) == 1) ||
+                                                (piece.pieceType == 2 && gameBoard.topType(i, j) == 2) ||
+                                                (piece.pieceType == 2 && gameBoard.topType(i, j) == 0) ||
+                                                (piece.pieceType == 1 && gameBoard.topType(i, j) == 0)) { //road tries to move onto a wall or cap
                                             //invalid move, put them back to their old spot
-                                            piece.setPosition(startingX,startingY);
+                                            piece.setPosition(startingX, startingY);
+                                            gameAi.addGameBoard(startingX,startingY);
                                             screen.stage.addActor(piece);
 
-
+                                            System.out.println("xxxxx");
+                                            System.out.println("hit7");
+                                            System.out.println("xxxxx");
                                         }
                                         else
                                         {
@@ -325,49 +337,80 @@ public class Dragable extends Image
 
                                             piece.setGridPos(i, j);
                                             gameBoard.setSquare(i, j, currentPlayer, pieceType, index);
+                                            gameAi.addGameBoard(i,j);
+
                                             gameBoard.addSelected();
                                             //gameBoard.check();
                                             //gameBoard.findPath();
                                             inPlay = true;
-                                            //  System.out.println(gameBoard.checkStartAndEnd(0,0,0,4));
 
-                                            //DRAW HERE
-                                            //drawAI();
+                                            System.out.println("xxxxx");
+                                            System.out.println("hit8");
+                                            System.out.println("xxxxx");
                                         }
                                     }
 
                                 }
                             }
                         }
-                        if(((event.getStageX() < 230 ) || (event.getStageX() > 260 ))||
-                                ((event.getStageY() <=120 ) || (event.getStageY() >= 150 )))
+                        if (((event.getStageX() < 230) || (event.getStageX() > 260)) ||
+                                ((event.getStageY() <= 120) || (event.getStageY() >= 150)))
                         {
                             //DRAW HERE
 
                             //System.out.println("eventX" + event.getStageX() + "eventY" + event.getStageY());
 
+                            System.out.println("xxxxx");
+                            System.out.println("hit9");
+                            System.out.println("xxxxx");
 
-                            if(piece.inPlay)
+                            if (piece.inPlay)
                             {
                                 // System.out.println("OUT OF BOUNDS");
                                 piece.setPosition(235 + (piece.getGridXPos() * 30), 125 + (piece.getGridYPos() * 30));
                                 screen.stage.addActor(piece);
                                 gameBoard.setSquare(piece.getGridXPos(), piece.getGridYPos(), currentPlayer, pieceType, index);
+                                gameAi.addGameBoard(piece.getGridXPos(), piece.getGridYPos());
 
-                                //DRAW HERE
-                                //drawAI();
+                                System.out.println("xxxxx");
+                                System.out.println("hit10");
+                                System.out.println("xxxxx");
+
                             }
                             else
                             {
-                                piece.setPosition(startingX,startingY);
+                                piece.setPosition(startingX, startingY);
                                 screen.stage.addActor(piece);
 
+                                System.out.println("xxxxx");
+                                System.out.println("hit11");
+                                System.out.println("xxxxx");
                             }
                         }
 
 
+                        //ADDED HERE
+                        //=====================================================================
+                        for (int i = 0; i < 3; i++) {
+                            for (int j = 0; j < 3; j++) {
+                                if (((event.getStageX() > 230 + (i * 30)) && (event.getStageX() < 260 + (i * 30))) &&
+                                        ((event.getStageY() >= 120 + (j * 30)) && (event.getStageY() <= 150 + (j * 30)))) {
+                                    if (screen.isGameAISet() == true) {
+                                        drawAI(event.getStageX(), event.getStageY(), i, j, 3);
+                                    }
+
+                                    //System.out.println("row:" + i + "col:" + j);
+                                    //System.out.println("player " + getCurrentPlayer());
+
+
+                                    //aa
+                                    gameAi.addGameBoard(i, j);
+                                }
+                            }
+                        }
 
                         break;
+                    }
                     case 4: //4x4 board
 
                         //ADDED HERE
@@ -1006,70 +1049,92 @@ public class Dragable extends Image
         });
     }
 
+    public int randomGem(int min, int max)
+    {
+        return (min + (int)(Math.random() * max));
+    }
+
     public void drawAI(float x, float y, int row, int col, int boardSize)
     {
         Random rand = new Random();
 
-        int randomNum;
-        int minimum =0;
-        int maximum =5;
-        randomNum = minimum + (int)(Math.random() * maximum);
+        //int randomNum;
+        //int minimum =0;
+        //int maximum =5;
+        //randomNum = minimum + (int)(Math.random() * maximum);
 
-        //System.out.println(randomNum);
-        //System.out.println("x" +  x + "" + " " + y);
+        System.out.println("squre 0,0" + gameAi.isSquareEmpty(0,0));
+        //System.out.println("r" +  randomGem(0,getDimensions()));
+        //System.out.println("r" +  randomGem(0,getDimensions()));
 
         int topX = 0;
         int topy = 0;
 
         //y = left right
         //x = up down
+
+        int randomX = randomGem(0,getDimensions() - 1);
+        int randomY = randomGem(0,getDimensions() - 1);
+
+
+        if( (gameAi.isSquareEmpty(randomX,randomY) == true))// && (randomX < getDimensions()) && (randomY < getDimensions()))
+        {
+
+        }
+        else
+        {
+            randomX = randomGem(0,getDimensions());
+            randomY = randomGem(0,getDimensions());
+
+        }
+
+        System.out.println("ol" + randomX);
+        System.out.println("ol" + randomY);
+        System.out.println("squre" + randomX + " " +randomY + gameAi.isSquareEmpty(randomX,randomY));
+
+
         switch(boardSize)
         {
             case 3:
             {
-                int randomSpot = 0 + (int)(Math.random() * 2);
-                topX = 236 + (randomSpot * 30);
-                topy = 123 + (randomSpot * 30);
+
+                topX = 236 + (randomX * 30);
+                topy = 123 + (randomY * 30);
             }
             break;
 
             case 4:
             {
-                int randomSpot = 0 + (int)(Math.random() * 3);
-                topX = 219 + (randomSpot * 30);
-                topy = 111 + (randomSpot * 30);
+                topX = 219 + (randomX * 30);
+                topy = 111 + (randomY * 30);
             }
             break;
 
             case 5:
             {
-                int randomSpot = 0 + (int)(Math.random() * 3);
-                topX = 207 + (randomSpot * 30);
-                topy = 95 + (randomSpot * 30);
+                topX = 207 + (randomX * 30);
+                topy = 95 + (randomY * 30);
             }
             break;
 
             case 6:
             {
-                int randomSpot = 0 + (int)(Math.random() * 3);
-                topX = 193 + (randomSpot * 30);
-                topy = 79 + (randomSpot * 30);
+                topX = 193 + (randomX * 30);
+                topy = 79 + (randomY * 30);
             }
             break;
 
             case 7:
             {
-                int randomSpot = 0 + (int)(Math.random() * 3);
-                topX = 178 + (randomSpot * 30);
-                topy = 65 + (randomSpot * 30);
+                topX = 178 + (randomX * 30);
+                topy = 65 + (randomY * 30);
             }
             break;
 
             case 8:
             {
-                int randomSpot = 0 + (int)(Math.random() * 3);
-                topX = 158 + (randomSpot * 30);
-                topy = 50 + (randomSpot * 30);
+                topX = 158 + (randomX * 30);
+                topy = 50 + (randomY * 30);
             }
             break;
         }
@@ -1083,24 +1148,31 @@ public class Dragable extends Image
         LightTriangle1 lightTriangle1Piece = new LightTriangle1() ;
 
 
+        //false = 0, true = 1
         int randomPiece = 0 + (int)(Math.random() * 2);
 
         if(!getCurrentPlayer()) {
             switch (randomPiece)
             {
-                case 0: {
+                case 0:
+                {
+                    gameAi.addGameBoard(randomX,randomY);
                     lightCirclePiece1.setImage(lightCirclePiece1.getImageId(), lightCirclePiece1.getImageTexturePath(), topX, topy, 30, 30);
                     screen.stage.addActor(lightCirclePiece1.getGamePiece());
                 }
                 break;
 
-                case 1: {
+                case 1:
+                {
+                    gameAi.addGameBoard(randomX,randomY);
                     lightSquarePiece1.setImage(lightSquarePiece1.getImageId(), lightSquarePiece1.getImageTexturePath(), topX, topy, 30, 30);
                     screen.stage.addActor(lightSquarePiece1.getGamePiece());
                 }
                 break;
 
-                case 2: {
+                case 2:
+                {
+                    gameAi.addGameBoard(randomX,randomY);
                     lightTriangle1Piece.setImage(lightTriangle1Piece.getImageId(), lightTriangle1Piece.getImageTexturePath(), topX, topy, 30, 30);
                     screen.stage.addActor(lightTriangle1Piece.getGamePiece());
                 }
@@ -1111,19 +1183,25 @@ public class Dragable extends Image
         {
             switch (randomPiece)
             {
-                case 0: {
+                case 0:
+                {
+                    gameAi.addGameBoard(randomX,randomY);
                     darkCirclePiece1.setImage(darkCirclePiece1.getImageId(), darkCirclePiece1.getImageTexturePath(), topX, topy, 30, 30);
                     screen.stage.addActor(darkCirclePiece1.getGamePiece());
                 }
                 break;
 
-                case 1: {
+                case 1:
+                {
+                    gameAi.addGameBoard(randomX,randomY);
                     darkSquarePiece1.setImage(darkSquarePiece1.getImageId(), darkSquarePiece1.getImageTexturePath(), topX, topy, 30, 30);
                     screen.stage.addActor(darkSquarePiece1.getGamePiece());
                 }
                 break;
 
-                case 2: {
+                case 2:
+                {
+                    gameAi.addGameBoard(randomX,randomY);
                     darkTrianglePiece1.setImage(darkTrianglePiece1.getImageId(), darkTrianglePiece1.getImageTexturePath(), topX, topy, 30, 30);
                     screen.stage.addActor(darkTrianglePiece1.getGamePiece());
                 }

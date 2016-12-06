@@ -416,6 +416,62 @@ public class GameBoard
 
     public void completeGraph(ArrayList<String> path,boolean player)
     {
+        //only for 3x3 board
+        //for demo
+
+        //rows
+        if( (getDimensions() == 3) )
+        {
+            //System.out.println("3x3 board test");
+
+            for(int r=0; r <= 2; r++)
+            {
+
+                //check rows for white
+                if( ((!board[r][0].isEmpty()) && (board[r][0].element().getPlayer()== false)) &&
+                        ((!board[r][1].isEmpty()) && (board[r][1].element().getPlayer()== false)) &&
+                        ((!board[r][2].isEmpty()) && (board[r][2].element().getPlayer()== false))
+                        )
+                {
+                    ((Game) Gdx.app.getApplicationListener()).setScreen(new WinScreen(app,player));
+                }
+
+                //check rows for black
+                if( ((!board[r][0].isEmpty()) && (board[r][0].element().getPlayer()== true)) &&
+                        ((!board[r][1].isEmpty()) && (board[r][1].element().getPlayer()== true)) &&
+                        ((!board[r][2].isEmpty()) && (board[r][2].element().getPlayer()== true))
+                        )
+                {
+                    ((Game) Gdx.app.getApplicationListener()).setScreen(new WinScreen(app,player));
+                }
+            }
+
+            for(int c=0; c <= 2; c++)
+            {
+
+                //check rows for white
+                if( ((!board[0][c].isEmpty()) && (board[0][c].element().getPlayer()== false)) &&
+                        ((!board[1][c].isEmpty()) && (board[1][c].element().getPlayer()== false)) &&
+                        ((!board[2][c].isEmpty()) && (board[2][c].element().getPlayer()== false))
+                        )
+                {
+                    ((Game) Gdx.app.getApplicationListener()).setScreen(new WinScreen(app,player));
+                }
+
+                //check rows for black
+                if( ((!board[0][c].isEmpty()) && (board[0][c].element().getPlayer()== true)) &&
+                        ((!board[1][c].isEmpty()) && (board[1][c].element().getPlayer()== true)) &&
+                        ((!board[2][c].isEmpty()) && (board[2][c].element().getPlayer()== true))
+                        )
+                {
+                    ((Game) Gdx.app.getApplicationListener()).setScreen(new WinScreen(app,player));
+                }
+
+            }
+
+
+
+        }
         removeDuplicates();
         //ArrayList<String> path = blackPlayerSquares;
 
@@ -440,6 +496,7 @@ public class GameBoard
 
             */
 
+            /*Comment out for demo
             if((path.size() >= getDimensions()-1 ) && (nextXPos == getDimensions()-1 ))
             {
                 System.out.println();
@@ -455,7 +512,7 @@ public class GameBoard
                 //System.out.println("Win");
                 ((Game) Gdx.app.getApplicationListener()).setScreen(new WinScreen(app,player));
             }
-
+            */
 
 
         }
