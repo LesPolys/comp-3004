@@ -1,0 +1,10 @@
+Name: Benjamin Cendana
+Student Number: 100811212
+
+-----------------------------
+Week 7:
+-----------------------------
+Write Game Logic part II
+
+Total: 3hrs
+
