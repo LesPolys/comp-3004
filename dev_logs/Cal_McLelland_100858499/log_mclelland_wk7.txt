@@ -1,0 +1,6 @@
+Name: Cal McLelland
+Student Number: 100858499
+
+Week 7
+
+1) wrote a simple AI and fixed some bugs

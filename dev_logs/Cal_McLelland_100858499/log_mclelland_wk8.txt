@@ -1,0 +1,6 @@
+Name: Cal McLelland
+Student Number: 100858499
+
+Week 8
+
+1) wrote a path checking algorithm to determine if a game has been won/lost
